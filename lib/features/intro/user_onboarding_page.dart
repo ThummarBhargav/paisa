@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:paisa/core/common.dart';
-import 'package:paisa/features/intro/presentation/widgets/intro_set_name_widget.dart';
 import 'package:paisa/features/intro/presentation/widgets/intro_image_picker_widget.dart';
+import 'package:paisa/features/intro/presentation/widgets/intro_set_name_widget.dart';
 import 'package:provider/provider.dart';
 
 class UserOnboardingPage extends StatefulWidget {
@@ -40,6 +40,7 @@ class _UserOnboardingPageState extends State<UserOnboardingPage> {
                       curve: Curves.bounceIn,
                     );
                   },
+                  heroTag: "Back",
                   extendedPadding: const EdgeInsets.symmetric(horizontal: 24),
                   label: Text(
                     'Back',
@@ -78,6 +79,7 @@ class _UserOnboardingPageState extends State<UserOnboardingPage> {
                     }
                   }
                 },
+                heroTag: "Next",
                 extendedPadding: const EdgeInsets.symmetric(horizontal: 24),
                 label: Icon(MdiIcons.arrowRight),
                 icon: Text(
