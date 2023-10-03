@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:paisa/core/extensions/build_context_extension.dart';
-import 'package:paisa/core/extensions/text_style_extension.dart';
 import 'package:paisa/core/extensions/color_extension.dart';
+import 'package:paisa/core/extensions/text_style_extension.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
-
 import 'package:paisa/features/category/presentation/bloc/category_bloc.dart';
 import 'package:paisa/features/category/presentation/widgets/category_icon_picker_widget.dart';
 import 'package:paisa/features/category/presentation/widgets/color_picker_widget.dart';
 import 'package:paisa/features/category/presentation/widgets/set_budget_widget.dart';
 import 'package:paisa/main.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+
+import '../../../../../core/constants/constants.dart';
 
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -95,58 +96,68 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
         },
         builder: (context, state) {
           return ScreenTypeLayout.builder(
-            mobile: (p0) => Scaffold(
-              appBar: context.materialYouAppBar(
-                isAddCategory
-                    ? context.loc.addCategory
-                    : context.loc.updateCategory,
-                actions: [
-                  DeleteCategoryWidget(categoryId: widget.categoryId),
-                ],
-              ),
-              body: SingleChildScrollView(
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            const SizedBox(height: 16),
-                            CategoryNameWidget(controller: categoryController),
-                            const SizedBox(height: 16),
-                            CategoryDescriptionWidget(
-                              controller: descController,
-                            ),
-                            const SizedBox(height: 16),
-                          ],
+            mobile: (p0) => WillPopScope(
+              onWillPop: () async {
+                if (getDifferenceTime()) {
+                  initInterstitialAds();
+                }
+                return true;
+              },
+              child: Scaffold(
+                appBar: context.materialYouAppBar(
+                  isAddCategory
+                      ? context.loc.addCategory
+                      : context.loc.updateCategory,
+                  actions: [
+                    DeleteCategoryWidget(categoryId: widget.categoryId),
+                  ],
+                ),
+                body: SingleChildScrollView(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              const SizedBox(height: 16),
+                              CategoryNameWidget(
+                                  controller: categoryController),
+                              const SizedBox(height: 16),
+                              CategoryDescriptionWidget(
+                                controller: descController,
+                              ),
+                              const SizedBox(height: 16),
+                            ],
+                          ),
                         ),
-                      ),
-                      const CategoryIconPickerWidget(),
-                      const CategoryColorWidget(),
-                      SetBudgetWidget(controller: budgetController),
-                      const TransferCategoryWidget(),
-                    ],
+                        const CategoryIconPickerWidget(),
+                        const CategoryColorWidget(),
+                        SetBudgetWidget(controller: budgetController),
+                        const TransferCategoryWidget(),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              bottomNavigationBar: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: PaisaBigButton(
-                    onPressed: () {
-                      final isValid = _formKey.currentState!.validate();
-                      if (!isValid) {
-                        return;
-                      }
+                bottomNavigationBar: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: PaisaBigButton(
+                      onPressed: () {
+                        final isValid = _formKey.currentState!.validate();
+                        if (!isValid) {
+                          return;
+                        }
 
-                      BlocProvider.of<CategoryBloc>(context)
-                          .add(AddOrUpdateCategoryEvent(isAddCategory));
-                    },
-                    title: isAddCategory ? context.loc.add : context.loc.update,
+                        BlocProvider.of<CategoryBloc>(context)
+                            .add(AddOrUpdateCategoryEvent(isAddCategory));
+                      },
+                      title:
+                          isAddCategory ? context.loc.add : context.loc.update,
+                    ),
                   ),
                 ),
               ),

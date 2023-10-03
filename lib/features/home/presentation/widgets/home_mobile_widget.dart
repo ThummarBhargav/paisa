@@ -95,13 +95,12 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
       ),
       body: const ContentWidget(),
       floatingActionButton: SizedBox(
-        height: 210,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             widget.floatingActionButton,
-            const SizedBox(height: 8),
+            Container(height: 8, color: Colors.white),
             if (isBannerLoaded)
               Center(child: getBannerAds())
             else

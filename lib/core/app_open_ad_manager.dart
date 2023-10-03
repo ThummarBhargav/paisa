@@ -19,6 +19,7 @@ import 'dart:io' show Platform;
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../main.dart';
+import 'constants/constants.dart';
 
 /// Utility class that manages loading and showing app open ads.
 class AppOpenAdManager {
@@ -100,6 +101,13 @@ class AppOpenAdManager {
         loadAd();
       },
     );
-    (interStitialAdRunning == false) ? _appOpenAd!.show() : null;
+    (interStitialAdRunning == false)
+        ? (getDifferenceTime())
+            ? _appOpenAd!.show().then((value) {
+                box.write(isStartTime,
+                    DateTime.now().millisecondsSinceEpoch.toString());
+              })
+            : null
+        : null;
   }
 }
