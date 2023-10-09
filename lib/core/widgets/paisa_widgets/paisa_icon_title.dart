@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/common_enum.dart';
+import 'package:paisa/core/constants/color_constant.dart';
 import 'package:paisa/features/home/presentation/bloc/home/home_bloc.dart';
 
 class PaisaIconTitle extends StatelessWidget {
@@ -45,12 +46,20 @@ class PaisaTitle extends StatelessWidget {
               .getPageFromIndex(state.currentPage)
               .name(context);
         }
-        return Text(
-          title,
-          style: context.titleLarge?.copyWith(
-            fontWeight: FontWeight.w600,
-            color: context.onBackground,
-          ),
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 22,
+                fontFamily: 'Maven Pro',
+                fontWeight: FontWeight.w600,
+                height: 0,
+              ),
+            ),
+          ],
         );
       },
     );

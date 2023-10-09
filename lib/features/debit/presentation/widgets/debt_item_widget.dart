@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:paisa/core/common.dart';
+import 'package:paisa/core/constants/color_constant.dart';
+import 'package:paisa/core/constants/sizeConstant.dart';
 import 'package:paisa/core/enum/debt_type.dart';
 import 'package:paisa/features/debit/data/models/debit_model.dart';
 import 'package:paisa/features/debit/data/models/debit_transactions_model.dart';
@@ -131,6 +134,7 @@ class DebtItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MySize().init(context);
     return ValueListenableBuilder<Box<DebitTransactionsModel>>(
       valueListenable: getIt.get<Box<DebitTransactionsModel>>().listenable(),
       builder: (context, value, child) {
@@ -149,25 +153,21 @@ class DebtItemWidget extends StatelessWidget {
               child: Column(
                 children: [
                   ListTile(
-                    title: Text(
-                      debt.name,
-                      style: context.headlineSmall?.copyWith(
-                        color: context.onSurfaceVariant,
+                    title: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Text(
+                        debt.name,
+                        style:appTheme.shadowText(24)
                       ),
                     ),
-                    subtitle: Text(
-                      debt.description,
-                      style: TextStyle(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurfaceVariant
-                            .withOpacity(0.75),
+                    subtitle: Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: Text(
+                        debt.description,
+                        style: appTheme.normalText(16),
                       ),
                     ),
-                    trailing: Text(
-                      (debt.amount - amount).toFormateCurrency(context),
-                      style: context.titleLarge?.copyWith(),
-                    ),
+                    trailing: Icon(Icons.shopping_bag,color:Colors.white,size: 35,),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -179,13 +179,20 @@ class DebtItemWidget extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Spacing.height(30),
+                  Text(
+                    (debt.amount - amount).toFormateCurrency(context),
+                    style: appTheme.shadowText(38),
+                  ),
+                  Spacing.height(15),
                   Row(
                     children: [
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(left: 16),
                           child: Text(
-                            '${debt.expiryDateTime.daysDifference.isNegative ? '0' : debt.expiryDateTime.daysDifference}  Days Left',
+                            '${debt.expiryDateTime.daysDifference.isNegative ? '0' : debt.expiryDateTime.daysDifference} Days Left',
+                         style: appTheme.shadowText(18),
                           ),
                         ),
                       ),
@@ -194,20 +201,14 @@ class DebtItemWidget extends StatelessWidget {
                         child: TextButton.icon(
                           icon: Icon(
                             MdiIcons.cashClock,
-                            color: context.onSurfaceVariant,
+                            color: Colors.white,
+
                           ),
                           label: Text(
                             debt.debtType == DebitType.debit
                                 ? context.loc.payDebt
                                 : context.loc.payCredit,
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelLarge
-                                ?.copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSurfaceVariant,
-                                ),
+                            style: appTheme.normalText(16),
                           ),
                           style: TextButton.styleFrom(),
                           onPressed: () {

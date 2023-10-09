@@ -17,8 +17,11 @@ class DebtsListWidget extends StatelessWidget {
       padding: const EdgeInsets.only(top: 8, bottom: 124),
       shrinkWrap: true,
       itemCount: debts.length,
-      itemBuilder: (context, index) => DebtItemWidget(
-        debt: debts[index],
+      itemBuilder: (context, index) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: DebtItemWidget(
+          debt: debts[index],
+        ),
       ),
     );
   }

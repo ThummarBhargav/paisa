@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:paisa/core/common.dart';
+import 'package:paisa/core/constants/sizeConstant.dart';
 import 'package:paisa/features/home/presentation/pages/summary/widgets/expense_history_widget.dart';
 import 'package:paisa/features/home/presentation/pages/summary/widgets/expense_total_widget.dart';
 import 'package:paisa/features/home/presentation/pages/summary/widgets/welcome_name_widget.dart';
@@ -16,6 +17,7 @@ class SummaryMobileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MySize().init(context);
     return Scaffold(
       backgroundColor: context.surface,
       body: ListView.builder(
@@ -34,12 +36,22 @@ class SummaryMobileWidget extends StatelessWidget {
                 horizontal: 16,
                 vertical: 0,
               ),
-              title: Text(
-                context.loc.transactions,
-                style: context.titleMedium?.copyWith(
-                  color: context.onBackground,
-                  fontWeight: FontWeight.w600,
-                ),
+              title:  Row(
+                children: [
+                  Text(
+                    'Transaction History',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: MySize.getHeight(20),
+                      fontFamily: 'Maven Pro',
+                      fontWeight: FontWeight.w500,
+                      height: 0,
+                      letterSpacing: -0.20,
+                    ),
+
+                  ),
+
+                ],
               ),
             );
           } else if (index == 3) {

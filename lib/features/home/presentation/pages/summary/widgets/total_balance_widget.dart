@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:paisa/core/common.dart';
+import 'package:paisa/core/constants/sizeConstant.dart';
+
+import '../../../../../../core/constants/color_constant.dart';
+import '../../../../../../main.dart';
 
 class TotalBalanceWidget extends StatelessWidget {
   const TotalBalanceWidget({
@@ -14,25 +19,26 @@ class TotalBalanceWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MySize().init(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+         SizedBox(height: 10),
         Text(
-          title,
-          style: context.titleMedium?.copyWith(
-            color: Theme.of(context)
-                .colorScheme
-                .onPrimaryContainer
-                .withOpacity(0.85),
-          ),
+          "Your Available",
+          style:TextStyle(  color: Colors.white,
+            fontWeight: FontWeight.w700,fontSize:MySize.getHeight(22)),
         ),
-        const SizedBox(height: 8),
+        Text(
+          "Current Balance",
+          style:TextStyle(  color: Colors.white,
+            fontWeight: FontWeight.w700,fontSize: MySize.getHeight(26),),
+        ),
+
+        const SizedBox(height: 25),
         Text(
           amount.toFormateCurrency(context),
-          style: context.headlineMedium?.copyWith(
-            color: context.onPrimaryContainer,
-            fontWeight: FontWeight.w700,
-          ),
+            style:appTheme.shadowText(35,FontWeight.w600)
         ),
       ],
     );

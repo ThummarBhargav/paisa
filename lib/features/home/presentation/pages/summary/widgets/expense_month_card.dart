@@ -23,23 +23,23 @@ class ExpenseMonthCardWidget extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        ListTile(
-          title: Text(
-            title,
-            style: context.titleSmall?.copyWith(
-              fontWeight: FontWeight.w600,
-              color: context.onBackground,
-            ),
-          ),
-          trailing: Text(
-            total.toFormateCurrency(context),
-            style: context.titleSmall?.copyWith(
-              color: total.isNegative
-                  ? Theme.of(context).extension<CustomColors>()!.red
-                  : Theme.of(context).extension<CustomColors>()!.green,
-            ),
-          ),
-        ),
+        // ListTile(
+        //   title: Text(
+        //     title,
+        //     style: context.titleSmall?.copyWith(
+        //       fontWeight: FontWeight.w600,
+        //       color: context.onBackground,
+        //     ),
+        //   ),
+        //   trailing: Text(
+        //     total.toFormateCurrency(context),
+        //     style: context.titleSmall?.copyWith(
+        //       color: total.isNegative
+        //           ? Theme.of(context).extension<CustomColors>()!.red
+        //           : Theme.of(context).extension<CustomColors>()!.green,
+        //     ),
+        //   ),
+        // ),
         ExpenseListWidget(
           expenses: expenses,
         ),

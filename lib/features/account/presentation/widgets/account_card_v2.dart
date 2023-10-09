@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:paisa/core/common.dart';
+import 'package:paisa/core/constants/color_constant.dart';
+import 'package:paisa/core/constants/sizeConstant.dart';
 import 'package:paisa/core/enum/card_type.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
 import 'package:paisa/features/account/domain/entities/account.dart';
@@ -19,6 +20,7 @@ class AccountCardV2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MySize().init(context);
     final ColorScheme colorScheme =
         ColorScheme.fromSeed(seedColor: Color(account.color!));
     final color = colorScheme.primaryContainer;
@@ -29,8 +31,8 @@ class AccountCardV2 extends StatelessWidget {
         (account.initialAmount + expenses.fullTotal).toFormateCurrency(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        height: 226,
+      child: Container(
+        height: MySize.getHeight(240),
         child: PaisaFilledCard(
           color: color,
           child: InkWell(
@@ -43,48 +45,46 @@ class AccountCardV2 extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Space.height(5),
                 ListTile(
                   horizontalTitleGap: 0,
                   trailing: Icon(
                     account.cardType == null
                         ? CardType.bank.icon
                         : account.cardType!.icon,
-                    color: onPrimary,
+                    color: Colors.white,
+                    size: 28,
                   ),
                   title: Text(
                     account.name ?? '',
-                    style: context.bodyMedium?.copyWith(
-                      color: onPrimary,
-                    ),
+                    style: appTheme.shadowText(24),
                   ),
-                  subtitle: Text(
-                    account.bankName ?? '',
-                    style: context.bodyMedium?.copyWith(
-                      color: onPrimary.withOpacity(0.5),
+                  subtitle:
+                  Padding(
+                    padding: const EdgeInsets.only(left: 3),
+                    child: Text(
+                      account.bankName ?? '',
+                     style: appTheme.normalText(16),
                     ),
-                  ),
+                  )
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(
                     totalBalance,
-                    style: context.headlineSmall?.copyWith(
-                      color: onPrimary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                    style:appTheme.shadowText(38)
+                  )
                 ),
                 const Spacer(),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(
+                  child:
+                  Text(
                     context.loc.thisMonth,
-                    style: context.titleMedium?.copyWith(
-                      color: onPrimary,
-                    ),
-                  ),
+                      style:appTheme.shadowText(20)
+                  )
                 ),
-                const SizedBox(height: 8),
+                Space.height(10),
                 Row(
                   children: [
                     Expanded(
@@ -92,6 +92,7 @@ class AccountCardV2 extends StatelessWidget {
                         title: context.loc.income,
                         content: income,
                         color: onPrimary,
+                        icon: "assets/images/Arrow1.png",
                       ),
                     ),
                     const SizedBox(width: 8),
@@ -100,11 +101,12 @@ class AccountCardV2 extends StatelessWidget {
                         title: context.loc.expense,
                         color: onPrimary,
                         content: expense,
+                        icon: "assets/images/Arrow2.png",
                       ),
                     ),
                   ],
                 ),
-                const Spacer(),
+               Space.height(20)
               ],
             ),
           ),
@@ -120,30 +122,51 @@ class ThisMonthTransactionWidget extends StatelessWidget {
     required this.title,
     required this.content,
     required this.color,
+    required this.icon,
   });
 
   final Color color;
   final String content;
   final String title;
+  final String icon;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: color.withOpacity(0.75),
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            content,
-            style: context.titleLarge?.copyWith(
-              color: color,
+          Expanded(
+              flex: 1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [ Image.asset(
+                  icon,
+                  height: 40,
+                  color: Colors.white,
+                  width: 40,
+                ),],)),
+          Expanded(
+            flex: 4,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontFamily: 'Maven Pro',
+                    fontWeight: FontWeight.w500,
+                    height: 0,
+                  ),
+                ),
+                 SizedBox(height: 6),
+                Text(
+                  content,
+                 style:appTheme.shadowText(20),
+                )
+              ],
             ),
           ),
         ],

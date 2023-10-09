@@ -166,15 +166,19 @@ class AccountItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      mobile: (p0) => ListTile(
-        onTap: onPress,
-        leading: Icon(
-          model.cardType!.icon,
-          color: Color(model.color ?? Colors.brown.shade200.value),
-        ),
-        title: Text(model.bankName ?? ''),
-        subtitle: Text(model.name ?? ''),
-        trailing: Icon(MdiIcons.delete),
+      mobile: (p0) => Column(
+        children: [
+          ListTile(
+            onTap: onPress,
+            leading: Icon(
+              model.cardType!.icon,
+              color: Color(model.color ?? Colors.brown.shade200.value),
+            ),
+            title: Text(model.bankName ?? ''),
+            subtitle: Text(model.name ?? ''),
+            trailing: Icon(MdiIcons.delete),
+          ),
+        ],
       ),
       tablet: (p0) => PaisaCard(
         child: InkWell(

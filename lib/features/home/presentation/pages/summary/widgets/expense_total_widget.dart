@@ -43,14 +43,14 @@ class ExpenseTotalWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   TotalBalanceWidget(
-                    title: context.loc.totalBalance,
+                    title: "Bank",
                     amount: totalExpenseBalance + totalAccountBalance,
                   ),
-                  const SizedBox(height: 32),
-                  ExpenseTotalForMonthWidget(
-                    outcome: totalExpenses,
-                    income: totalIncome,
-                  ),
+                  const SizedBox(height: 15),
+                  // ExpenseTotalForMonthWidget(
+                  //   outcome: totalExpenses,
+                  //   income: totalIncome,
+                  // ),
                 ],
               ),
             ),

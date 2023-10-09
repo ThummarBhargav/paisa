@@ -78,9 +78,10 @@ class _PaisaAppState extends State<PaisaApp> {
           )];
           final int color = value.get(
             appColorKey,
-            defaultValue: 0xFF795548,
+            defaultValue: 0xFF6a14f3,
           );
           final Color primaryColor = Color(color);
+
           final Locale locale =
               Locale(value.get(appLanguageKey, defaultValue: 'en'));
 

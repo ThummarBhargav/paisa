@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:paisa/core/common.dart';
+import 'package:paisa/core/constants/color_constant.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
 import 'package:paisa/features/home/presentation/bloc/home/home_bloc.dart';
 import 'package:paisa/features/home/presentation/pages/home/home_page.dart';
@@ -50,6 +51,7 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
     return Scaffold(
       key: _scaffoldStateKey,
       appBar: AppBar(
+        backgroundColor: appTheme.secondColor,
         title: const PaisaTitle(),
         actions: const [
           PaisaSearchButton(),
@@ -58,8 +60,10 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
         ],
       ),
       drawer: BlocBuilder<HomeBloc, HomeState>(
+
         builder: (context, state) {
           return NavigationDrawer(
+
             selectedIndex: homeBloc.selectedIndex,
             onDestinationSelected: (index) {
               _scaffoldStateKey.currentState?.closeDrawer();
