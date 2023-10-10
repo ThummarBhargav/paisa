@@ -4,6 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/common_enum.dart';
+import 'package:paisa/core/constants/sizeConstant.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
 import 'package:paisa/features/account/data/model/account_model.dart';
 import 'package:paisa/features/account/domain/entities/account.dart';
@@ -26,12 +27,28 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    MySize().init(context);
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
         title: Padding(
           padding: const EdgeInsets.only(right: 8.0),
-          child: PaisaFilledCard(
+          child: Container(
+            width: MySize.getHeight(290),
+            height: MySize.getHeight(40),
+            decoration: ShapeDecoration(
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5)),
+              shadows: [
+                BoxShadow(
+                  color: Color(0x26000000),
+                  blurRadius: 4,
+                  offset: Offset(2, 0),
+                  spreadRadius: 0,
+                )
+              ],
+            ),
             child: Row(
               children: [
                 Expanded(

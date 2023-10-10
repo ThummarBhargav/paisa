@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:paisa/core/common.dart';
+import 'package:paisa/core/constants/sizeConstant.dart';
+
+import '../../../../core/constants/color_constant.dart';
 
 class ItemWidget extends StatelessWidget {
   const ItemWidget({
@@ -22,6 +25,7 @@ class ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MySize().init(context);
     final shape = selected
         ? RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
@@ -34,9 +38,10 @@ class ItemWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
           );
     return SizedBox(
-      width: 150,
+      width: MySize.getWidth(150),
+
       child: Card(
-        color: context.surface,
+        color: Colors.white,
         clipBehavior: Clip.antiAlias,
         shape: shape,
         shadowColor: color,
@@ -65,15 +70,14 @@ class ItemWidget extends StatelessWidget {
                   title,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
-                  style: context.titleMedium?.copyWith(
-                    color: context.onSurface,
-                  ),
+                    style: appTheme.normalText(15,Colors.black)
                 ),
                 subtitle: subtitle != null
                     ? Text(
                         subtitle!,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
+              style: appTheme.normalText(13,Colors.black54),
                       )
                     : null,
               )

@@ -45,8 +45,9 @@ class OverviewMobile extends StatelessWidget {
                         itemCount: state.filerTimes.length,
                         itemBuilder: (context, index) {
                           final item = state.filerTimes[index];
-                          return PaisaPillChip(
+                          return PaisaFiltetextends(
                             title: item,
+
                             onPressed: () {
                               if (budgetCubit.selectedTime != item) {
                                 budgetCubit.updateFilterTime(item);

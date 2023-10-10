@@ -12,17 +12,16 @@ class CategoryListMobileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      separatorBuilder: (context, index) => const Divider(
-        indent: 72,
-      ),
-      physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.only(bottom: 124),
-      itemCount: categories.length,
-      shrinkWrap: true,
-      itemBuilder: (_, index) {
-        return CategoryItemMobileWidget(category: categories[index]);
-      },
-    );
+    return GridView.count(
+        physics: const BouncingScrollPhysics(),
+        childAspectRatio: (1 / 0.75),
+        shrinkWrap: true,
+        crossAxisCount: 2,
+        children: List.generate(categories.length, (index) {
+          return Center(
+            child: CategoryItemMobileWidget(category: categories[index])
+          );
+        }));
+
   }
 }

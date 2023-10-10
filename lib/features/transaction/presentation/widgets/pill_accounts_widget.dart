@@ -34,28 +34,31 @@ class _PillsAccountWidgetState extends State<PillsAccountWidget> {
           padding: const EdgeInsets.symmetric(horizontal: 8),
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 200,
-            childAspectRatio: 16 / 5,
+            childAspectRatio: 15 / 4.5,
           ),
           physics: const NeverScrollableScrollPhysics(),
           itemCount: accounts.length,
           shrinkWrap: true,
           itemBuilder: (context, index) {
             final AccountEntity account = accounts[index];
-            return PaisaFilterChip(
-              color: Color(account.color ?? Colors.brown.shade200.value),
-              onPressed: () {
-                setState(() {
-                  if (selectedAccount == account.superId) {
-                    selectedAccount = -1;
-                  } else {
-                    selectedAccount = account.superId ?? -1;
-                  }
-                  widget.accountSelected(account);
-                });
-              },
-              isSelected: account.superId == selectedAccount,
-              icon: account.cardType!.icon,
-              title: account.bankName ?? '',
+            return Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: PaisaFilterChip(
+                color: Color(account.color ?? Colors.brown.shade200.value),
+                onPressed: () {
+                  setState(() {
+                    if (selectedAccount == account.superId) {
+                      selectedAccount = -1;
+                    } else {
+                      selectedAccount = account.superId ?? -1;
+                    }
+                    widget.accountSelected(account);
+                  });
+                },
+                isSelected: account.superId == selectedAccount,
+                icon: account.cardType!.icon,
+                title: account.bankName ?? '',
+              ),
             );
           },
         );
@@ -82,44 +85,44 @@ class PaisaFilterChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PaisaFilledCard(
-      color: color.withOpacity(0.09),
-      child: InkWell(
-        onTap: onPressed,
-        child: Container(
-          decoration: isSelected
-              ? BoxDecoration(
-                  border: Border.all(
-                    color: color,
-                  ),
-                  borderRadius: BorderRadius.circular(50),
-                )
-              : BoxDecoration(
-                  border: Border.all(
-                    color: color.withOpacity(0.09),
-                  ),
-                  borderRadius: BorderRadius.circular(50),
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        decoration: isSelected
+            ? BoxDecoration(
+
+                border: Border.all(
+                  color: color,
                 ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Icon(icon, color: color),
+                borderRadius: BorderRadius.circular(50),
+          color:  color.withOpacity(0.09),
+              )
+            : BoxDecoration(
+                border: Border.all(
+                  color: color.withOpacity(0.09),
+                ),
+                borderRadius: BorderRadius.circular(50),
+          color:  color.withOpacity(0.09),
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 16),
-                  child: Text(
-                    title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: context.titleSmall?.copyWith(color: color),
-                  ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Icon(icon, color: color),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: Text(
+                  title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: context.titleSmall?.copyWith(color: color),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

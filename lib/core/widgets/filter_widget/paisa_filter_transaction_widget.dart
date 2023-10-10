@@ -32,7 +32,7 @@ class PaisaFilterTransactionWidget extends StatelessWidget {
           },
         );
       },
-      icon: Icon(MdiIcons.filter),
+      icon: Icon(MdiIcons.filter,color: Color(0xFF6A14F3),),
     );
   }
 }

@@ -12,6 +12,8 @@ import 'package:paisa/features/debit/presentation/cubit/debts_bloc.dart';
 import 'package:paisa/features/debit/presentation/widgets/debt_toggle_buttons_widget.dart';
 import 'package:paisa/main.dart';
 
+import '../../../../../core/constants/color_constant.dart';
+
 class AddOrEditDebitPage extends StatefulWidget {
   const AddOrEditDebitPage({
     super.key,
@@ -151,10 +153,7 @@ class _AddOrEditDebitPageState extends State<AddOrEditDebitPage> {
                       ListTile(
                         title: Text(
                           context.loc.transactionHistory,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(fontWeight: FontWeight.bold),
+                          style: appTheme.normalText(20, Colors.black),
                         ),
                       ),
                       ValueListenableBuilder<Box<DebitTransactionsModel>>(
@@ -305,6 +304,24 @@ class DatePickerWidget extends StatelessWidget {
       ),
       onTap: () async {
         final result = await showDatePicker(
+          builder: (context, child) {
+            return Theme(
+              data: Theme.of(context).copyWith(
+                colorScheme: ColorScheme.light(
+                  primary: Colors.white, // header background color
+                  onPrimary: Colors.black,
+                  onSurface: Color(0xFF6A14F3),
+
+                ),
+                textButtonTheme: TextButtonThemeData(
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.red, // button text color
+                  ),
+                ),
+              ),
+              child: child!,
+            );
+          },
           context: context,
           initialDate: DateTime.now(),
           firstDate: firstDate,
@@ -313,9 +330,12 @@ class DatePickerWidget extends StatelessWidget {
         if (result == null) return;
         onSelected.call(result);
       },
-      leading: Icon(icon),
-      title: Text(title),
-      subtitle: Text(subtitle),
+      leading: Icon(
+        icon,
+        color: Color(0xFF6A14F3),
+      ),
+      title: Text(title, style: appTheme.normalText(14, Colors.black)),
+      subtitle: Text(subtitle, style: appTheme.normalText(14, Colors.grey)),
     );
   }
 }

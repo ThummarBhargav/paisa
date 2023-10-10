@@ -12,14 +12,14 @@ class PaisaUserWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPress: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => const ColorPalette(),
-          ),
-        );
-      },
+      // onLongPress: () {
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (_) => const ColorPalette(),
+      //     ),
+      //   );
+      // },
       onTap: () => showModalBottomSheet(
         constraints: BoxConstraints(
           maxWidth:

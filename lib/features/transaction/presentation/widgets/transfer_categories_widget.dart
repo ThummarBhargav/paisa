@@ -7,6 +7,8 @@ import 'package:paisa/features/category/domain/entities/category.dart';
 import 'package:paisa/features/transaction/presentation/bloc/transaction_bloc.dart';
 import 'package:paisa/features/transaction/presentation/widgets/select_category_widget.dart';
 
+import '../../../../core/constants/color_constant.dart';
+
 class TransferCategoriesWidget extends StatelessWidget {
   const TransferCategoriesWidget({super.key});
 
@@ -26,9 +28,9 @@ class TransferCategoriesWidget extends StatelessWidget {
                       .add(FetchDefaultCategoryEvent());
                 }
               },
-              title: Text(context.loc.addCategoryEmptyTitle),
-              subtitle: Text(context.loc.addCategoryEmptySubTitle),
-              trailing: const Icon(Icons.keyboard_arrow_right),
+              title: Text(context.loc.addCategoryEmptyTitle,style: appTheme.normalText(14,Colors.black)),
+              subtitle: Text(context.loc.addCategoryEmptySubTitle,style: appTheme.normalText(14,Colors.black)),
+              trailing: const Icon(Icons.keyboard_arrow_right,color: Color(0xFF6C16F4),),
             );
           } else {
             return Column(
@@ -81,7 +83,12 @@ class SelectDefaultCategoryWidget extends StatelessWidget {
                 if (index == 0) {
                   return CategoryChip(
                     selected: false,
-                    onSelected: (p0) => context.pushNamed(addCategoryPath),
+                    onSelected:(){
+
+                      context.pushNamed(addCategoryPath);
+                    }
+
+                    ,
                     icon: MdiIcons.plus.codePoint,
                     title: context.loc.addNew,
                     iconColor: context.primary,
@@ -93,8 +100,10 @@ class SelectDefaultCategoryWidget extends StatelessWidget {
                       category.superId == expenseBloc.selectedCategoryId;
                   return CategoryChip(
                     selected: selected,
-                    onSelected: (value) =>
-                        expenseBloc.add(ChangeCategoryEvent(category)),
+                    onSelected: (){
+                      expenseBloc.add(ChangeCategoryEvent(category));
+                    }
+                       ,
                     icon: category.icon ?? 0,
                     title: category.name ?? '',
                     titleColor: Color(category.color ?? context.primary.value),

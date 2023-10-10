@@ -10,24 +10,26 @@ class PaisaIconTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Icon(
-            Icons.wallet,
-            color: context.primary,
-            size: 32,
+    return Container(
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Icon(
+              Icons.wallet,
+              color: context.primary,
+              size: 32,
+            ),
           ),
-        ),
-        Text(
-          context.loc.appTitle,
-          style: context.titleLarge?.copyWith(
-            color: context.onBackground,
-            fontWeight: FontWeight.w600,
-          ),
-        )
-      ],
+          Text(
+            context.loc.appTitle,
+            style: context.titleLarge?.copyWith(
+              color: context.onBackground,
+              fontWeight: FontWeight.w600,
+            ),
+          )
+        ],
+      ),
     );
   }
 }

@@ -6,6 +6,8 @@ import 'package:paisa/core/common.dart';
 import 'package:paisa/features/transaction/presentation/bloc/transaction_bloc.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
 
+import '../../../../core/constants/color_constant.dart';
+
 class ExpenseDatePickerWidget extends StatefulWidget {
   const ExpenseDatePickerWidget({
     super.key,
@@ -50,9 +52,9 @@ class _ExpenseDatePickerWidgetState extends State<ExpenseDatePickerWidget> {
                 },
                 leading: Icon(
                   Icons.today_rounded,
-                  color: context.secondary,
+                  color: Color(0xFF6C16F4),
                 ),
-                title: Text(selectedDateTime.formattedDate),
+                title: Text(selectedDateTime.formattedDate,style: appTheme.normalText(14,Colors.black),),
               ),
             ),
             Expanded(
@@ -75,9 +77,9 @@ class _ExpenseDatePickerWidgetState extends State<ExpenseDatePickerWidget> {
                 },
                 leading: Icon(
                   MdiIcons.clockOutline,
-                  color: context.secondary,
+                color: Color(0xFF6C16F4),
                 ),
-                title: Text(selectedDateTime.formattedTime),
+                title: Text(selectedDateTime.formattedTime,style: appTheme.normalText(14,Colors.black)),
               ),
             ),
           ],

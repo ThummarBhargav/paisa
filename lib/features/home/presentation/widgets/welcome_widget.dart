@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/common_enum.dart';
+import 'package:paisa/core/constants/sizeConstant.dart';
 import 'package:paisa/main.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -17,6 +18,7 @@ class UserImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MySize().init(context);
     return ValueListenableBuilder<Box>(
       valueListenable: getIt
           .get<Box<dynamic>>(instanceName: BoxType.settings.name)
@@ -42,10 +44,18 @@ class UserImageWidget extends StatelessWidget {
                   ),
                 );
               } else {
-                return Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: CircleAvatar(
-                    foregroundImage: FileImage(File(image)),
+                return Container(
+                  width: MySize.getWidth(38),
+                  height: MySize.getHeight(38),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: CircleAvatar(
+                      foregroundImage: FileImage(File(image)),
+                    ),
                   ),
                 );
               }
@@ -71,11 +81,23 @@ class UserImageWidget extends StatelessWidget {
               } else {
                 return Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: CircleAvatar(
-                    foregroundImage: FileImage(
-                      File(image),
+                  child: Container(
+                    width: MySize.getWidth(38),
+                    height: MySize.getHeight(38),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle
                     ),
-                  ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: CircleAvatar(
+                        foregroundImage: FileImage(
+                          File(image),
+                        ),
+                      ),
+                    ),
+                  )
+
                 );
               }
             },

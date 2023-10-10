@@ -44,6 +44,13 @@ class PaisaTextFormField extends StatelessWidget {
         counterText: "",
         hintText: hintText,
         label: label != null ? Text(label!) : null,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(
+            color: Color(0xFF6A14F3),
+            width: 1.0,
+          ),
+        ),
       ),
       validator: validator,
       onChanged: onChanged,

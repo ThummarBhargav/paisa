@@ -12,6 +12,8 @@ import 'package:paisa/features/transaction/presentation/widgets/selectable_item_
 import 'package:paisa/main.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
+import '../../../../core/constants/color_constant.dart';
+
 class SelectedAccount extends StatelessWidget {
   const SelectedAccount({super.key});
 
@@ -55,9 +57,7 @@ class SelectedAccount extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   context.loc.selectAccount,
-                  style: context.titleSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: appTheme.normalText(18,Colors.black),
                 ),
               ),
               AccountSelectedItem(
@@ -98,7 +98,7 @@ class AccountSelectedItem extends StatelessWidget {
             itemBuilder: (_, index) {
               if (index == 0) {
                 return ItemWidget(
-                  color: context.secondary,
+                  color: Color(0xFF6C16F4),
                   selected: false,
                   title: context.loc.addNew,
                   icon: MdiIcons.plus.codePoint,
@@ -107,7 +107,7 @@ class AccountSelectedItem extends StatelessWidget {
               } else {
                 final AccountEntity account = accounts[index - 1];
                 return ItemWidget(
-                  color: context.secondary,
+                  color: Color(0xFF6C16F4).withOpacity(0.8),
                   selected: account.superId ==
                       BlocProvider.of<TransactionBloc>(context)
                           .selectedAccountId,

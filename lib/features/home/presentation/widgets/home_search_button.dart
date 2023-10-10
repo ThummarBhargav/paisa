@@ -11,7 +11,7 @@ class PaisaSearchButton extends StatelessWidget {
     return IconButton(
       icon: Icon(
         Icons.search,
-        color: Colors.white,
+        color: Colors.black,
       ),
       onPressed: () {
         GoRouter.of(context).pushNamed(searchName);

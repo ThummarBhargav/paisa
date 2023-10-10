@@ -116,11 +116,11 @@ LinearGradient g1(){
     );
 
   }
-  TextStyle normalText(double fontSize){
+  TextStyle normalText(double fontSize,[Color color=Colors.white]){
 
     return GoogleFonts.mavenPro(
       textStyle: TextStyle(
-          color: Colors.white,
+          color: color,
           letterSpacing: .5,
           fontSize:MySize.getHeight(fontSize),
           fontWeight: FontWeight.w500

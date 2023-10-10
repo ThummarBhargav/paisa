@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paisa/core/common.dart';
+import 'package:paisa/core/constants/color_constant.dart';
 import 'package:paisa/features/transaction/presentation/bloc/transaction_bloc.dart';
 
 import 'pill_accounts_widget.dart';
@@ -27,9 +28,8 @@ class TransferWidget extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Text(
             'Date & time',
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+    style: appTheme.normalText(18,Colors.black),
+
           ),
         ),
         const Padding(
@@ -42,11 +42,10 @@ class TransferWidget extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Text(
             context.loc.fromAccount,
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+            style: appTheme.normalText(18,Colors.black),
           ),
         ),
+
         PillsAccountWidget(
           accountSelected: (account) {
             BlocProvider.of<TransactionBloc>(context).fromAccount = account;
@@ -56,9 +55,7 @@ class TransferWidget extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Text(
             context.loc.toAccount,
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+            style: appTheme.normalText(18,Colors.black),
           ),
         ),
         PillsAccountWidget(
