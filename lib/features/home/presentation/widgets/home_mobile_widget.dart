@@ -33,12 +33,12 @@ class HomeMobileWidget extends StatefulWidget {
 class _HomeMobileWidgetState extends State<HomeMobileWidget> {
   late AppLifecycleReactor _appLifecycleReactor;
   GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
+  List<bool> selectedItem = [true, false, false, false];
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      AppOpenAdManager appOpenAdManager = AppOpenAdManager()
-        ..loadAd();
+      AppOpenAdManager appOpenAdManager = AppOpenAdManager()..loadAd();
       _appLifecycleReactor =
           AppLifecycleReactor(appOpenAdManager: appOpenAdManager);
       _appLifecycleReactor.listenToAppStateChanges();
@@ -59,6 +59,7 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
           preferredSize: Size.fromHeight(MySize.getHeight(120)),
           // here the desired height
           child: CustomAppBar(
+              context: context,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -67,26 +68,25 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
                     children: [
                       GestureDetector(
                           onTap: () {
-                            Scaffold.of(context).openDrawer();
+                            _scaffoldStateKey.currentState?.openDrawer();
                           },
                           child: Image.asset(
-                            "assets/images/menu.png", height: 40,
+                            "assets/images/menu.png",
+                            height: 40,
                             width: 40,
-                            color: Colors.white,)),
+                            color: Colors.white,
+                          )),
                       PaisaTitle(),
                       Padding(
                         padding: const EdgeInsets.only(right: 10),
                         child: PaisaUserWidget(),
                       ),
-
                     ],
                   ),
                   Spacing.height(10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-
-
                       Container(
                         width: MySize.getHeight(290),
                         height: MySize.getHeight(40),
@@ -110,8 +110,8 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
                               padding: const EdgeInsets.only(left: 10),
                               child: Text(
                                 'enter name & location ',
-                                style: appTheme.normalText(
-                                    12, Color(0xFF8A8686)),
+                                style:
+                                    appTheme.normalText(12, Color(0xFF8A8686)),
                               ),
                             ),
                             PaisaSearchButton(),
@@ -136,13 +136,12 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
               const PaisaIconTitle(),
               ...widget.destinations
                   .map(
-                    (e) =>
-                    NavigationDrawerDestination(
+                    (e) => NavigationDrawerDestination(
                       icon: e.icon,
                       selectedIcon: e.selectedIcon,
                       label: Text(e.pageType.name(context)),
                     ),
-              )
+                  )
                   .toList(),
               const Divider(),
               Padding(
@@ -187,47 +186,90 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
                   state.currentPage == 5)) {
             return const SizedBox.shrink();
           }
-          return Theme(
-            data: Theme.of(context).copyWith(
-              splashFactory: NoSplash.splashFactory,
-            ),
-            child: NavigationBar(
-              elevation: 1,
-              backgroundColor: context.surface,
-              selectedIndex: homeBloc.selectedIndex,
-              onDestinationSelected: (index) =>
-                  homeBloc.add(CurrentIndexEvent(index)),
-              destinations: widget.destinations
-                  .sublist(0, 4)
-                  .map((e) =>
-                  NavigationDestination(
-                    icon: e.icon,
-                    selectedIcon: e.selectedIcon,
-                    label: e.pageType.name(context),
-                  ))
-                  .toList(),
+          return  Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            child: Container(
+              width: MySize.screenWidth,
+              height: MySize.getHeight(70),
+              decoration: ShapeDecoration(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                shadows: [
+                  BoxShadow(
+                    color: Color(0x19000000),
+                    blurRadius: 10,
+                    offset: Offset(-1, 3),
+                    spreadRadius: 1,
+                  )
+                ],
+              ),
+              child: Row(
+                children: [
+                  bottomItem(
+                      "assets/images/HomeS.png", "assets/images/HomeU.png",0,"Home",homeBloc),
+                  bottomItem(
+                      "assets/images/AcS.png", "assets/images/AcU.png",1,"Account",homeBloc),
+                  bottomItem(
+                      "assets/images/DebS.png", "assets/images/DebU.png",2,"Debts",homeBloc),
+                  bottomItem(
+                      "assets/images/OvrS.png", "assets/images/OvrU.png",3,"OverView",homeBloc),
+                ],
+              ),
             ),
           );
         },
       ),
+
     );
+  }
+
+  Widget bottomItem(String selUri, String unUri,int pos,String name,homeBloc) {
+    return Expanded(
+        child: GestureDetector(
+          onTap: (){
+            for(int i=0;i<selectedItem.length;i++){
+              selectedItem[i]=false;
+            }
+            selectedItem[pos]=true;
+            homeBloc.add(CurrentIndexEvent(pos));
+            setState(() {
+
+            });
+
+          },
+          child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+          Image.asset(selectedItem[pos] ? selUri : unUri),
+          Spacing.height(4),
+          Text(
+           name.toUpperCase(),
+            style: appTheme.normalText(
+                14, selectedItem[pos] ? Color(0xFF6E1AF5) : Color(0xFF9A9797)),
+          )
+      ],
+    ),
+        ));
   }
 }
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget child;
   final double height;
+  final BuildContext context;
 
-  CustomAppBar({
-    required this.child,
-    this.height = kToolbarHeight,
-  });
+  CustomAppBar(
+      {required this.child,
+      this.height = kToolbarHeight,
+      required this.context});
 
   @override
   Size get preferredSize => Size.fromHeight(height);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     MySize().init(context);
     return Container(
       width: MySize.screenWidth,

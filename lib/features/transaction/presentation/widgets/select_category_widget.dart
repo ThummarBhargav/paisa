@@ -230,34 +230,5 @@ class CategoryChip extends StatelessWidget {
     );
 
 
-
-
-      // FilterChip(
-      //
-      // selected: selected,
-      // onSelected: onSelected,
-      // selectedColor: selected ? titleColor.withOpacity(0.2) : null,
-      // avatar: Icon(
-      //   color: iconColor,
-      //   IconData(
-      //     icon,
-      //     fontFamily: fontFamilyName,
-      //     fontPackage: fontFamilyPackageName,
-      //   ),
-      // ),
-      // shape: RoundedRectangleBorder(
-      //   borderRadius: BorderRadius.circular(28),
-      //   side: BorderSide(
-      //     width: 1,
-      //     color: context.primary,
-      //   ),
-      // ),
-      // showCheckmark: false,
-      // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      // label: Text(title),
-      // labelStyle:
-      //     Theme.of(context).textTheme.titleMedium?.copyWith(color: titleColor),
-      // padding: const EdgeInsets.all(12),
-  //  );
   }
 }

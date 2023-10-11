@@ -30,7 +30,7 @@ class ExpenseHistoryWidget extends StatelessWidget {
           (TransactionEntity element) =>
               element.time!.formatted(FilterExpense.monthly));
       return ListView.separated(
-        separatorBuilder: (context, index) => const Divider(),
+        separatorBuilder: (context, index) => const SizedBox(),
         shrinkWrap: true,
         padding: EdgeInsets.zero,
         physics: const NeverScrollableScrollPhysics(),

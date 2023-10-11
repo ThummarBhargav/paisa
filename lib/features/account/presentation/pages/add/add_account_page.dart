@@ -257,7 +257,7 @@ class AddAccountPageState extends State<AddAccountPage> {
                   actions: [
                     IconButton(
                       onPressed: _showInfo,
-                      icon: const Icon(Icons.info_rounded),
+                      icon: const Icon(Icons.info_rounded,color: Colors.white,),
                     ),
                     DeleteAccountWidget(accountId: widget.accountId),
                     PaisaButton(

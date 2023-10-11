@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:paisa/core/common.dart';
+import 'package:paisa/core/constants/sizeConstant.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
 import 'package:paisa/features/debit/data/models/debit_transactions_model.dart';
 import 'package:paisa/features/debit/domain/entities/debit_transaction.dart';
@@ -51,6 +52,7 @@ class _AddOrEditDebitPageState extends State<AddOrEditDebitPage> {
 
   @override
   Widget build(BuildContext context) {
+    MySize().init(context);
     return PaisaAnnotatedRegionWidget(
       color: context.background,
       child: BlocProvider(
@@ -124,7 +126,7 @@ class _AddOrEditDebitPageState extends State<AddOrEditDebitPage> {
                         ).then((value) => context.pop()),
                         icon: Icon(
                           Icons.delete_rounded,
-                          color: context.error,
+                          color: Colors.white,
                         ),
                       )
                   ],
@@ -138,6 +140,7 @@ class _AddOrEditDebitPageState extends State<AddOrEditDebitPage> {
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Column(
                           children: [
+                            Spacing.height(10),
                             DebtToggleButtonsWidget(debtsBloc: debitBloc),
                             const SizedBox(height: 16),
                             AmountWidget(controller: amountController),

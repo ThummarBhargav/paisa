@@ -82,11 +82,11 @@ LinearGradient g1(){
 
   }
 
-  TextStyle shadowText(double fontSize,[FontWeight? fontWeight]){
+  TextStyle shadowText(double fontSize,[FontWeight? fontWeight,Color? color]){
 
     return GoogleFonts.mavenPro(
     textStyle: TextStyle(
-    color: Colors.white,
+    color:color?? Colors.white,
     letterSpacing: .5,
     shadows:[ Shadow(
     offset: Offset(1.0, 4.0),
@@ -116,17 +116,28 @@ LinearGradient g1(){
     );
 
   }
-  TextStyle normalText(double fontSize,[Color color=Colors.white]){
+  TextStyle normalText(double fontSize,[Color color=Colors.white,FontWeight? fontWeight]){
 
     return GoogleFonts.mavenPro(
       textStyle: TextStyle(
           color: color,
           letterSpacing: .5,
           fontSize:MySize.getHeight(fontSize),
-          fontWeight: FontWeight.w500
+          fontWeight:fontWeight?? FontWeight.w500
       ),
     );
 
+  }
+  String countryCodeToEmoji(String countryCode) {
+    // 0x41 is Letter A
+    // 0x1F1E6 is Regional Indicator Symbol Letter A
+    // Example :
+    // firstLetter U => 20 + 0x1F1E6
+    // secondLetter S => 18 + 0x1F1E6
+    // See: https://en.wikipedia.org/wiki/Regional_Indicator_Symbol
+    final int firstLetter = countryCode.toUpperCase().codeUnitAt(0) - 0x41 + 0x1F1E6;
+    final int secondLetter = countryCode.toUpperCase().codeUnitAt(1) - 0x41 + 0x1F1E6;
+    return String.fromCharCode(firstLetter) + String.fromCharCode(secondLetter);
   }
 }
 

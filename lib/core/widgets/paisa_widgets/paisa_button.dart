@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:paisa/core/common.dart';
+import 'package:paisa/core/constants/color_constant.dart';
+import 'package:paisa/core/constants/sizeConstant.dart';
 
 class PaisaBigButton extends StatelessWidget {
   const PaisaBigButton({
@@ -14,21 +16,29 @@ class PaisaBigButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(32.0),
+    MySize().init(context);
+    return InkWell(
+      onTap: onPressed,
+
+      child: Container(
+        width: 345,
+        height: 58,
+        padding: const EdgeInsets.symmetric(horizontal: 63, vertical: 17),
+        decoration: ShapeDecoration(
+          gradient: LinearGradient(
+            begin: Alignment(0.83, -0.56),
+            end: Alignment(-0.83, 0.56),
+            colors: [Color(0xFF8539FF), Color(0xFF8539FF),Color(0xFF6A14F3)],
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
         ),
-        foregroundColor: context.onPrimary,
-        backgroundColor: context.primary,
-      ),
-      child: Text(
-        title,
-        style: TextStyle(
-          fontWeight: FontWeight.w700,
-          fontSize: context.titleLarge?.fontSize,
+        child: Center(
+          child: Text(
+            title,
+            style:appTheme.normalText(20,Colors.white,FontWeight.w600)
+          ),
         ),
       ),
     );

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:paisa/core/common.dart';
+import 'package:paisa/core/constants/color_constant.dart';
+import 'package:paisa/core/constants/sizeConstant.dart';
 import 'package:paisa/features/account/domain/entities/account.dart';
 import 'package:paisa/features/category/domain/entities/category.dart';
 import 'package:paisa/features/home/presentation/bloc/home/home_bloc.dart';
@@ -26,27 +28,46 @@ class TransactionByCategoryListPage extends StatelessWidget {
     final int cid = int.parse(categoryId);
     final List<TransactionEntity> expenses =
         BlocProvider.of<HomeBloc>(context).fetchExpensesFromCategoryId(cid);
-
+MySize().init(context);
     return PaisaAnnotatedRegionWidget(
       color: Colors.transparent,
       child: Scaffold(
         extendBody: true,
         appBar: context.materialYouAppBar(context.loc.transactionsByCategory),
         bottomNavigationBar: SafeArea(
-          child: PaisaFilledCard(
-            child: ListTile(
-              title: Text(
-                context.loc.total,
-                style: context.titleSmall
-                    ?.copyWith(color: context.onSurfaceVariant),
-              ),
-              subtitle: Text(
-                expenses.total.toFormateCurrency(context),
-                style: context.titleMedium?.copyWith(
-                  color: context.onSurfaceVariant,
-                  fontWeight: FontWeight.bold,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Container(
+
+              height: MySize.getHeight(70),
+              decoration: ShapeDecoration(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
+                shadows: [
+                  BoxShadow(
+                    color: Color(0x338A959E),
+                    blurRadius: 40,
+                    offset: Offset(0, 5),
+                    spreadRadius: 0,
+                  )
+                ],
               ),
+              child:
+              Row (
+
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [ Text(
+                context.loc.total+" = ",
+                style: appTheme.normalText(20,Colors.black)),
+
+                Text(
+                  expenses.total.toFormateCurrency(context),
+                    style: appTheme.normalText(25,Colors.green)),
+              ],)
+
+
             ),
           ),
         ),

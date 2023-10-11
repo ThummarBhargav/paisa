@@ -52,8 +52,27 @@ class ItemWidget extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: CircleAvatar(
-                  backgroundColor: color,
+                child: Container(
+                  width: MySize.getWidth(42),
+                  height: MySize.getHeight(42),
+                  decoration: ShapeDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment(0.03, -1.00),
+                      end: Alignment(-0.03, 1),
+                      colors: [Color(0xFF751EFF), Color(0xFFBC92FF)],
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    shadows: [
+                      BoxShadow(
+                        color: Color(0x14000000),
+                        blurRadius: 4,
+                        offset: Offset(0, 1),
+                        spreadRadius: 0,
+                      )
+                    ],
+                  ),
                   child: Icon(
                     IconData(
                       icon,

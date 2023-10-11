@@ -21,6 +21,7 @@ class SummaryMobileWidget extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.surface,
       body: ListView.builder(
+
         physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
         itemCount: 4,

@@ -15,10 +15,10 @@ class PaisaIconTitle extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Icon(
-              Icons.wallet,
-              color: context.primary,
-              size: 32,
+            child: Image.asset(
+              "assets/images/Woll.png",
+              width: 48,
+              height:50,
             ),
           ),
           Text(

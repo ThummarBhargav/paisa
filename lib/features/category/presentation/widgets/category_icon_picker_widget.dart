@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:paisa/core/constants/color_constant.dart';
 import 'package:paisa/core/constants/constants.dart';
 import 'package:paisa/core/extensions/build_context_extension.dart';
 import 'package:paisa/core/extensions/color_extension.dart';
@@ -27,8 +28,8 @@ class CategoryIconPickerWidget extends StatelessWidget {
         }
         return ListTile(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          title: Text(context.loc.selectIconTitle),
-          subtitle: Text(context.loc.selectIconSubTitle),
+          title: Text(context.loc.selectIconTitle,style: appTheme.normalText(16,Colors.black),),
+          subtitle: Text(context.loc.selectIconSubTitle,style: appTheme.normalText(14,Colors.grey,FontWeight.w400)),
           leading: Icon(
             IconData(
               codePoint,

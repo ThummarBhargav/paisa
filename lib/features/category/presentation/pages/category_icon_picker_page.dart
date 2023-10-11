@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:paisa/core/constants/color_constant.dart';
+import 'package:paisa/core/constants/sizeConstant.dart';
 import 'package:paisa/core/extensions/build_context_extension.dart';
-import 'package:paisa/core/extensions/text_style_extension.dart';
-import 'package:paisa/core/extensions/color_extension.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
+
+import '../../../home/presentation/widgets/home_mobile_widget.dart';
 
 class CategoryIconPickerPage extends StatefulWidget {
   const CategoryIconPickerPage({super.key});
@@ -20,25 +21,43 @@ class _CategoryIconPickerPageState extends State<CategoryIconPickerPage> {
   @override
   Widget build(BuildContext context) {
     final map = paisaIconMap.entries.toList();
+    MySize().init(context);
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              GoRouter.of(context).pop(selectedIcon);
-            },
-            icon: const Icon(Icons.close)),
-        title: Text(context.loc.chooseIcon),
-        actions: [
-          PaisaTextButton(
-            onPressed: () {
-              paisaIconPicker(
-                context: context,
-                defaultIcon: selectedIcon!,
-              ).then((resultIcon) => selectedIcon = resultIcon);
-            },
-            title: context.loc.more,
-          )
-        ],
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(MySize.getHeight(130)),
+        child: CustomAppBar(
+          context: context,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: SizedBox(
+              height: 80,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        GoRouter.of(context).pop(selectedIcon);
+                      },
+                      icon: const Icon(Icons.close,color: Colors.white,)),
+                Text(context.loc.chooseIcon,style: appTheme.normalText(22)),
+                InkWell(
+                    onTap: (){
+                      paisaIconPicker(
+                        context: context,
+                        defaultIcon: selectedIcon!,
+                      ).then((resultIcon) => selectedIcon = resultIcon);
+
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Text(context.loc.more,style: appTheme.normalText(15)),
+                    )),
+
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
       bottomNavigationBar: SafeArea(
         child: Padding(
@@ -56,66 +75,64 @@ class _CategoryIconPickerPageState extends State<CategoryIconPickerPage> {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           final iconData = map[index];
-          return PaisaFilledCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ListTile(
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 0,
-                  ),
-                  visualDensity:
-                      const VisualDensity(horizontal: 0, vertical: -3),
-                  title: Text(
-                    iconData.key,
-                    style: context.titleMedium?.copyWith(
-                      color: context.primary,
-                      fontWeight: FontWeight.w600,
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: PaisaFilledCard(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ListTile(
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 2,
+                    ),
+                    visualDensity:
+                        const VisualDensity(horizontal: 0, vertical: -3),
+                    title: Text(
+                      iconData.key,
+                      style: appTheme.normalText(18),
                     ),
                   ),
-                ),
-                GridView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: iconData.value.length,
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 70,
-                    childAspectRatio: 1 / 1,
-                  ),
-                  itemBuilder: (context, index) {
-                    final bool isSelected =
-                        selectedIcon == iconData.value[index];
-                    return Container(
-                      margin: const EdgeInsets.all(4),
-                      decoration: isSelected
-                          ? BoxDecoration(
-                              border: Border.all(
-                                width: 2,
-                                color: context.primary,
-                              ),
-                              borderRadius: BorderRadius.circular(32),
-                            )
-                          : null,
-                      child: IconButton(
-                        iconSize: 30,
-                        key: ValueKey(iconData.value[index].hashCode),
-                        color: isSelected
-                            ? context.primary
-                            : Theme.of(context).iconTheme.color,
-                        onPressed: () {
-                          setState(() {
-                            selectedIcon = iconData.value[index];
-                          });
-                        },
-                        icon: Icon(iconData.value[index]),
-                      ),
-                    );
-                  },
-                )
-              ],
+                  GridView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: iconData.value.length,
+                    shrinkWrap: true,
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 40,
+                      childAspectRatio: 1 / 1,
+                    ),
+                    itemBuilder: (context, index) {
+                      final bool isSelected =
+                          selectedIcon == iconData.value[index];
+                      return Container(
+                        decoration: isSelected
+                            ? BoxDecoration(
+                                shape: BoxShape.circle, color: Colors.white)
+                            : null,
+                        child: IconButton(
+                          padding: EdgeInsets.only(bottom: isSelected ? 0 : 3),
+                          iconSize: 25,
+                          key: ValueKey(iconData.value[index].hashCode),
+                          color: isSelected
+                              ? Theme.of(context).primaryColor
+                              : Colors.white,
+                          onPressed: () {
+                            setState(() {
+                              selectedIcon = iconData.value[index];
+                            });
+                          },
+                          icon: Icon(iconData.value[index], shadows: [
+                            Shadow(color: Colors.black, offset: Offset(0, 1))
+                          ]),
+                        ),
+                      );
+                    },
+                  )
+                ],
+              ),
             ),
           );
         },

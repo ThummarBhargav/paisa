@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:paisa/config/routes.dart';
 import 'package:paisa/core/common.dart';
+import 'package:paisa/core/constants/color_constant.dart';
+import 'package:paisa/core/constants/sizeConstant.dart';
 import 'package:paisa/features/country_picker/data/models/country_model.dart';
 
 import 'package:paisa/core/widgets/paisa_widget.dart';
@@ -179,6 +181,7 @@ class _CountriesWidgetState extends State<CountriesWidget> {
           onSelected: (countryModel) {
             setState(() {
               selectedModel = countryModel;
+
             });
             BlocProvider.of<CountryPickerCubit>(context).selectedCountry =
                 countryModel;
@@ -203,45 +206,57 @@ class CountryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PaisaCard(
-      color: context.surface,
-      shape: selected
-          ? RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24),
-              side: BorderSide(
-                width: 2,
-                color: context.primary,
-              ),
-            )
-          : null,
-      child: InkWell(
-        onTap: () => onSelected(countryModel),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 16.0,
-                left: 16,
-              ),
-              child: Text(
-                countryModel.symbol,
-                style: context.titleLarge,
-              ),
+    MySize().init(context);
+    return GestureDetector(
+      onTap: () => onSelected(countryModel),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          width: MySize.getWidth(165),
+          height: MySize.getHeight(120),
+
+          clipBehavior: Clip.antiAlias,
+          decoration: ShapeDecoration(
+            color:selected?Colors.grey.shade200: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
             ),
-            const Spacer(),
-            ListTile(
-              title: Text(
-                countryModel.name,
-                overflow: TextOverflow.ellipsis,
+            shadows:selected? null:[
+              BoxShadow(
+                color: Color(0x338A959E),
+                blurRadius: 60,
+                offset: Offset(0, 30),
+                spreadRadius: 0,
+              )
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 16.0,
+                  left: 16,
+                ),
+                child: Text(
+                  countryModel.symbol,
+                  style: appTheme.shadowText(20,FontWeight.w600,Colors.black),
+                ),
               ),
-              subtitle: Text(
-                countryModel.code,
-                overflow: TextOverflow.ellipsis,
-              ),
-            )
-          ],
+              const Spacer(),
+              ListTile(
+                title: Text(
+                 appTheme.countryCodeToEmoji(countryModel.flag.toString())+" "+ countryModel.name,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                subtitle: Text(
+                  countryModel.code,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

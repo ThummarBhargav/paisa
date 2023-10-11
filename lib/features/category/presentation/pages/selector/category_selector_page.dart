@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:paisa/core/constants/color_constant.dart';
 import 'package:paisa/core/constants/constants.dart';
+import 'package:paisa/core/constants/sizeConstant.dart';
 import 'package:paisa/core/enum/box_types.dart';
 import 'package:paisa/core/extensions/build_context_extension.dart';
 import 'package:paisa/core/extensions/category_extension.dart';
@@ -14,6 +15,8 @@ import 'package:paisa/features/category/data/data_sources/local/category_data_so
 import 'package:paisa/features/category/data/model/category_model.dart';
 import 'package:paisa/main.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+
+import '../../../../transaction/presentation/widgets/select_category_widget.dart';
 
 class CategorySelectorPage extends StatefulWidget {
   const CategorySelectorPage({super.key});
@@ -44,6 +47,7 @@ class _CategorySelectorPageState extends State<CategorySelectorPage> {
 
   @override
   Widget build(BuildContext context) {
+    MySize().init(context);
     return ValueListenableBuilder<Box<CategoryModel>>(
       valueListenable: getIt.get<Box<CategoryModel>>().listenable(),
       builder: (context, value, child) {
@@ -55,10 +59,35 @@ class _CategorySelectorPageState extends State<CategorySelectorPage> {
             appBar: context.materialYouAppBar(
               context.loc.categories,
               actions: [
-                PaisaButton(
-                  onPressed: saveAndNavigate,
-                  title: context.loc.done,
-                ),
+                InkWell(
+                    onTap: saveAndNavigate,
+                    child: Container(
+                      height: MySize.getHeight(30),
+                      width: MySize.getWidth(70),
+                      decoration: ShapeDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [Color(0xFF9F63FF), Color(0xFF8F4DFA)],
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        shadows: [
+                          BoxShadow(
+                            color: Color(0x33000000),
+                            blurRadius: 8,
+                            offset: Offset(2, 2),
+                            spreadRadius: 0,
+                          )
+                        ],
+                      ),
+                      child: Center(
+                          child: Text(
+                        "Done",
+                        style: appTheme.normalText(17),
+                      )),
+                    )),
                 const SizedBox(width: 16)
               ],
             ),
@@ -67,27 +96,25 @@ class _CategorySelectorPageState extends State<CategorySelectorPage> {
                 ListTile(
                   title: Text(
                     context.loc.addedCategories,
-                    style: context.titleMedium,
+                    style: appTheme.normalText(17,Colors.black),
                   ),
                 ),
                 ScreenTypeLayout.builder(
-                  mobile: (p0) => PaisaFilledCard(
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) => const Divider(),
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: categoryModels.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        final CategoryModel model = categoryModels[index];
-                        return CategoryItemWidget(
-                          model: model,
-                          onPress: () async {
-                            await model.delete();
-                            defaultModels.add(model);
-                          },
-                        );
-                      },
-                    ),
+                  mobile: (p0) => ListView.separated(
+                    separatorBuilder: (context, index) => const SizedBox(),
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: categoryModels.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      final CategoryModel model = categoryModels[index];
+                      return CategoryItemWidget(
+                        model: model,
+                        onPress: () async {
+                          await model.delete();
+                          defaultModels.add(model);
+                        },
+                      );
+                    },
                   ),
                   tablet: (p0) => GridView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -114,47 +141,33 @@ class _CategorySelectorPageState extends State<CategorySelectorPage> {
                 ListTile(
                   title: Text(
                     context.loc.defaultCategories,
-                    style: context.titleMedium,
+                    style: appTheme.normalText(17,Colors.black),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Wrap(
-                    spacing: 12.0,
-                    runSpacing: 12.0,
-                    children: defaultModels
-                        .map((model) => FilterChip(
-                              label: Text(model.name ?? ''),
-                              onSelected: (value) {
-                                dataSource.add(model);
-                                setState(() {
-                                  defaultModels.remove(model);
-                                });
-                              },
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(28),
-                                side: BorderSide(
-                                  width: 1,
-                                  color: context.primary,
-                                ),
-                              ),
-                              showCheckmark: false,
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
-                              labelStyle: context.titleMedium,
-                              padding: const EdgeInsets.all(12),
-                              avatar: Icon(
-                                IconData(
-                                  model.icon ?? 0,
-                                  fontFamily: fontFamilyName,
-                                  fontPackage: fontFamilyPackageName,
-                                ),
-                                color: context.primary,
-                              ),
-                            ))
-                        .toList(),
-                  ),
-                ),
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: GridView.count(
+                        physics: const BouncingScrollPhysics(),
+                        childAspectRatio: (1 / 0.70),
+                        shrinkWrap: true,
+                        padding: EdgeInsets.all(10),
+                        crossAxisCount: 2,
+                        children: List.generate(defaultModels.length, (index) {
+                          return CategoryChip(
+                            selected: false,
+                            onSelected: () {
+                              dataSource.add(defaultModels[index]);
+                              setState(() {
+                                defaultModels.remove(defaultModels[index]);
+                              });
+                            },
+                            icon: defaultModels[index].icon ?? 0,
+                            title: defaultModels[index].name ?? "",
+                            iconColor: Color(defaultModels[index].color ??
+                                context.primary.value),
+                            titleColor: context.primary,
+                          );
+                        }))),
               ],
             ),
           ),
@@ -176,47 +189,73 @@ class CategoryItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenTypeLayout.builder(
-      mobile: (p0) => ListTile(
-        onTap: onPress,
-        leading: Icon(
-          IconData(
-            model.icon ?? 0,
-            fontFamily: fontFamilyName,
-            fontPackage: fontFamilyPackageName,
+    MySize().init(context);
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        width: MySize.getWidth(345),
+        height: MySize.getHeight(60),
+        clipBehavior: Clip.antiAlias,
+        decoration: ShapeDecoration(
+          color: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
           ),
-          color: Color(model.color ?? Colors.brown.shade200.value),
+          shadows: [
+            BoxShadow(
+              color: Color(0x19000000),
+              blurRadius: 25,
+              offset: Offset(0, 0),
+              spreadRadius: 1,
+            )
+          ],
         ),
-        title: Text(model.name ?? ''),
-        trailing: Icon(MdiIcons.delete),
-      ),
-      tablet: (p0) => PaisaCard(
-        child: InkWell(
-          onTap: onPress,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
-                  child: Icon(
-                    IconData(
-                      model.icon ?? 0,
-                      fontFamily: fontFamilyName,
-                      fontPackage: fontFamilyPackageName,
+                  padding: const EdgeInsets.only(left: 15),
+                  child: Container(
+                    width: MySize.getWidth(35.14),
+                    height: MySize.getWidth(35),
+                    decoration: ShapeDecoration(
+                      color: Color(model.color ?? Colors.brown.shade200.value)
+                          .withOpacity(0.4),
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          width: 3,
+                          strokeAlign: BorderSide.strokeAlignOutside,
+                          color:
+                              Color(model.color ?? Colors.brown.shade200.value)
+                                  .withOpacity(0.2),
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
-                    color: Color(model.color ?? Colors.brown.shade200.value),
+                    child: Icon(
+                      IconData(
+                        model.icon ?? 0,
+                        fontFamily: fontFamilyName,
+                        fontPackage: fontFamilyPackageName,
+                      ),
+                      color: Color(model.color ?? Colors.brown.shade200.value),
+                    ),
                   ),
                 ),
-                Expanded(
-                  child: Text(
-                    model.name ?? '',
-                    style: context.titleMedium,
-                  ),
+                Spacing.width(15),
+                Text(
+                  model.name ?? '',
+                  style: appTheme.normalText(15, Colors.black),
                 ),
               ],
             ),
-          ),
+            Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: InkWell(onTap: onPress, child: Icon(Icons.delete)),
+            ),
+          ],
         ),
       ),
     );

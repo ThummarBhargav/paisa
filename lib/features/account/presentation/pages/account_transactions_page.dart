@@ -39,10 +39,11 @@ class AccountTransactionsPage extends StatelessWidget {
                   pathParameters: {'aid': accountId},
                 );
               },
-              icon: const Icon(Icons.edit_rounded),
+              icon: const Icon(Icons.edit_rounded,color:Colors.white),
             ),
             IconButton(
               tooltip: context.loc.delete,
+              color: Colors.white,
               onPressed: () {
                 paisaAlertDialog(
                   context,
@@ -86,7 +87,7 @@ class AccountTransactionsPage extends StatelessWidget {
                   ),
                 );
               },
-              icon: const Icon(Icons.delete_rounded),
+              icon: const Icon(Icons.delete_rounded,color: Colors.white,),
             )
           ],
         ),
