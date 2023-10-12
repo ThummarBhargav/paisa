@@ -175,7 +175,7 @@ class SummaryWidget2 extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     softWrap: true,
-                    style: appTheme.shadowNormalText(20, FontWeight.w600),
+                    style: appTheme.shadowNormalText(24, FontWeight.w600),
                   )
                 ],
               ),

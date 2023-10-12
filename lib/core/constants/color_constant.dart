@@ -1,14 +1,16 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:paisa/core/constants/sizeConstant.dart';
+
+import 'constants.dart';
 
 class BaseTheme {
   Color get primaryTheme => fromHex('#a14f3');
 
   Color get buttonColor => fromHex('#FE9013');
+
   Color get secondColor => fromHex('#2D0173');
+
   Color get userTitleColor => fromHex('#201E1E');
 
   Color get textGrayColor => fromHex("#5E5E5E");
@@ -61,73 +63,124 @@ class BaseTheme {
           spreadRadius: MySize.getHeight(0.2)),
     ];
   }
-LinearGradient g1(){
-    return  LinearGradient(
-  begin: Alignment.topCenter,
-  end: Alignment.bottomCenter,
-  colors: [Color(0xFFFB68B7), Color(0xFFA552FF)],);
 
-}
-  LinearGradient g2(){
-    return  LinearGradient(
+  LinearGradient g1() {
+    return LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
-      colors: [Color(0xFFf35e82), Color(0xFFff6288)],);
-
-  }  LinearGradient g3(){
-    return  LinearGradient(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-      colors: [Color(0xFF5a8ef3), Color(0xFF52b9f1)],);
-
-  }
-
-  TextStyle shadowText(double fontSize,[FontWeight? fontWeight,Color? color]){
-
-    return GoogleFonts.mavenPro(
-    textStyle: TextStyle(
-    color:color?? Colors.white,
-    letterSpacing: .5,
-    shadows:[ Shadow(
-    offset: Offset(1.0, 4.0),
-    blurRadius: 20.0,
-    color: Color.fromARGB(68, 0, 0, 0),
-    ),],
-    fontSize:MySize.getHeight(fontSize),
-    fontWeight:fontWeight?? FontWeight.w500
-    ),
+      colors: [Color(0xFFFB68B7), Color(0xFFA552FF)],
     );
-
   }
-  TextStyle shadowNormalText(double fontSize,[FontWeight? fontWeight]){
 
+  LinearGradient g2() {
+    return LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [Color(0xFFf35e82), Color(0xFFff6288)],
+    );
+  }
+
+  LinearGradient g3() {
+    return LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [Color(0xFF5a8ef3), Color(0xFF52b9f1)],
+    );
+  }
+
+  RadialGradient g4() {
+    return RadialGradient(
+      center: Alignment(1.06, 0.46),
+      radius: 5,
+      colors: [Color(0xFFE3C0FF), Color(0xFFB7D5FF)],
+    );
+  }
+
+  SettingItem(String title,String des,String icon,Widget widget) {
+    return SizedBox(
+      width: MySize.getWidth(345),
+      height: MySize.getHeight(80),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+
+          Row(
+            children: [
+              Spacing.width(20),
+              Image.asset(icon),
+              Spacing.width(20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    title,
+                    style: appTheme.normalText(16, Colors.black),
+                  ),
+                  Text(
+                    maxLines: 4,
+                    des,
+                    style: appTheme.normalText(14, Colors.grey,FontWeight.w400),
+                  ),
+                ],
+              ),
+
+            ],
+          ),
+          widget,
+
+        ],
+      ),
+    );
+  }
+
+  TextStyle shadowText(double fontSize,
+      [FontWeight? fontWeight, Color? color]) {
+    return GoogleFonts.mavenPro(
+      textStyle: TextStyle(
+          color: color ?? Colors.white,
+          letterSpacing: .5,
+          shadows: [
+            Shadow(
+              offset: Offset(1.0, 4.0),
+              blurRadius: 20.0,
+              color: Color.fromARGB(68, 0, 0, 0),
+            ),
+          ],
+          fontSize: MySize.getHeight(fontSize),
+          fontWeight: fontWeight ?? FontWeight.w500),
+    );
+  }
+
+  TextStyle shadowNormalText(double fontSize, [FontWeight? fontWeight]) {
     return GoogleFonts.mavenPro(
       textStyle: TextStyle(
           color: Colors.white,
           letterSpacing: .5,
-          shadows:[ Shadow(
-            offset: Offset(0.0, 1.5),
-            blurRadius: 8.0,
-            color: Color.fromARGB(119, 100, 100, 100),
-          ),],
-          fontSize:MySize.getHeight(fontSize),
-          fontWeight:fontWeight?? FontWeight.w500
-      ),
+          shadows: [
+            Shadow(
+              offset: Offset(0.0, 1.5),
+              blurRadius: 8.0,
+              color: Color.fromARGB(119, 100, 100, 100),
+            ),
+          ],
+          fontSize: MySize.getHeight(fontSize),
+          fontWeight: fontWeight ?? FontWeight.w500),
     );
-
   }
-  TextStyle normalText(double fontSize,[Color color=Colors.white,FontWeight? fontWeight]){
 
+  TextStyle normalText(double fontSize,
+      [Color color = Colors.white, FontWeight? fontWeight]) {
     return GoogleFonts.mavenPro(
       textStyle: TextStyle(
+
           color: color,
           letterSpacing: .5,
-          fontSize:MySize.getHeight(fontSize),
-          fontWeight:fontWeight?? FontWeight.w500
-      ),
+          fontSize: MySize.getHeight(fontSize),
+          fontWeight: fontWeight ?? FontWeight.w500),
     );
-
   }
+
   String countryCodeToEmoji(String countryCode) {
     // 0x41 is Letter A
     // 0x1F1E6 is Regional Indicator Symbol Letter A
@@ -135,8 +188,10 @@ LinearGradient g1(){
     // firstLetter U => 20 + 0x1F1E6
     // secondLetter S => 18 + 0x1F1E6
     // See: https://en.wikipedia.org/wiki/Regional_Indicator_Symbol
-    final int firstLetter = countryCode.toUpperCase().codeUnitAt(0) - 0x41 + 0x1F1E6;
-    final int secondLetter = countryCode.toUpperCase().codeUnitAt(1) - 0x41 + 0x1F1E6;
+    final int firstLetter =
+        countryCode.toUpperCase().codeUnitAt(0) - 0x41 + 0x1F1E6;
+    final int secondLetter =
+        countryCode.toUpperCase().codeUnitAt(1) - 0x41 + 0x1F1E6;
     return String.fromCharCode(firstLetter) + String.fromCharCode(secondLetter);
   }
 }

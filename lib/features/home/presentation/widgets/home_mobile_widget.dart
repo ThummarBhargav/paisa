@@ -34,6 +34,16 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
   late AppLifecycleReactor _appLifecycleReactor;
   GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
   List<bool> selectedItem = [true, false, false, false];
+  List<bool> sideNevSelectedItem = [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ];
 
   @override
   void initState() {
@@ -123,45 +133,9 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
                   Spacing.height(18)
                 ],
               ))),
-
-      drawer: BlocBuilder<HomeBloc, HomeState>(
-        builder: (context, state) {
-          return NavigationDrawer(
-            selectedIndex: homeBloc.selectedIndex,
-            onDestinationSelected: (index) {
-              _scaffoldStateKey.currentState?.closeDrawer();
-              homeBloc.add(CurrentIndexEvent(index));
-            },
-            children: [
-              const PaisaIconTitle(),
-              ...widget.destinations
-                  .map(
-                    (e) => NavigationDrawerDestination(
-                      icon: e.icon,
-                      selectedIcon: e.selectedIcon,
-                      label: Text(e.pageType.name(context)),
-                    ),
-                  )
-                  .toList(),
-              const Divider(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: ListTile(
-                  onTap: () {
-                    context.pushNamed(settingsName);
-                    Navigator.pop(context);
-                  },
-                  leading: const Icon(Icons.settings),
-                  title: Text(
-                    context.loc.settings,
-                    style: context.bodyLarge,
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
-      ),
+      drawer: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
+        return SideNevBar(homeBloc);
+      }),
       body: const ContentWidget(),
       floatingActionButton: SizedBox(
         child: Column(
@@ -186,7 +160,7 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
                   state.currentPage == 5)) {
             return const SizedBox.shrink();
           }
-          return  Padding(
+          return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
             child: Container(
               width: MySize.screenWidth,
@@ -207,51 +181,144 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
               ),
               child: Row(
                 children: [
-                  bottomItem(
-                      "assets/images/HomeS.png", "assets/images/HomeU.png",0,"Home",homeBloc),
-                  bottomItem(
-                      "assets/images/AcS.png", "assets/images/AcU.png",1,"Account",homeBloc),
-                  bottomItem(
-                      "assets/images/DebS.png", "assets/images/DebU.png",2,"Debts",homeBloc),
-                  bottomItem(
-                      "assets/images/OvrS.png", "assets/images/OvrU.png",3,"OverView",homeBloc),
+                  bottomItem(iconListSelected[0], iconList[0], 0,
+                      iconListName[0], homeBloc),
+                  bottomItem(iconListSelected[1], iconList[1], 1,
+                      iconListName[1], homeBloc),
+                  bottomItem(iconListSelected[2], iconList[2], 2,
+                      iconListName[2], homeBloc),
+                  bottomItem(iconListSelected[3], iconList[3], 3,
+                      iconListName[3], homeBloc),
                 ],
               ),
             ),
           );
         },
       ),
-
     );
   }
 
-  Widget bottomItem(String selUri, String unUri,int pos,String name,homeBloc) {
+  Widget bottomItem(
+      String selUri, String unUri, int pos, String name, homeBloc) {
     return Expanded(
         child: GestureDetector(
-          onTap: (){
-            for(int i=0;i<selectedItem.length;i++){
-              selectedItem[i]=false;
-            }
-            selectedItem[pos]=true;
-            homeBloc.add(CurrentIndexEvent(pos));
-            setState(() {
-
-            });
-
-          },
-          child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
+      onTap: () {
+        for (int i = 0; i < selectedItem.length; i++) {
+          selectedItem[i] = false;
+        }
+        selectedItem[pos] = true;
+        for (int i = 0; i < sideNevSelectedItem.length; i++) {
+          sideNevSelectedItem[i] = false;
+        }
+        sideNevSelectedItem[pos] = true;
+        homeBloc.add(CurrentIndexEvent(pos));
+        setState(() {});
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
           Image.asset(selectedItem[pos] ? selUri : unUri),
           Spacing.height(4),
           Text(
-           name.toUpperCase(),
+            name.toUpperCase(),
             style: appTheme.normalText(
                 14, selectedItem[pos] ? Color(0xFF6E1AF5) : Color(0xFF9A9797)),
           )
-      ],
-    ),
-        ));
+        ],
+      ),
+    ));
+  }
+
+  Widget SideNevBar(homeBloc) {
+    return Container(
+      width: MySize.screenWidth / 1.45,
+      height: MySize.screenHeight,
+      color: Colors.white,
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          Spacing.height(25),
+          Row(
+            children: [
+              Image.asset("assets/images/paisa.png"),
+              Spacing.width(7),
+             Text("Paisa",style:  appTheme.normalText(20,Colors.black,FontWeight.w600),)
+            ],
+          ),
+          nevItem(
+              iconListSelected[0], iconList[0], iconListName[0], 0, homeBloc),
+          nevItem(
+              iconListSelected[1], iconList[1], iconListName[1], 1, homeBloc),
+          nevItem(
+              iconListSelected[2], iconList[2], iconListName[2], 2, homeBloc),
+          nevItem(
+              iconListSelected[3], iconList[3], iconListName[3], 3, homeBloc),
+          nevItem(
+              iconListSelected[4], iconList[4], iconListName[4], 4, homeBloc),
+          nevItem(
+              iconListSelected[5], iconList[5], iconListName[5], 5, homeBloc),
+          nevItem(
+              iconListSelected[6], iconList[6], iconListName[6], 6, homeBloc),
+          Divider(),
+          nevItem(
+              iconListSelected[7], iconList[7], iconListName[7], 7, homeBloc),
+        ],
+      ),
+    );
+  }
+
+  Widget nevItem(String selUri, String unUri, String name, int pos, homeBloc) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 12,
+        right: 12,
+        top: 10,
+      ),
+      child: GestureDetector(
+        onTap: () {
+          if(pos==7){
+
+            Navigator.pop(context);
+            Future.delayed(Duration(milliseconds: 300), () {
+              context.pushNamed(settingsName);
+            });
+
+
+          }else{
+            for (int i = 0; i < sideNevSelectedItem.length; i++) {
+              sideNevSelectedItem[i] = false;
+            }
+            sideNevSelectedItem[pos] = true;
+            if (pos <= 3) {
+              for (int i = 0; i < selectedItem.length; i++) {
+                selectedItem[i] = false;
+              }
+              selectedItem[pos] = true;
+            }
+            _scaffoldStateKey.currentState?.closeDrawer();
+            homeBloc.add(CurrentIndexEvent(pos));
+          }
+          setState(() {});
+        },
+        child: Container(
+          width: MySize.getWidth(220),
+          height: MySize.getHeight(54),
+          decoration: ShapeDecoration(
+            gradient:sideNevSelectedItem[pos]? appTheme.g4():null,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          ),
+          child: Row(
+            children: [
+              Spacing.width(15),
+              Image.asset(sideNevSelectedItem[pos] ? selUri : unUri),
+              Spacing.width(15),
+              Text(iconListName[pos],style:  appTheme.normalText(16,Colors.black,FontWeight.w500),)
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 

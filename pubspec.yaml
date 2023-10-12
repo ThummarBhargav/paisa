@@ -74,7 +74,7 @@ flutter_app_name:
 
 flutter_native_splash:
   color: "#ffffff"
-  image: assets/images/icon.png
+  image: assets/images/paisa.png
   color_dark: "#121212"
   android: true
   ios: true
@@ -87,7 +87,7 @@ flutter_native_splash:
 flutter_icons:
   ios: true
   android: false
-  image_path: "assets/images/icon.png"
+  image_path: "assets/images/paisa.png"
   image_path_ios: "assets/images/ios_app_icon.png"
   remove_alpha_ios: true
 
@@ -95,7 +95,7 @@ flutter:
   generate: true
   uses-material-design: true
   assets:
-    - assets/images/icon.png
+    - assets/images/paisa.png
     - assets/images/
 
 msix_config:

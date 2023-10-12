@@ -121,6 +121,41 @@ const isStartTime = "isStartTime";
 const userOnboardingName = 'onboarding';
 const userOnboardingPath = '/onboarding';
 const screenWidth = '/onboarding';
+const AcStyle = 'assets/images/AcStyle.png';
+const ScaleIcon = 'assets/images/ScaleIcon.png';
+
+const List<String> iconListSelected=[
+  "assets/images/homeS.png",
+  "assets/images/accountsS.png",
+  "assets/images/debtsS.png",
+  "assets/images/overviewS.png",
+  "assets/images/categoriesS.png",
+  "assets/images/budgetS.png",
+  "assets/images/recurringS.png",
+  "assets/images/settingsS.png",
+];
+const List<String> iconList=[
+  "assets/images/home.png",
+  "assets/images/accounts.png",
+  "assets/images/debts.png",
+  "assets/images/overview.png",
+  "assets/images/categories.png",
+  "assets/images/budget.png",
+  "assets/images/recurring.png",
+  "assets/images/settings.png",
+];
+const List<String> iconListName=[
+  "Home",
+  "Accounts",
+  "Debts",
+  "Overview",
+  "Categories",
+  "Budget",
+  "Recurring",
+  "Settings",
+];
+
+
 
 bool isNullEmptyOrFalse(dynamic o) {
   if (o is Map<String, dynamic> || o is List<dynamic>) {

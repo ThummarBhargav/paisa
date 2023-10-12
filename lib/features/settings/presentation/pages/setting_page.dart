@@ -49,35 +49,35 @@ class SettingsPage extends StatelessWidget {
             SettingsGroup(
               title: context.loc.colorsUI,
               options: [
-                const SettingsColorPickerWidget(),
-                const Divider(),
-                SettingsOption(
-                  icon: MdiIcons.brightness4,
-                  title: context.loc.chooseTheme,
-                  subtitle: currentTheme.themeName,
-                  onTap: () {
-                    showModalBottomSheet(
-                      constraints: BoxConstraints(
-                        maxWidth: MediaQuery.of(context).size.width >= 700
-                            ? 700
-                            : double.infinity,
-                      ),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(16),
-                          topRight: Radius.circular(16),
-                        ),
-                      ),
-                      context: context,
-                      builder: (_) => ChooseThemeModeWidget(
-                        currentTheme: currentTheme,
-                      ),
-                    );
-                  },
-                ),
-                const Divider(),
+              //  const SettingsColorPickerWidget(),
+               // const Divider(),
+               //  SettingsOption(
+               //    icon: MdiIcons.brightness4,
+               //    title: context.loc.chooseTheme,
+               //    subtitle: currentTheme.themeName,
+               //    onTap: () {
+               //      showModalBottomSheet(
+               //        constraints: BoxConstraints(
+               //          maxWidth: MediaQuery.of(context).size.width >= 700
+               //              ? 700
+               //              : double.infinity,
+               //        ),
+               //        shape: const RoundedRectangleBorder(
+               //          borderRadius: BorderRadius.only(
+               //            topLeft: Radius.circular(16),
+               //            topRight: Radius.circular(16),
+               //          ),
+               //        ),
+               //        context: context,
+               //        builder: (_) => ChooseThemeModeWidget(
+               //          currentTheme: currentTheme,
+               //        ),
+               //      );
+               //    },
+               //  ),
+               //  const Divider(),
                 const AccountsStyleWidget(),
-                const Divider(),
+
                 const SmallSizeFabWidget(),
               ],
             ),
@@ -88,9 +88,9 @@ class SettingsPage extends StatelessWidget {
                   authenticate: getIt.get<Authenticate>(),
                 ),
                 const AppLanguageChanger(),
-                const Divider(),
+
                 const CountryChangeWidget(),
-                const Divider(),
+
                 SettingsOption(
                   icon: MdiIcons.calendar,
                   title: context.loc.calendarFormat,
