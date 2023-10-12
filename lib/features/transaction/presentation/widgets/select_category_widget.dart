@@ -148,7 +148,7 @@ class CategoryChip extends StatelessWidget {
         onTap:onSelected,
         child: Container(
           width: MySize.getWidth(165),
-          height: MySize.getWidth(120),
+          height: MySize.getWidth(130),
           clipBehavior: Clip.antiAlias,
           decoration: ShapeDecoration(
             color: selected ? titleColor.withOpacity(0.2) : Colors.white,
@@ -194,7 +194,8 @@ class CategoryChip extends StatelessWidget {
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: [ Spacing.height(8),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -204,7 +205,7 @@ class CategoryChip extends StatelessWidget {
                              title,
                               style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 18,
+                                fontSize: MySize.getHeight(15),
                                 fontFamily: 'Maven Pro',
                                 fontWeight: FontWeight.w500,
 

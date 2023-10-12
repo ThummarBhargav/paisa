@@ -123,6 +123,13 @@ const userOnboardingPath = '/onboarding';
 const screenWidth = '/onboarding';
 const AcStyle = 'assets/images/AcStyle.png';
 const ScaleIcon = 'assets/images/ScaleIcon.png';
+const CurrencyIcon = 'assets/images/CurrencyIcon.png';
+const CalIcon = 'assets/images/cal.png';
+const FixIcon = 'assets/images/Fix.png';
+const BackupIcon = 'assets/images/Backup.png';
+const RateIcon = 'assets/images/rate.png';
+const PrivIcon = 'assets/images/priv.png';
+const VerIcon = 'assets/images/ver.png';
 
 const List<String> iconListSelected=[
   "assets/images/homeS.png",

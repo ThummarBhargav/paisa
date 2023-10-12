@@ -6,6 +6,8 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:paisa/core/common.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/constants/color_constant.dart';
+
 class CountryChangeWidget extends StatelessWidget {
   const CountryChangeWidget({
     Key? key,
@@ -15,19 +17,17 @@ class CountryChangeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final String currentSymbol = Provider.of<Box<dynamic>>(context)
         .get(userLanguageKey, defaultValue: 'INR');
-    return ListTile(
-      leading: Icon(
-        MdiIcons.currencySign,
-        color: context.onSurfaceVariant,
-      ),
-      onTap: () {
-        context.pushNamed(
-          countrySelectorName,
-          queryParameters: {'force_country_selector': 'true'},
-        );
+    return  appTheme.SettingItem(
+      "Currency Sign",
+      "INR",
+      CurrencyIcon,
+      SizedBox(),
+          () {
+            context.pushNamed(
+              countrySelectorName,
+              queryParameters: {'force_country_selector': 'true'},
+            );
       },
-      title: Text(context.loc.currencySign),
-      subtitle: Text(currentSymbol),
     );
   }
 }

@@ -54,22 +54,5 @@ class _SmallSizeFabWidgetState extends State<SmallSizeFabWidget> {
               });
             },
           ),));
-
-
-
-      SwitchListTile(
-      secondary: Icon(MdiIcons.resize),
-      title: Text(
-        context.loc.smallSizeFab,
-      ),
-      subtitle: Text(context.loc.smallSizeFabMessage),
-      onChanged: (bool value) async {
-        setState(() {
-          isSelected = value;
-        });
-        settings.put(smallSizeFabKey, value);
-      },
-      value: isSelected,
-    );
   }
 }

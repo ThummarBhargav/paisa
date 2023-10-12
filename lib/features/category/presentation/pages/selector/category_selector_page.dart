@@ -148,7 +148,7 @@ class _CategorySelectorPageState extends State<CategorySelectorPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: GridView.count(
                         physics: const BouncingScrollPhysics(),
-                        childAspectRatio: (1 / 0.70),
+                        childAspectRatio: (1 / 0.80),
                         shrinkWrap: true,
                         padding: EdgeInsets.all(10),
                         crossAxisCount: 2,

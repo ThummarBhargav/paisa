@@ -8,6 +8,7 @@ import 'package:paisa/features/home/presentation/pages/summary/widgets/total_bal
 import 'package:paisa/features/transaction/domain/entities/transaction.dart';
 import 'package:paisa/main.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 
 class ExpenseTotalWidget extends StatelessWidget {
   const ExpenseTotalWidget({
@@ -23,7 +24,9 @@ class ExpenseTotalWidget extends StatelessWidget {
     final totalExpenses = expenses.totalExpense;
     final totalIncome = expenses.totalIncome;
     final totalAccountBalance =
-        getIt.get<Box<AccountModel>>().totalAccountInitialAmount;
+        getIt
+            .get<Box<AccountModel>>()
+            .totalAccountInitialAmount;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -46,7 +49,7 @@ class ExpenseTotalWidget extends StatelessWidget {
                     title: "Bank",
                     amount: totalExpenseBalance + totalAccountBalance,
                   ),
-                  const SizedBox(height: 15),
+                   SizedBox(height: 15.dp),
                   // ExpenseTotalForMonthWidget(
                   //   outcome: totalExpenses,
                   //   income: totalIncome,

@@ -5,6 +5,7 @@ import 'dart:math' as math;
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/constants/color_constant.dart';
 import 'package:paisa/core/constants/sizeConstant.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 
 class PaisaCard extends StatelessWidget {
   const PaisaCard({
@@ -34,7 +35,7 @@ class PaisaCard extends StatelessWidget {
     // );
 
     return Container(
-      width: MySize.getWidth(345),
+      width: MySize.screenWidth,
       height: MySize.getHeight(190),
       decoration: ShapeDecoration(
         gradient: const RadialGradient(
@@ -111,7 +112,11 @@ class PaisaFilledCard extends StatelessWidget {
       width: MySize.getWidth(345),
       height: MySize.getHeight(240),
       decoration: ShapeDecoration(
-        gradient:randomNumber==0?appTheme.g1():randomNumber==1?appTheme.g2():appTheme.g3(),
+        gradient: randomNumber == 0
+            ? appTheme.g1()
+            : randomNumber == 1
+                ? appTheme.g2()
+                : appTheme.g3(),
         image: DecorationImage(
           image: AssetImage('assets/images/CardMask.png'),
           fit: BoxFit.fill,

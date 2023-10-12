@@ -66,7 +66,7 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
     return Scaffold(
       key: _scaffoldStateKey,
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(MySize.getHeight(120)),
+          preferredSize: Size.fromHeight(MySize.getHeight(130)),
           // here the desired height
           child: CustomAppBar(
               context: context,
@@ -98,8 +98,8 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        width: MySize.getHeight(290),
-                        height: MySize.getHeight(40),
+                        width: MySize.screenWidth/1.1,
+                        height: MySize.getHeight(50),
                         decoration: ShapeDecoration(
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
@@ -161,10 +161,10 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
             return const SizedBox.shrink();
           }
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            padding:  EdgeInsets.only(bottom:MediaQuery.of(context).padding.bottom,left: 10,right: 10),
             child: Container(
               width: MySize.screenWidth,
-              height: MySize.getHeight(70),
+              height: MySize.getHeight(80),
               decoration: ShapeDecoration(
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
@@ -222,7 +222,7 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
           Text(
             name.toUpperCase(),
             style: appTheme.normalText(
-                14, selectedItem[pos] ? Color(0xFF6E1AF5) : Color(0xFF9A9797)),
+                13, selectedItem[pos] ? Color(0xFF6E1AF5) : Color(0xFF9A9797)),
           )
         ],
       ),
@@ -340,18 +340,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     MySize().init(context);
     return Container(
       width: MySize.screenWidth,
-      decoration: ShapeDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment(0.04, -1.00),
           end: Alignment(-0.04, 1),
           colors: [Color(0xFF6A14F3), Color(0xFF863AFF)],
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          ),
-        ),
+
       ),
       child: child,
     );

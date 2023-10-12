@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/common_enum.dart';
+import 'package:paisa/core/constants/color_constant.dart';
 import 'package:paisa/core/widgets/lava/lava_clock.dart';
 import 'package:paisa/main.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -13,10 +14,7 @@ class IntroPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenTypeLayout.builder(
-      tablet: (p0) => const IntroBigScreenWidget(),
-      mobile: (p0) => const IntoMobileWidget(),
-    );
+    return IntoMobileWidget();
   }
 }
 
@@ -183,17 +181,21 @@ class IntoMobileWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    context.loc.appTitle,
-                    style: context.displayMedium?.copyWith(
-                      color: context.primary,
-                    ),
+
+                  Row(
+                    children: [
+
+                      Image.asset("assets/images/paisa.png",height: 100,width: 100),
+                      Text(
+                        context.loc.appTitle,
+                        style:appTheme.normalText(44,Color(0xFF6D18F4)),
+
+                      ),
+                    ],
                   ),
                   Text(
                     context.loc.intoTitle,
-                    style: context.headlineMedium?.copyWith(
-                      color: context.secondary,
-                    ),
+                    style:appTheme.shadowText(34,FontWeight.w500,Colors.black),
                   ),
                   const SizedBox(height: 24),
                   Column(
@@ -203,11 +205,12 @@ class IntoMobileWidget extends StatelessWidget {
                         leading: Icon(
                           Icons.check_circle,
                           color: context.primary,
+                          size: 35,
                         ),
                         dense: true,
                         title: Text(
                           context.loc.intoSummary1,
-                          style: context.titleMedium,
+                      style:appTheme.normalText(15,Colors.black,FontWeight.w500),
                         ),
                       ),
                       ListTile(
@@ -215,11 +218,12 @@ class IntoMobileWidget extends StatelessWidget {
                         leading: Icon(
                           Icons.check_circle,
                           color: context.primary,
+                          size: 35,
                         ),
                         dense: true,
                         title: Text(
                           context.loc.intoSummary2,
-                          style: context.titleMedium,
+                          style:appTheme.normalText(15,Colors.black,FontWeight.w500),
                         ),
                       ),
                       ListTile(
@@ -227,42 +231,40 @@ class IntoMobileWidget extends StatelessWidget {
                         leading: Icon(
                           Icons.check_circle,
                           color: context.primary,
+                          size: 35,
                         ),
                         dense: true,
                         title: Text(
                           context.loc.intoSummary3,
-                          style: context.titleMedium,
+                          style:appTheme.normalText(15,Colors.black,FontWeight.w500),
                         ),
                       )
                     ],
                   ),
-                  const Spacer(),
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    dense: true,
-                    title: Text(
-                      '*This app still in beta, expect the unexpected behavior and UI changes',
-                      style: context.titleSmall?.copyWith(
-                        color: context.bodySmall?.color,
-                      ),
-                    ),
-                  )
+                  // const Spacer(),
+                  // ListTile(
+                  //   contentPadding: EdgeInsets.zero,
+                  //   dense: true,
+                  //   title: Text(
+                  //     '*This app still in beta, expect the unexpected behavior and UI changes',
+                  //     style: context.titleSmall?.copyWith(
+                  //       color: context.bodySmall?.color,
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
             ),
           ),
         ),
         bottomNavigationBar: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 28.0, vertical: 24),
-            child: PaisaBigButton(
-              onPressed: () {
-                getIt
-                    .get<Box<dynamic>>(instanceName: BoxType.settings.name)
-                    .put(userIntroKey, true);
-              },
-              title: context.loc.introCTA,
-            ),
+          child: PaisaBigButton(
+            onPressed: () {
+              getIt
+                  .get<Box<dynamic>>(instanceName: BoxType.settings.name)
+                  .put(userIntroKey, true);
+            },
+            title: context.loc.introCTA,
           ),
         ),
       ),

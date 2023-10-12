@@ -6,7 +6,7 @@ import 'package:paisa/core/constants/sizeConstant.dart';
 
 import '../../../../../../core/constants/color_constant.dart';
 import '../../../../../../main.dart';
-
+import 'package:flutter_sizer/flutter_sizer.dart';
 class TotalBalanceWidget extends StatelessWidget {
   const TotalBalanceWidget({
     Key? key,
@@ -27,15 +27,15 @@ class TotalBalanceWidget extends StatelessWidget {
         Text(
           "Your Available",
           style:TextStyle(  color: Colors.white,
-            fontWeight: FontWeight.w700,fontSize:MySize.getHeight(22)),
+            fontWeight: FontWeight.w700,fontSize:22.dp),
         ),
         Text(
           "Current Balance",
           style:TextStyle(  color: Colors.white,
-            fontWeight: FontWeight.w700,fontSize: MySize.getHeight(26),),
+            fontWeight: FontWeight.w700,fontSize:26.dp,),
         ),
 
-        const SizedBox(height: 25),
+         SizedBox(height: 20.dp),
         Text(
           amount.toFormateCurrency(context),
             style:appTheme.shadowText(35,FontWeight.w600)

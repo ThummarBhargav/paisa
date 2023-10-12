@@ -19,7 +19,8 @@ class SettingsOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return
+      ListTile(
       leading: icon == null
           ? null
           : Icon(

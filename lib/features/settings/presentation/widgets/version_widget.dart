@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-
 import 'package:paisa/core/common.dart';
+
+import '../../../../core/constants/color_constant.dart';
 import 'setting_option.dart';
 
 class VersionWidget extends StatefulWidget {
@@ -29,16 +30,21 @@ class _VersionWidgetState extends State<VersionWidget> {
   @override
   Widget build(BuildContext context) {
     if (packageInfo == null) {
-      return SettingsOption(
-        icon: MdiIcons.numeric,
-        title: context.loc.version,
+      return appTheme.SettingItem(
+        context.loc.version,
+        "",
+        VerIcon,
+        SizedBox(),
+        () {},
       );
     }
     final version = packageInfo?.version ?? '';
-    return SettingsOption(
-      icon: MdiIcons.numeric,
-      title: context.loc.version,
-      subtitle: context.loc.versionNumber(version),
+    return appTheme.SettingItem(
+      context.loc.version,
+      context.loc.versionNumber(version),
+      VerIcon,
+      SizedBox(),
+          () {},
     );
   }
 }

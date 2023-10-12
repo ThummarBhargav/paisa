@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:paisa/core/constants/sizeConstant.dart';
-
+import 'package:flutter_sizer/flutter_sizer.dart';
 import 'constants.dart';
 
 class BaseTheme {
@@ -96,40 +96,43 @@ class BaseTheme {
     );
   }
 
-  SettingItem(String title,String des,String icon,Widget widget) {
-    return SizedBox(
-      width: MySize.getWidth(345),
-      height: MySize.getHeight(80),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+  SettingItem(String title,String des,String icon,Widget widget,[VoidCallback? ontap]) {
+    return InkWell(
+      onTap: ontap??(){},
+      child: SizedBox(
+        width: MySize.getWidth(345),
+        height: MySize.getHeight(80),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
 
-          Row(
-            children: [
-              Spacing.width(20),
-              Image.asset(icon),
-              Spacing.width(20),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    title,
-                    style: appTheme.normalText(16, Colors.black),
-                  ),
-                  Text(
-                    maxLines: 4,
-                    des,
-                    style: appTheme.normalText(14, Colors.grey,FontWeight.w400),
-                  ),
-                ],
-              ),
+            Row(
+              children: [
+                Spacing.width(20),
+                Image.asset(icon),
+                Spacing.width(20),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      title,
+                      style: appTheme.normalText(16, Colors.black),
+                    ),
+                    Text(
+                      maxLines: 4,
+                      des,
+                      style: appTheme.normalText(12, Colors.grey,FontWeight.w400),
+                    ),
+                  ],
+                ),
 
-            ],
-          ),
-          widget,
+              ],
+            ),
+            widget,
 
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -147,7 +150,7 @@ class BaseTheme {
               color: Color.fromARGB(68, 0, 0, 0),
             ),
           ],
-          fontSize: MySize.getHeight(fontSize),
+          fontSize: fontSize.dp,
           fontWeight: fontWeight ?? FontWeight.w500),
     );
   }
@@ -164,7 +167,7 @@ class BaseTheme {
               color: Color.fromARGB(119, 100, 100, 100),
             ),
           ],
-          fontSize: MySize.getHeight(fontSize),
+          fontSize: fontSize.dp,
           fontWeight: fontWeight ?? FontWeight.w500),
     );
   }
@@ -176,7 +179,7 @@ class BaseTheme {
 
           color: color,
           letterSpacing: .5,
-          fontSize: MySize.getHeight(fontSize),
+          fontSize: fontSize.dp,
           fontWeight: fontWeight ?? FontWeight.w500),
     );
   }

@@ -9,10 +9,16 @@ class PaisaBigButton extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.title,
+    this.height,
+    this.width,
+    this.iconBT,
   });
 
   final VoidCallback onPressed;
   final String title;
+  final double? height;
+  final double? width;
+  final IconData? iconBT;
 
   @override
   Widget build(BuildContext context) {
@@ -20,24 +26,33 @@ class PaisaBigButton extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
 
-      child: Container(
-        width: 345,
-        height: 58,
-        padding: const EdgeInsets.symmetric(horizontal: 63, vertical: 17),
-        decoration: ShapeDecoration(
-          gradient: LinearGradient(
-            begin: Alignment(0.83, -0.56),
-            end: Alignment(-0.83, 0.56),
-            colors: [Color(0xFF8539FF), Color(0xFF8539FF),Color(0xFF6A14F3)],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Container(
+          width:width?? double.infinity,
+          height:height?? MySize.getHeight(58),
+
+          decoration: ShapeDecoration(
+            gradient: LinearGradient(
+              begin: Alignment(0.83, -0.56),
+              end: Alignment(-0.83, 0.56),
+              colors: [Color(0xFF8539FF), Color(0xFF8539FF),Color(0xFF6A14F3)],
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
           ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-        child: Center(
-          child: Text(
-            title,
-            style:appTheme.normalText(20,Colors.white,FontWeight.w600)
+          child: Center(
+            child: Row(
+              children: [
+                Text(
+                  title,
+                  style:appTheme.normalText(20,Colors.white,FontWeight.w600)
+                ),
+                Icon(iconBT??Icons.ac_unit_outlined),
+
+              ],
+            ),
           ),
         ),
       ),
