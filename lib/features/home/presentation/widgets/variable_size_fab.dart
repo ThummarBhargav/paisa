@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:paisa/core/common.dart';
+import 'package:paisa/core/constants/sizeConstant.dart';
 import 'package:paisa/core/widgets/variable_fab_size.dart';
 import 'package:paisa/features/home/presentation/bloc/home/home_bloc.dart';
 import 'package:paisa/features/home/presentation/controller/summary_controller.dart';
@@ -66,11 +67,12 @@ class HomeFloatingActionButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MySize().init(context);
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         if (state is CurrentIndexState && state.currentPage != 5) {
           return Padding(
-            padding: const EdgeInsets.only(bottom: 50),
+            padding:  EdgeInsets.only(bottom: MySize.getHeight(50)),
             child: VariableFABSize(
 
               onPressed: () => _handleClick(context, state.currentPage),
