@@ -27,7 +27,7 @@ class VariableFABSize extends StatelessWidget {
         final isSmallSize = value.get(smallSizeFabKey, defaultValue: false);
         if (isSmallSize) {
           return Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(3.0),
             child:  FloatingActionButton(
               onPressed: onPressed,
               child: Container(
@@ -50,7 +50,7 @@ class VariableFABSize extends StatelessWidget {
           );
         } else {
           return Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(3.0),
             child:  FloatingActionButton(
               onPressed: onPressed,
               child: Container(

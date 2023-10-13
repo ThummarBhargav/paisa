@@ -143,9 +143,13 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             widget.floatingActionButton,
-            Container(height: 8, color: Colors.white),
+
             if (isBannerLoaded)
-              Center(child: getBannerAds())
+              Row(
+                children: [
+                  Center(child: getBannerAds()),
+                ],
+              )
             else
               const SizedBox(),
           ],
@@ -217,7 +221,7 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(selectedItem[pos] ? selUri : unUri),
+          Image.asset(selectedItem[pos] ? selUri : unUri,width: 40,height: 40),
           Spacing.height(4),
           Text(
             name.toUpperCase(),
@@ -240,7 +244,7 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
           Spacing.height(50),
           Row(
             children: [
-              Image.asset("assets/images/paisa.png"),
+              Image.asset("assets/images/paisa.png",height: 80,width: 80,),
               Spacing.width(7),
              Text("Paisa",style:  appTheme.normalText(20,Colors.black,FontWeight.w600),)
             ],
@@ -311,7 +315,7 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
           child: Row(
             children: [
               Spacing.width(15),
-              Image.asset(sideNevSelectedItem[pos] ? selUri : unUri),
+              Image.asset(sideNevSelectedItem[pos] ? selUri : unUri,width: 40,height: 40,),
               Spacing.width(15),
               Text(iconListName[pos],style:  appTheme.normalText(16,Colors.black,FontWeight.w500),)
             ],
