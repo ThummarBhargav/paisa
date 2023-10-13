@@ -176,9 +176,8 @@ class BaseTheme {
       [Color color = Colors.white, FontWeight? fontWeight]) {
     return GoogleFonts.mavenPro(
       textStyle: TextStyle(
-
           color: color,
-          fontSize: fontSize.dp,
+          fontSize: fontSize.sp,
           fontWeight: fontWeight ?? FontWeight.w500),
     );
   }

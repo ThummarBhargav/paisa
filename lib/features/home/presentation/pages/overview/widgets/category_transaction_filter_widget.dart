@@ -59,7 +59,6 @@ class _CustomSegmentedButtonState extends State<CustomSegmentedButton> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: widget.segments.map((type) {
         final isSelected = type == widget.selected;
-
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
@@ -69,6 +68,7 @@ class _CustomSegmentedButtonState extends State<CustomSegmentedButton> {
               }
             },
             child: Container(
+              // padding: EdgeInsets.symmetric(horizontal: MySize.getWidth(43),vertical: MySize.getHeight(22)),
               width: MySize.getWidth(150),
               height: MySize.getHeight(57),
               decoration: ShapeDecoration(
@@ -90,8 +90,8 @@ class _CustomSegmentedButtonState extends State<CustomSegmentedButton> {
                 child: Text(
                   type == TransactionType.income ? 'Income' : 'Expense',
                   style: isSelected
-                      ? appTheme.normalText(24)
-                      : appTheme.normalText(24, Color(0xFF6C16F4)),
+                      ? appTheme.normalText(20)
+                      : appTheme.normalText(20, Color(0xFF6C16F4)),
                 ),
               ),
             ),
