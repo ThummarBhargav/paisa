@@ -5,7 +5,7 @@ import '../../main.dart';
 
 const gitHubUrl = 'https://github.com/h4h13/paisa';
 const playStoreUrl =
-    'https://play.google.com/store/apps/details?id=dev.hemanths.paisa';
+    'https://play.google.com/store/apps/details?id=com.mobileappxperts.incomeexpense.moneytracker';
 const telegramGroupUrl = 'https://t.me/app_paisa';
 const termsAndConditionsUrl = 'https://hemanths.dev/privacy';
 
@@ -121,6 +121,7 @@ const isStartTime = "isStartTime";
 const userOnboardingName = 'onboarding';
 const userOnboardingPath = '/onboarding';
 const screenWidth = '/onboarding';
+
 const AcStyle = 'assets/images/AcStyle.png';
 const ScaleIcon = 'assets/images/ScaleIcon.png';
 const CurrencyIcon = 'assets/images/CurrencyIcon.png';

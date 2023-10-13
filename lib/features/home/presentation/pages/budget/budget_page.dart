@@ -197,9 +197,9 @@ class BudgetItem extends StatelessWidget {
                     ),
                   ],
                 ),
-                Spacing.height(25),
+                Spacing.height(15),
                 Padding(
-                  padding: const EdgeInsets.only(right: 15),
+                  padding: const EdgeInsets.only(right: 15,bottom: 10),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: LinearProgressIndicator(

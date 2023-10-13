@@ -69,10 +69,13 @@ class HomeFloatingActionButtonWidget extends StatelessWidget {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         if (state is CurrentIndexState && state.currentPage != 5) {
-          return VariableFABSize(
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 50),
+            child: VariableFABSize(
 
-            onPressed: () => _handleClick(context, state.currentPage),
-            icon: state.currentPage != 3 ? Icons.add : Icons.date_range,
+              onPressed: () => _handleClick(context, state.currentPage),
+              icon: state.currentPage != 3 ? Icons.add : Icons.date_range,
+            ),
           );
         } else {
           return const SizedBox.shrink();

@@ -136,25 +136,24 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
       drawer: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
         return SideNevBar(homeBloc);
       }),
-      body: const ContentWidget(),
-      floatingActionButton: SizedBox(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            widget.floatingActionButton,
-
-            if (isBannerLoaded)
-              Row(
+      body: Stack(
+        children: [
+          const ContentWidget(),
+          if (isBannerLoaded)
+            Positioned(
+             bottom: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Center(child: getBannerAds()),
                 ],
-              )
-            else
-              const SizedBox(),
-          ],
-        ),
+              ),
+            )
+          else
+            const SizedBox(),
+        ],
       ),
+      floatingActionButton:  widget.floatingActionButton,
       bottomNavigationBar: BlocBuilder<HomeBloc, HomeState>(
         buildWhen: (previous, current) => current is CurrentIndexState,
         builder: (context, state) {

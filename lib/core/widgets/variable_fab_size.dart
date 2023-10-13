@@ -30,6 +30,7 @@ class VariableFABSize extends StatelessWidget {
             padding: const EdgeInsets.all(3.0),
             child:  FloatingActionButton(
               onPressed: onPressed,
+
               child: Container(
                 height: 60,
                 width: 60,

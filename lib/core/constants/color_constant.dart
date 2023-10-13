@@ -109,7 +109,7 @@ class BaseTheme {
             Row(
               children: [
                 Spacing.width(20),
-                Image.asset(icon),
+                Image.asset(icon,width: 50,height: 50,),
                 Spacing.width(20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,7 +142,7 @@ class BaseTheme {
     return GoogleFonts.mavenPro(
       textStyle: TextStyle(
           color: color ?? Colors.white,
-         
+
           shadows: [
             Shadow(
               offset: Offset(1.0, 4.0),
