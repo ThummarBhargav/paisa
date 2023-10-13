@@ -19,32 +19,35 @@ class TotalBalanceWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MySize().init(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: 10),
-        Text(
-          "Your Available",
-          style: TextStyle(
+    return Padding(
+      padding:  EdgeInsets.only(left: 15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 10),
+          Text(
+            "Your Available",
+            style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+                fontSize: 22.dp),
+          ),
+          Text(
+            "Current Balance",
+            style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w700,
-              fontSize: 22.dp),
-        ),
-        Text(
-          "Current Balance",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w700,
-            fontSize: 26.dp,
+              fontSize: 26.dp,
+            ),
           ),
-        ),
-        SizedBox(height: 20.dp),
-        AutoSizeText(amount.toFormateCurrency(context),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            softWrap: true,
-            style: appTheme.shadowText(35, FontWeight.w600))
-      ],
+          SizedBox(height: 20.dp),
+          AutoSizeText(amount.toFormateCurrency(context),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              softWrap: true,
+              style: appTheme.shadowText(35, FontWeight.w600))
+        ],
+      ),
     );
   }
 }
