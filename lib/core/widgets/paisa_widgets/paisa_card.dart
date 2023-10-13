@@ -45,7 +45,7 @@ class PaisaCard extends StatelessWidget {
           colors: [Color(0xFFd935fe), Color(0xFF2B47FC)],
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(30),
         ),
         shadows: const [
           BoxShadow(

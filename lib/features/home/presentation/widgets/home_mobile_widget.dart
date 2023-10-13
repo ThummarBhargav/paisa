@@ -93,7 +93,7 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
                       ],
                     ),
                   ),
-                  Spacing.height(10),
+                  Spacing.height(20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -103,7 +103,7 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
                         decoration: ShapeDecoration(
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5)),
+                              borderRadius: BorderRadius.circular(10)),
                           shadows: [
                             BoxShadow(
                               color: Color(0x26000000),
@@ -119,7 +119,7 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
                             Padding(
                               padding: const EdgeInsets.only(left: 10),
                               child: Text(
-                                'enter name & location ',
+                                'Enter name & Location ',
                                 style:
                                     appTheme.normalText(12, Color(0xFF8A8686)),
                               ),
