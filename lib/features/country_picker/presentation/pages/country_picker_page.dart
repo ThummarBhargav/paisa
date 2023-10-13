@@ -130,9 +130,9 @@ class _CountryPickerPageState extends State<CountryPickerPage> {
             },
             extendedPadding: const EdgeInsets.symmetric(horizontal: 24),
             label: Icon(MdiIcons.arrowRight,color: Colors.white,size: 30,),
-            backgroundColor: Color(0xFF2D0B62).withOpacity(0.8),
+            backgroundColor: Color(0xFF7a2afa),
             icon: Text(
-              context.loc.next,
+              "NEXT",
               style: appTheme.normalText(20),
 
             ),

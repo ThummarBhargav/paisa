@@ -29,16 +29,19 @@ class ExpenseHistoryWidget extends StatelessWidget {
           expenses,
           (TransactionEntity element) =>
               element.time!.formatted(FilterExpense.monthly));
-      return ListView.separated(
-        separatorBuilder: (context, index) => const SizedBox(),
-        shrinkWrap: true,
-        padding: EdgeInsets.zero,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: maps.entries.length,
-        itemBuilder: (_, mapIndex) => ExpenseMonthCardWidget(
-          title: maps.keys.elementAt(mapIndex),
-          total: maps.values.elementAt(mapIndex).filterTotal,
-          expenses: maps.values.elementAt(mapIndex),
+      return Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: ListView.separated(
+          separatorBuilder: (context, index) => const SizedBox(),
+          shrinkWrap: true,
+          padding: EdgeInsets.zero,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: maps.entries.length,
+          itemBuilder: (_, mapIndex) => ExpenseMonthCardWidget(
+            title: maps.keys.elementAt(mapIndex),
+            total: maps.values.elementAt(mapIndex).filterTotal,
+            expenses: maps.values.elementAt(mapIndex),
+          ),
         ),
       );
     }

@@ -34,8 +34,8 @@ class UserImageWidget extends StatelessWidget {
               if (image.isEmpty) {
                 return ClipOval(
                   child: Container(
-                    width: 42,
-                    height: 42,
+                    width: 43,
+                    height: 43,
                     color: context.secondaryContainer,
                     child: Icon(
                       Icons.account_circle_outlined,
@@ -45,8 +45,8 @@ class UserImageWidget extends StatelessWidget {
                 );
               } else {
                 return Container(
-                  width: MySize.getWidth(38),
-                  height: MySize.getHeight(38),
+                  width: MySize.getWidth(40),
+                  height: MySize.getHeight(40),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       shape: BoxShape.circle

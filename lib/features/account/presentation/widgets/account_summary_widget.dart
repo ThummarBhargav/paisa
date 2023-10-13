@@ -26,6 +26,7 @@ class AccountSummaryWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(height: 15,),
           ListTile(
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
@@ -34,11 +35,11 @@ class AccountSummaryWidget extends StatelessWidget {
             visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
             title: Text(
               'This month',
-              style: appTheme.normalText(20),
+              style: appTheme.normalText(19,Colors.black),
             
             ),
           ),
-
+          SizedBox(height: 10,),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,

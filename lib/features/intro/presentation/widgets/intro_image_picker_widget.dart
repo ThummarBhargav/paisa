@@ -38,12 +38,17 @@ class IntroImagePickerWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
-                  Image.asset("assets/images/iconAdd.png",height: 100,width: 100,),
-                  Column(children: [
-
-                  ],)
-
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Image.asset(
+                    "assets/images/iconAdd.png",
+                    height: 100,
+                    width: 100,
+                  ),
+                  Column(
+                    children: [],
+                  )
                 ],
               ),
               const SizedBox(height: 16),
@@ -54,17 +59,21 @@ class IntroImagePickerWidget extends StatelessWidget {
                     children: [
                       Text(
                         context.loc.image,
-                        style: appTheme.shadowText(24,FontWeight.w500,Colors.black),
+                        style: appTheme.shadowText(
+                            24, FontWeight.w500, Colors.black),
                       ),
+                      const SizedBox(height: 10),
                       Text(
                         context.loc.imageDesc,
-                        style: appTheme.normalText(15,Color(0xFF666666),),
+                        style: appTheme.normalText(
+                          15,
+                          Color(0xFF666666),
+                        ),
                       ),
                     ],
                   ),
                 ],
               ),
-
               const SizedBox(height: 16),
               Center(
                 child: PaisaUserImageWidget(

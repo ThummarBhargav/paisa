@@ -181,21 +181,22 @@ class IntoMobileWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
+                  const SizedBox(height: 20),
                   Row(
                     children: [
 
                       Image.asset("assets/images/paisa.png",height: 100,width: 100),
                       Text(
-                        "Money \n  Tracker",
-                        style:appTheme.normalText(44,Color(0xFF6D18F4)),
+                        "Money Tracker",
+                        style:appTheme.normalText(30,Color(0xFF6D18F4)),
 
                       ),
                     ],
                   ),
+                  const SizedBox(height: 20),
                   Text(
                     context.loc.intoTitle,
-                    style:appTheme.shadowText(34,FontWeight.w500,Colors.black),
+                    style:appTheme.shadowText(30,FontWeight.w500,Colors.black),
                   ),
                   const SizedBox(height: 24),
                   Column(

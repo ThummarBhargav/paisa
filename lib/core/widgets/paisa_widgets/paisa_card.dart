@@ -110,7 +110,7 @@ class PaisaFilledCard extends StatelessWidget {
     int randomNumber = random.nextInt(3);
     return Container(
       width: MySize.getWidth(345),
-      height: MySize.getHeight(240),
+      height: MySize.getHeight(210),
       decoration: ShapeDecoration(
         gradient: randomNumber == 0
             ? appTheme.g1()

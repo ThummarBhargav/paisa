@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:paisa/core/common.dart';
+import 'package:paisa/core/constants/color_constant.dart';
 import 'package:paisa/core/constants/sizeConstant.dart';
 import 'package:paisa/features/home/presentation/pages/summary/widgets/expense_history_widget.dart';
 import 'package:paisa/features/home/presentation/pages/summary/widgets/expense_total_widget.dart';
@@ -37,22 +38,18 @@ class SummaryMobileWidget extends StatelessWidget {
                 horizontal: 16,
                 vertical: 0,
               ),
-              title:  Row(
-                children: [
-                  Text(
-                    'Transaction History',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: MySize.getHeight(20),
-                      fontFamily: 'Maven Pro',
-                      fontWeight: FontWeight.w500,
-                      height: 0,
-                      letterSpacing: -0.20,
+              title:  Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: Row(
+                  children: [
+                    Text(
+                      'Transaction History',
+                      style: appTheme.normalText(19,Colors.black),
+
                     ),
 
-                  ),
-
-                ],
+                  ],
+                ),
               ),
             );
           } else if (index == 3) {

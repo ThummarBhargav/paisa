@@ -131,15 +131,27 @@ class ExpenseItemWidget extends StatelessWidget {
               ),
               Expanded(
                 flex: 2,
-                child: Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: AutoSizeText(
-                      expense.currency!.toFormateCurrency(context),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      softWrap: true,
-                      style: appTheme.normalText(17, Color(0xFF07B103)),
-                    )),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Column(
+                        children: [
+                          Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: AutoSizeText(
+                                expense.currency!.toFormateCurrency(context),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: true,
+                                style: appTheme.normalText(17, Color(0xFF07B103)),
+                              )),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

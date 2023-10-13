@@ -44,10 +44,10 @@ class DebtsPage extends StatelessWidget {
                   labelColor: Colors.white,
                   unselectedLabelColor: Color(0xFF6C16F4),
                   labelStyle: GoogleFonts.mavenPro(
-                    textStyle: TextStyle(color: Colors.white, letterSpacing: .5,fontSize: MySize.getHeight(20),fontWeight: FontWeight.w600),
+                    textStyle: TextStyle(color: Colors.white, letterSpacing: .5,fontSize: MySize.getHeight(17),fontWeight: FontWeight.w500),
                   ),
                   unselectedLabelStyle: GoogleFonts.mavenPro(
-                    textStyle: TextStyle(color: Colors.white, letterSpacing: .5,fontSize: MySize.getHeight(20),fontWeight: FontWeight.w600),
+                    textStyle: TextStyle(color: Colors.white, letterSpacing: .5,fontSize: MySize.getHeight(17),fontWeight: FontWeight.w500),
                   ),
                   tabs: [
                     Tab(text: context.loc.debt),

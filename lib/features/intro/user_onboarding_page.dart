@@ -43,11 +43,11 @@ class _UserOnboardingPageState extends State<UserOnboardingPage> {
                       curve: Curves.bounceIn,
                     );
                   },
-                  heroTag: "Back",
+                  heroTag: "BACK",
                   extendedPadding: const EdgeInsets.symmetric(horizontal: 24),
-                  backgroundColor: Color(0xFF2D0B62).withOpacity(0.8),
+                  backgroundColor: Color(0xFF7a2afa),
                   label: Text(
-                    'Back',
+                    'BACK',
               style: appTheme.normalText(20),
                   ),
                   icon: Icon(MdiIcons.arrowLeft,color: Colors.white,size: 30,),
@@ -56,6 +56,7 @@ class _UserOnboardingPageState extends State<UserOnboardingPage> {
               const Spacer(),
 
               FloatingActionButton.extended(
+
                 onPressed: () {
                   if (currentIndex == 0) {
                     if (_formState.currentState!.validate()) {
@@ -81,12 +82,13 @@ class _UserOnboardingPageState extends State<UserOnboardingPage> {
                     }
                   }
                 },
-                heroTag: "Next",
+                heroTag: "NEXT",
                 extendedPadding: const EdgeInsets.symmetric(horizontal: 24),
-                backgroundColor: Color(0xFF2D0B62).withOpacity(0.8),
+                backgroundColor: Color(0xFF7a2afa),
                 label: Icon(MdiIcons.arrowRight,color: Colors.white,size: 30,),
+
                 icon: Text(
-                  context.loc.next,
+                  "NEXT",
                   style: appTheme.normalText(20),
                 ),
               ),

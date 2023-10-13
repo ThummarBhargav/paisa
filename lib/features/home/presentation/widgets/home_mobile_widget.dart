@@ -119,7 +119,7 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
                             Padding(
                               padding: const EdgeInsets.only(left: 10),
                               child: Text(
-                                'enter name & location ',
+                                'Enter Name & Location ',
                                 style:
                                     appTheme.normalText(12, Color(0xFF8A8686)),
                               ),

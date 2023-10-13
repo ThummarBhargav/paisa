@@ -36,10 +36,13 @@ class PaisaUserImageWidget extends StatelessWidget {
           child: Builder(
             builder: (context) {
               if (image.isEmpty) {
-                return CircleAvatar(
-                  backgroundColor: context.primary,
-                  maxRadius: maxRadius,
-                  child:  Image.asset("assets/images/userIcon.png",color: Colors.white,)
+                return Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: CircleAvatar(
+                    backgroundColor: context.primary,
+                    maxRadius: maxRadius,
+                    child:  Image.asset("assets/images/userIcon.png",color: Colors.white,)
+                  ),
                 );
               } else {
                 if (useDefault) {

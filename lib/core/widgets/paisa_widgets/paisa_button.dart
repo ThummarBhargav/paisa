@@ -27,7 +27,7 @@ class PaisaBigButton extends StatelessWidget {
       onTap: onPressed,
 
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Container(
           width:width?? double.infinity,
           height:height?? MySize.getHeight(58),
@@ -39,7 +39,7 @@ class PaisaBigButton extends StatelessWidget {
               colors: [Color(0xFF8539FF), Color(0xFF8539FF),Color(0xFF6A14F3)],
             ),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(20),
             ),
           ),
           child: Center(
@@ -47,7 +47,7 @@ class PaisaBigButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  title,
+                  title.toUpperCase(),
                   style:appTheme.normalText(20,Colors.white,FontWeight.w600)
                 ),
                 if (isIcon??false) Icon(Icons.arrow_right_alt_rounded) else SizedBox(),
