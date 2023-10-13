@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:paisa/core/common.dart';
+import 'package:paisa/core/constants/color_constant.dart';
 import 'package:paisa/core/constants/sizeConstant.dart';
 import 'package:paisa/core/theme/custom_color.dart';
 import 'package:paisa/features/account/presentation/widgets/summary_month_card_widget.dart';
@@ -33,14 +34,7 @@ class AccountSummaryWidget extends StatelessWidget {
             visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
             title: Text(
               'This month',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: MySize.getHeight(20),
-                fontFamily: 'Maven Pro',
-                fontWeight: FontWeight.w500,
-                height: 0,
-                letterSpacing: -0.20,
-              ),
+              style: appTheme.normalText(20),
             
             ),
           ),

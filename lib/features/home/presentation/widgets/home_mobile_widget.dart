@@ -246,7 +246,7 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
             children: [
               Image.asset("assets/images/paisa.png",height: 80,width: 80,),
               Spacing.width(7),
-             Text("Paisa",style:  appTheme.normalText(20,Colors.black,FontWeight.w600),)
+             Text("Money Tracker",style:  appTheme.normalText(20,Colors.black,FontWeight.w600),)
             ],
           ),
           nevItem(

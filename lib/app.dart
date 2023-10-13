@@ -129,7 +129,7 @@ class _PaisaAppState extends State<PaisaApp> {
                           AppLocalizations.localizationsDelegates,
                       supportedLocales: AppLocalizations.supportedLocales,
                       onGenerateTitle: (BuildContext context) =>
-                          context.loc.appTitle,
+                          "Money Tracker",
                       theme: ThemeData.from(
                         colorScheme: lightColorScheme,
                       ).copyWith(

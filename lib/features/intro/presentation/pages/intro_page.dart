@@ -50,7 +50,7 @@ class IntroBigScreenWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          context.loc.appTitle,
+                        "Money Tracker",
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium
@@ -184,7 +184,7 @@ class IntoMobileWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    context.loc.appTitle,
+                   "Money Tracker",
                     style: context.displayMedium?.copyWith(
                       color: context.primary,
                     ),

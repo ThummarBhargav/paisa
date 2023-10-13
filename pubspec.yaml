@@ -72,7 +72,7 @@ dependency_overrides:
   material_color_utilities: ^0.8.0
 
 flutter_app_name:
-  name: "Paisa"
+  name: "Money Tracker"
 
 flutter_native_splash:
   color: "#ffffff"

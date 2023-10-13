@@ -48,7 +48,7 @@ class IntroBigScreenWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          context.loc.appTitle,
+                         "Money Tracker",
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium
@@ -187,7 +187,7 @@ class IntoMobileWidget extends StatelessWidget {
 
                       Image.asset("assets/images/paisa.png",height: 100,width: 100),
                       Text(
-                        context.loc.appTitle,
+                        "Money \n  Tracker",
                         style:appTheme.normalText(44,Color(0xFF6D18F4)),
 
                       ),

@@ -41,13 +41,17 @@ class IntroSetNameWidget extends StatelessWidget {
                   text: TextSpan(
                     style: appTheme.shadowText(24,FontWeight.w500,Colors.black),
                     text: context.loc.welcome,
-                    children: [
-                      TextSpan(
-                        text: ' ${context.loc.appTitle}',
-                        style: appTheme.shadowText(24,FontWeight.w600,context.primary),
-                      )
-                    ],
                   ),
+                ),
+
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Money Tracker',
+                  style: appTheme.shadowText(24,FontWeight.w600,context.primary),
                 ),
               ],
             ),

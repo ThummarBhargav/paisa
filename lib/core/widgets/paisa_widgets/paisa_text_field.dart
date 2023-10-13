@@ -33,47 +33,30 @@ class PaisaTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: ShapeDecoration(
-        color: Colors.white,
-        shape: RoundedRectangleBorder(
-          side: BorderSide(width: 1, color: Color(0xFF6A14F3)),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        shadows: [
-          BoxShadow(
-            color: Color(0x19000000),
-            blurRadius: 20,
-            offset: Offset(0, 8),
-            spreadRadius: 0,
-          )
-        ],
-      ),
-      child: TextFormField(
-        maxLength: maxLength,
-        maxLines: maxLines,
-        enabled: enabled,
-        controller: controller,
-        keyboardType: keyboardType,
-        textCapitalization: textCapitalization,
+    return TextFormField(
+      maxLength: maxLength,
+      maxLines: maxLines,
+      enabled: enabled,
+      controller: controller,
+      keyboardType: keyboardType,
+      textCapitalization: textCapitalization,
 
-        decoration: InputDecoration(
-          fillColor: Colors.transparent,
-          counterText: "",
-          hintText: hintText,
-          label: label != null ? Text(label!) : null,
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(
-              color: Color(0xFF6A14F3),
-              width: 1.0,
-            ),
+      decoration: InputDecoration(
+        fillColor: Colors.transparent,
+        counterText: "",
+        hintText: hintText,
+        label: label != null ? Text(label!) : null,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(
+            color: Color(0xFF6A14F3),
+            width: 1.0,
           ),
         ),
-        validator: validator,
-        onChanged: onChanged,
-        inputFormatters: inputFormatters,
       ),
+      validator: validator,
+      onChanged: onChanged,
+      inputFormatters: inputFormatters,
     );
   }
 }

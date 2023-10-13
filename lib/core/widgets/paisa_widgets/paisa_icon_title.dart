@@ -22,7 +22,7 @@ class PaisaIconTitle extends StatelessWidget {
             ),
           ),
           Text(
-            context.loc.appTitle,
+           "Money Tracker",
             style: context.titleLarge?.copyWith(
               color: context.onBackground,
               fontWeight: FontWeight.w600,
