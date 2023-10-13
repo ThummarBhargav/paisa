@@ -3,9 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:paisa/core/common.dart';
+import 'package:paisa/core/constants/color_constant.dart';
 import 'package:paisa/features/intro/presentation/widgets/intro_image_picker_widget.dart';
 import 'package:paisa/features/intro/presentation/widgets/intro_set_name_widget.dart';
 import 'package:provider/provider.dart';
+
+import '../../core/widgets/paisa_widgets/paisa_button.dart';
 
 class UserOnboardingPage extends StatefulWidget {
   const UserOnboardingPage({
@@ -42,17 +45,16 @@ class _UserOnboardingPageState extends State<UserOnboardingPage> {
                   },
                   heroTag: "Back",
                   extendedPadding: const EdgeInsets.symmetric(horizontal: 24),
+                  backgroundColor: Color(0xFF2D0B62).withOpacity(0.8),
                   label: Text(
                     'Back',
-                    style: context.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1,
-                    ),
+              style: appTheme.normalText(20),
                   ),
-                  icon: Icon(MdiIcons.arrowLeft),
+                  icon: Icon(MdiIcons.arrowLeft,color: Colors.white,size: 30,),
                 ),
               ),
               const Spacer(),
+
               FloatingActionButton.extended(
                 onPressed: () {
                   if (currentIndex == 0) {
@@ -81,13 +83,11 @@ class _UserOnboardingPageState extends State<UserOnboardingPage> {
                 },
                 heroTag: "Next",
                 extendedPadding: const EdgeInsets.symmetric(horizontal: 24),
-                label: Icon(MdiIcons.arrowRight),
+                backgroundColor: Color(0xFF2D0B62).withOpacity(0.8),
+                label: Icon(MdiIcons.arrowRight,color: Colors.white,size: 30,),
                 icon: Text(
                   context.loc.next,
-                  style: context.bodyLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1,
-                  ),
+                  style: appTheme.normalText(20),
                 ),
               ),
             ],

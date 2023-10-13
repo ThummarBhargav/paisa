@@ -46,7 +46,7 @@ class TransactionDeleteWidget extends StatelessWidget {
           onPressed: () => onPressed(context),
           icon: Icon(
             Icons.delete_rounded,
-            color: context.error,
+            color: Colors.white,
           ),
         ),
         tablet: (p0) => PaisaTextButton(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:paisa/core/common.dart';
+import 'package:paisa/core/constants/color_constant.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
 
 class IntroSetNameWidget extends StatelessWidget {
@@ -23,43 +24,42 @@ class IntroSetNameWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 16),
-            ColorFiltered(
-              colorFilter: ColorFilter.mode(
-                context.primary,
-                BlendMode.srcIn,
-              ),
-              child: const Icon(
-                Icons.wallet,
-                size: 72,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+
+                Image.asset("assets/images/paisa.png",height: 100,width: 100),
+
+              ],
             ),
+
             const SizedBox(height: 16),
-            RichText(
-              text: TextSpan(
-                style: context.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: context.onSurface,
-                  letterSpacing: 0.8,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    style: appTheme.shadowText(24,FontWeight.w500,Colors.black),
+                    text: context.loc.welcome,
+                    children: [
+                      TextSpan(
+                        text: ' ${context.loc.appTitle}',
+                        style: appTheme.shadowText(24,FontWeight.w600,context.primary),
+                      )
+                    ],
+                  ),
                 ),
-                text: context.loc.welcome,
-                children: [
-                  TextSpan(
-                    text: ' ${context.loc.appTitle}',
-                    style: TextStyle(
-                      color: context.primary,
-                    ),
-                  )
-                ],
-              ),
+              ],
             ),
             const SizedBox(height: 6),
-            Text(
-              context.loc.welcomeDesc,
-              style: context.titleMedium?.copyWith(
-                color:
-                    Theme.of(context).colorScheme.onSurface.withOpacity(0.75),
-                letterSpacing: 0.6,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  context.loc.welcomeDesc,
+                  style: appTheme.normalText(15,Color(0xFF666666),),
+                ),
+              ],
             ),
             const SizedBox(height: 16),
             Form(
@@ -70,6 +70,7 @@ class IntroSetNameWidget extends StatelessWidget {
                 hintText: context.loc.enterNameHint,
                 label: context.loc.nameHint,
                 keyboardType: TextInputType.name,
+
                 validator: (val) {
                   if (val!.isNotEmpty) {
                     return null;

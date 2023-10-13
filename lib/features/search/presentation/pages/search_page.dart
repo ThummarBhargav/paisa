@@ -31,10 +31,11 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
+
         title: Padding(
           padding: const EdgeInsets.only(right: 8.0),
           child: Container(
-            width: MySize.getHeight(290),
+            width: MySize.screenWidth,
             height: MySize.getHeight(40),
             decoration: ShapeDecoration(
               color: Colors.white,

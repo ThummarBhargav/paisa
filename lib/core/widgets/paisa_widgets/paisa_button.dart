@@ -11,14 +11,14 @@ class PaisaBigButton extends StatelessWidget {
     required this.title,
     this.height,
     this.width,
-    this.iconBT,
+    this.isIcon,
   });
 
   final VoidCallback onPressed;
   final String title;
   final double? height;
   final double? width;
-  final IconData? iconBT;
+  final bool ? isIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +44,13 @@ class PaisaBigButton extends StatelessWidget {
           ),
           child: Center(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   title,
                   style:appTheme.normalText(20,Colors.white,FontWeight.w600)
                 ),
-                Icon(iconBT??Icons.ac_unit_outlined),
+                if (isIcon??false) Icon(Icons.arrow_right_alt_rounded) else SizedBox(),
 
               ],
             ),

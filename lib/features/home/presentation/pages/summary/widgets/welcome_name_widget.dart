@@ -25,19 +25,11 @@ class WelcomeNameWidget extends StatelessWidget {
           title: Text(
             // ignore: prefer_interpolation_to_compose_strings
             "Hi, "+name,
-            style: context.titleMedium?.copyWith(
-              fontWeight: FontWeight.w500,
-              fontSize: 18,
-              color: appTheme.userTitleColor,
-            ),
+            style: appTheme.normalText(18,Colors.black,FontWeight.w500),
           ),
           subtitle: Text(
             context.loc.welcomeMessage,
-            style: context.titleMedium?.copyWith(
-              fontWeight: FontWeight.w600,
-              fontSize: 23,
-              color: appTheme.secondColor,
-            ),
+            style: appTheme.normalText(23,appTheme.secondColor,FontWeight.w600),
           ),
         );
       },

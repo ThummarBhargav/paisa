@@ -7,6 +7,9 @@ import 'package:paisa/features/settings/data/authenticate.dart';
 import 'package:paisa/features/settings/domain/use_case/setting_use_case.dart';
 import 'package:paisa/main.dart';
 
+import '../../../../core/constants/color_constant.dart';
+import '../../../../core/constants/togSwitch.dart';
+
 class BiometricAuthWidget extends StatefulWidget {
   const BiometricAuthWidget({
     super.key,
@@ -40,6 +43,20 @@ class _BiometricAuthWidgetState extends State<BiometricAuthWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final MaterialStateProperty<Color?> overlayColor =
+    MaterialStateProperty.resolveWith<Color?>(
+          (Set<MaterialState> states) {
+
+        if (states.contains(MaterialState.selected)) {
+          return Color(0xFF6B15F3);
+        }
+        if (states.contains(MaterialState.disabled)) {
+          return Colors.grey.shade400;
+        }
+
+        return null;
+      },
+    );
     return FutureResolve<List<bool>>(
       future: Future.wait([
         widget.authenticate.isDeviceSupported(),
@@ -50,24 +67,51 @@ class _BiometricAuthWidgetState extends State<BiometricAuthWidget> {
           visible: supported.every((element) => element),
           child: Column(
             children: [
-              SwitchListTile(
-                secondary: Icon(MdiIcons.fingerprint),
-                title: Text(context.loc.localApp),
-                subtitle: Text(context.loc.lockAppDescription),
-                onChanged: (bool value) async {
-                  bool isAuthenticated = false;
-                  if (value) {
-                    isAuthenticated =
-                        await widget.authenticate.authenticateWithBiometrics();
-                  }
-                  setState(() {
-                    isSelected = value && isAuthenticated;
-                  });
-                  _showSnackBar(isSelected);
+              appTheme.SettingItem(
+                context.loc.localApp,
+                "when enabled, you’ll\nneed to use fingerprint\nto open paisa",
+                FingIcon,
+                TogSwitch(
+                  switchButton: Switch(
+                    value: isSelected,
+                    overlayColor: overlayColor,
+                    trackColor: overlayColor,
+                    trackOutlineColor:MaterialStatePropertyAll<Color>(Colors.transparent) ,
+                    thumbColor:isSelected? const MaterialStatePropertyAll<Color>(Colors.white):MaterialStatePropertyAll<Color>(Colors.black),
+                    onChanged: (bool value) async {
+                      bool isAuthenticated = false;
+                      if (value) {
+                        isAuthenticated =
+                            await widget.authenticate.authenticateWithBiometrics();
+                      }
+                      setState(() {
+                        isSelected = value && isAuthenticated;
+                      });
+                      _showSnackBar(isSelected);
+                    },
+                  ),),
+                    () {
+
                 },
-                value: isSelected,
               ),
-              const Divider(),
+              // SwitchListTile(
+              //   secondary: Icon(MdiIcons.fingerprint),
+              //   title: Text(context.loc.localApp),
+              //   subtitle: Text(context.loc.lockAppDescription),
+              //   onChanged: (bool value) async {
+              //     bool isAuthenticated = false;
+              //     if (value) {
+              //       isAuthenticated =
+              //           await widget.authenticate.authenticateWithBiometrics();
+              //     }
+              //     setState(() {
+              //       isSelected = value && isAuthenticated;
+              //     });
+              //     _showSnackBar(isSelected);
+              //   },
+              //   value: isSelected,
+              // ),
+              // const Divider(),
             ],
           ),
         );

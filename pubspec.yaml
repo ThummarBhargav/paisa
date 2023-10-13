@@ -64,6 +64,7 @@ dev_dependencies:
   injectable_generator: ^2.1.4
   msix: ^3.7.0
   flutter_sizer: ^1.0.5
+  auto_size_text: ^3.0.0
 
 
 dependency_overrides:
@@ -88,7 +89,7 @@ flutter_native_splash:
 flutter_icons:
   ios: true
   android: false
-  image_path: "assets/images/paisa.png"
+  image_path: "assets/images/appicon.png"
   image_path_ios: "assets/images/ios_app_icon.png"
   remove_alpha_ios: true
 
@@ -96,7 +97,7 @@ flutter:
   generate: true
   uses-material-design: true
   assets:
-    - assets/images/paisa.png
+    - assets/images/appicon.png
     - assets/images/
 
 msix_config:
@@ -105,7 +106,7 @@ msix_config:
   publisher: CN=22326927-E77C-435F-B91A-B9831883516E
   identity_name: 42423RetroMusic.Paisa-ExpenseTracker
   msix_version: "4.8.0.0"
-  logo_path: C:\Users\Hemanth S\Documents\GitHub\flutter_expense\assets\images\icon.png
+  logo_path: C:\Users\Hemanth S\Documents\GitHub\flutter_expense\assets\images\appicon.png
   capabilities: internetClient
   certificate_path: C:\Users\Hemanth S\Documents\paisa_certificate.pfx
   certificate_password: +h4Hem@nth$13+

@@ -129,13 +129,12 @@ class _CountryPickerPageState extends State<CountryPickerPage> {
               countryCubit.saveCountry();
             },
             extendedPadding: const EdgeInsets.symmetric(horizontal: 24),
-            label: Icon(MdiIcons.arrowRight),
+            label: Icon(MdiIcons.arrowRight,color: Colors.white,size: 30,),
+            backgroundColor: Color(0xFF2D0B62).withOpacity(0.8),
             icon: Text(
               context.loc.next,
-              style: context.bodyLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1,
-              ),
+              style: appTheme.normalText(20),
+
             ),
           ),
         ),

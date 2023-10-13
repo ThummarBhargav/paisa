@@ -7,6 +7,8 @@ import 'package:paisa/core/widgets/paisa_widget.dart';
 import 'package:paisa/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:paisa/main.dart';
 
+import '../../../../core/constants/color_constant.dart';
+
 class IntroImagePickerWidget extends StatelessWidget {
   const IntroImagePickerWidget({
     Key? key,
@@ -30,34 +32,39 @@ class IntroImagePickerWidget extends StatelessWidget {
           widthFactor: 0.8,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 16),
-              ColorFiltered(
-                colorFilter: ColorFilter.mode(
-                  context.primary,
-                  BlendMode.srcIn,
-                ),
-                child: const Icon(
-                  Icons.person_add_rounded,
-                  size: 72,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+
+                  Image.asset("assets/images/iconAdd.png",height: 100,width: 100,),
+                  Column(children: [
+
+                  ],)
+
+                ],
               ),
               const SizedBox(height: 16),
-              Text(
-                context.loc.image,
-                style: context.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: context.onSurface,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        context.loc.image,
+                        style: appTheme.shadowText(24,FontWeight.w500,Colors.black),
+                      ),
+                      Text(
+                        context.loc.imageDesc,
+                        style: appTheme.normalText(15,Color(0xFF666666),),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              Text(
-                context.loc.imageDesc,
-                style: context.titleMedium?.copyWith(
-                  color:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.75),
-                ),
-              ),
+
               const SizedBox(height: 16),
               Center(
                 child: PaisaUserImageWidget(

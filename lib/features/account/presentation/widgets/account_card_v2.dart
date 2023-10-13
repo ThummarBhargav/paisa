@@ -7,7 +7,7 @@ import 'package:paisa/core/enum/card_type.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
 import 'package:paisa/features/account/domain/entities/account.dart';
 import 'package:paisa/features/transaction/domain/entities/transaction.dart';
-
+import 'package:auto_size_text/auto_size_text.dart';
 class AccountCardV2 extends StatelessWidget {
   const AccountCardV2({
     super.key,
@@ -70,10 +70,15 @@ class AccountCardV2 extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(
+                  child:
+                  AutoSizeText(
                     totalBalance,
-                    style:appTheme.shadowText(38)
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: true,
+                      style:appTheme.shadowText(38)
                   )
+
                 ),
                 const Spacer(),
                 Padding(
@@ -162,10 +167,14 @@ class ThisMonthTransactionWidget extends StatelessWidget {
                   ),
                 ),
                  SizedBox(height: 6),
-                Text(
-                  content,
-                 style:appTheme.shadowText(20),
+                AutoSizeText(
+                    content,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: true,
+                  style:appTheme.shadowText(20),
                 )
+
               ],
             ),
           ),

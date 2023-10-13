@@ -39,10 +39,7 @@ class PaisaUserImageWidget extends StatelessWidget {
                 return CircleAvatar(
                   backgroundColor: context.primary,
                   maxRadius: maxRadius,
-                  child: Icon(
-                    Icons.account_circle_outlined,
-                    color: context.onPrimary,
-                  ),
+                  child:  Image.asset("assets/images/userIcon.png",color: Colors.white,)
                 );
               } else {
                 if (useDefault) {

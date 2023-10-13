@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:paisa/core/constants/color_constant.dart';
 import 'package:paisa/core/constants/sizeConstant.dart';
-
+import 'package:auto_size_text/auto_size_text.dart';
 class SummaryCardWidget1 extends StatelessWidget {
   const SummaryCardWidget1(
       {super.key,
@@ -79,13 +79,14 @@ class SummaryCardWidget1 extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Text(
+                  AutoSizeText(
                     '${total}',
-                    maxLines: 2,
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     softWrap: true,
                     style: appTheme.shadowNormalText(24, FontWeight.w600),
                   )
+
                 ],
               ),
             ),
@@ -170,13 +171,14 @@ class SummaryWidget2 extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Text(
+                  AutoSizeText(
                     '${total}',
-                    maxLines: 2,
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     softWrap: true,
                     style: appTheme.shadowNormalText(24, FontWeight.w600),
                   )
+
                 ],
               ),
             ),

@@ -14,7 +14,7 @@ import 'package:paisa/features/debit/domain/entities/debit_transaction.dart';
 import 'package:paisa/features/debit/presentation/cubit/debts_bloc.dart';
 import 'package:paisa/main.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
-
+import 'package:auto_size_text/auto_size_text.dart';
 class DebtItemWidget extends StatelessWidget {
   const DebtItemWidget({
     super.key,
@@ -180,10 +180,14 @@ class DebtItemWidget extends StatelessWidget {
                     ),
                   ),
                   Spacing.height(30),
-                  Text(
+                  AutoSizeText(
                     (debt.amount - amount).toFormateCurrency(context),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: true,
                     style: appTheme.shadowText(38),
-                  ),
+                  )
+                 ,
                   Spacing.height(15),
                   Row(
                     children: [

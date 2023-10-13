@@ -130,6 +130,7 @@ const BackupIcon = 'assets/images/Backup.png';
 const RateIcon = 'assets/images/rate.png';
 const PrivIcon = 'assets/images/priv.png';
 const VerIcon = 'assets/images/ver.png';
+const FingIcon = 'assets/images/fing.png';
 
 const List<String> iconListSelected=[
   "assets/images/homeS.png",

@@ -142,7 +142,7 @@ class BaseTheme {
     return GoogleFonts.mavenPro(
       textStyle: TextStyle(
           color: color ?? Colors.white,
-          letterSpacing: .5,
+         
           shadows: [
             Shadow(
               offset: Offset(1.0, 4.0),
@@ -159,7 +159,7 @@ class BaseTheme {
     return GoogleFonts.mavenPro(
       textStyle: TextStyle(
           color: Colors.white,
-          letterSpacing: .5,
+
           shadows: [
             Shadow(
               offset: Offset(0.0, 1.5),
@@ -178,7 +178,6 @@ class BaseTheme {
       textStyle: TextStyle(
 
           color: color,
-          letterSpacing: .5,
           fontSize: fontSize.dp,
           fontWeight: fontWeight ?? FontWeight.w500),
     );

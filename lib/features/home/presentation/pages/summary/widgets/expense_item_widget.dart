@@ -1,5 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/common_enum.dart';
@@ -7,6 +9,8 @@ import 'package:paisa/core/constants/sizeConstant.dart';
 import 'package:paisa/features/account/domain/entities/account.dart';
 import 'package:paisa/features/category/domain/entities/category.dart';
 import 'package:paisa/features/transaction/domain/entities/transaction.dart';
+
+import '../../../../../../core/constants/color_constant.dart';
 
 class ExpenseItemWidget extends StatelessWidget {
   const ExpenseItemWidget({
@@ -35,12 +39,11 @@ class ExpenseItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     MySize().init(context);
     return InkWell(
-      onTap: (){
+      onTap: () {
         context.goNamed(
           editTransactionsName,
           pathParameters: <String, String>{'eid': expense.superId.toString()},
         );
-
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -70,81 +73,73 @@ class ExpenseItemWidget extends StatelessWidget {
                   width: MySize.getWidth(48.14),
                   height: MySize.getWidth(48),
                   decoration: ShapeDecoration(
-                    color: Color(category.color ?? context.surface.value).withOpacity(0.4),
+                    color: Color(category.color ?? context.surface.value)
+                        .withOpacity(0.4),
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
                         width: 3,
                         strokeAlign: BorderSide.strokeAlignOutside,
-                        color: Color(category.color ?? context.surface.value).withOpacity(0.2),
+                        color: Color(category.color ?? context.surface.value)
+                            .withOpacity(0.2),
                       ),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                      child: Icon(
-                        IconData(
-                          category.icon ?? 0,
-                          fontFamily: fontFamilyName,
-                          fontPackage: fontFamilyPackageName,
-                        ),
-                        color: Color(category.color ?? context.surface.value),
-                      ),
+                  child: Icon(
+                    IconData(
+                      category.icon ?? 0,
+                      fontFamily: fontFamilyName,
+                      fontPackage: fontFamilyPackageName,
                     ),
-                ),
-
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                    Row(
-                      children: [
-                        Text(
-                  expense.name ?? '',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontFamily: 'Maven Pro',
-                            fontWeight: FontWeight.w500,
-
-                            letterSpacing: -0.41,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10,),
-                    Row(
-                      children: [
-                        Text(
-                        getSubtitle(context),
-                          style: TextStyle(
-                            color: Color(0xFF8A959E),
-                            fontSize: 13,
-                            fontFamily: 'Maven Pro',
-                            fontWeight: FontWeight.w500,
-                            letterSpacing: -0.31,
-                          ),
-                        ),
-                      ],
-                    ),
-
-                  ],),
-                ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Text(
-                  expense.currency!.toFormateCurrency(context),
-                  style: TextStyle(
-                    color: Color(0xFF07B103),
-                    fontSize: 17,
-                    fontFamily: 'Maven Pro',
-                    fontWeight: FontWeight.w500,
-                    height: 0.10,
-                    letterSpacing: -0.31,
+                    color: Color(category.color ?? context.surface.value),
                   ),
                 ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child:  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AutoSizeText(
+                        expense.name ?? '',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: true,
+                        style: GoogleFonts.mavenPro(
+                          textStyle: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                  Text(
+                              getSubtitle(context),
+                              style: TextStyle(
+                                color: Color(0xFF8A959E),
+                                fontSize: 13,
+                                fontFamily: 'Maven Pro',
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: -0.31,
+                              ),
+                            ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: AutoSizeText(
+                      expense.currency!.toFormateCurrency(context),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: true,
+                      style: appTheme.normalText(17, Color(0xFF07B103)),
+                    )),
               ),
             ],
           ),

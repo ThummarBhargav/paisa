@@ -73,25 +73,25 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                          onTap: () {
-                            _scaffoldStateKey.currentState?.openDrawer();
-                          },
-                          child: Image.asset(
-                            "assets/images/menu.png",
-                            height: 40,
-                            width: 40,
-                            color: Colors.white,
-                          )),
-                      PaisaTitle(),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: PaisaUserWidget(),
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                            onTap: () {
+                              _scaffoldStateKey.currentState?.openDrawer();
+                            },
+                            child: Image.asset(
+                              "assets/images/menu.png",
+                              height: 40,
+                              width: 40,
+                              color: Colors.white,
+                            )),
+                        PaisaTitle(),
+                        PaisaUserWidget(),
+                      ],
+                    ),
                   ),
                   Spacing.height(10),
                   Row(
@@ -237,7 +237,7 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          Spacing.height(25),
+          Spacing.height(50),
           Row(
             children: [
               Image.asset("assets/images/paisa.png"),
