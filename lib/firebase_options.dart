@@ -26,10 +26,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -58,5 +55,14 @@ class DefaultFirebaseOptions {
     messagingSenderId: '954974451632',
     projectId: 'paisaapp-8ed1e',
     storageBucket: 'paisaapp-8ed1e.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyAA5d26Y3MqGiSjxJQym06aSaEzTad4zNE',
+    appId: '1:954974451632:ios:b2982a7eafa94a8edd8875',
+    messagingSenderId: '954974451632',
+    projectId: 'paisaapp-8ed1e',
+    storageBucket: 'paisaapp-8ed1e.appspot.com',
+    iosBundleId: 'com.mobileappxperts.incomeexpense.moneytracker',
   );
 }
