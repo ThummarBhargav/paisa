@@ -91,7 +91,7 @@ class _AddOrEditDebitPageState extends State<AddOrEditDebitPage> {
             return WillPopScope(
               onWillPop: () async {
                 if (getDifferenceTime()) {
-                  initInterstitialAds();
+                  showInterstitialAd();
                 }
                 return true;
               },

@@ -46,33 +46,11 @@ class _AccountSelectorPageState extends State<AccountSelectorPage> {
           actions: [
             InkWell(
                 onTap: saveAndNavigate,
-                child: Container(
-                  height: MySize.getHeight(30),
-                  width: MySize.getWidth(70),
-                  decoration: ShapeDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [Color(0xFF9F63FF), Color(0xFF8F4DFA)],
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    shadows: [
-                      BoxShadow(
-                        color: Color(0x33000000),
-                        blurRadius: 8,
-                        offset: Offset(2, 2),
-                        spreadRadius: 0,
-                      )
-                    ],
-                  ),
-                  child: Center(
-                      child: Text(
-                        "Done",
-                        style: appTheme.normalText(17),
-                      )),
-                )),
+                child: Center(
+                    child: Text(
+                      "Next",
+                      style: appTheme.normalText(20),
+                    ))),
 
             const SizedBox(width: 16)
           ],
@@ -83,55 +61,77 @@ class _AccountSelectorPageState extends State<AccountSelectorPage> {
             final List<AccountModel> categoryModels = value.values.toList();
             return ListView(
               children: [
-                ListTile(
-                  title: Text(
-                    context.loc.addedAccounts,
-                    style: context.titleMedium,
-                  ),
-                ),
-                ScreenTypeLayout.builder(
-                  mobile: (p0) => ListView.separated(
-                    separatorBuilder: (context, index) => const SizedBox(),
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: categoryModels.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      final AccountModel model = categoryModels[index];
-                      return AccountItemWidget(
-                        model: model,
-                        onPress: () async {
-                          await model.delete();
-                          defaultModels.add(model);
-                        },
-                      );
-                    },
-                  ),
-                  tablet: (p0) => GridView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 200,
-                      childAspectRatio: 2,
+                Visibility(
+                  visible: categoryModels.length>0,
+                  child: ListTile(
+                    title: Text(
+                      context.loc.addedAccounts,
+                      style: context.titleMedium,
                     ),
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: categoryModels.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      final AccountModel model = categoryModels[index];
-                      return AccountItemWidget(
-                        model: model,
-                        onPress: () async {
-                          await model.delete();
-                          defaultModels.add(model);
-                        },
-                      );
-                    },
                   ),
                 ),
-                ListTile(
-                  title: Text(
-                    context.loc.defaultAccounts,
-                    style: context.titleMedium,
+                // ScreenTypeLayout.builder(
+                //   mobile: (p0) => ListView.separated(
+                //     separatorBuilder: (context, index) => const SizedBox(),
+                //     physics: const NeverScrollableScrollPhysics(),
+                //     itemCount: categoryModels.length,
+                //     shrinkWrap: true,
+                //     itemBuilder: (context, index) {
+                //       final AccountModel model = categoryModels[index];
+                //       return AccountItemWidget(
+                //         model: model,
+                //         onPress: () async {
+                //           await model.delete();
+                //           defaultModels.add(model);
+                //         },
+                //       );
+                //     },
+                //   ),
+                //   tablet: (p0) => GridView.builder(
+                //     padding: const EdgeInsets.symmetric(horizontal: 8),
+                //     gridDelegate:
+                //         const SliverGridDelegateWithMaxCrossAxisExtent(
+                //       maxCrossAxisExtent: 200,
+                //       childAspectRatio: 2,
+                //     ),
+                //     physics: const NeverScrollableScrollPhysics(),
+                //     itemCount: categoryModels.length,
+                //     shrinkWrap: true,
+                //     itemBuilder: (context, index) {
+                //       final AccountModel model = categoryModels[index];
+                //       return AccountItemWidget(
+                //         model: model,
+                //         onPress: () async {
+                //           await model.delete();
+                //           defaultModels.add(model);
+                //         },
+                //       );
+                //     },
+                //   ),
+                // ),
+                ListView.separated(
+                  separatorBuilder: (context, index) => const SizedBox(),
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: categoryModels.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    final AccountModel model = categoryModels[index];
+                    return AccountItemWidget(
+                      model: model,
+                      onPress: () async {
+                        await model.delete();
+                        defaultModels.add(model);
+                      },
+                    );
+                  },
+                ),
+                Visibility(
+                  visible: defaultModels.isNotEmpty,
+                  child: ListTile(
+                    title: Text(
+                      context.loc.defaultAccounts,
+                      style: context.titleMedium,
+                    ),
                   ),
                 ),
                 Padding(

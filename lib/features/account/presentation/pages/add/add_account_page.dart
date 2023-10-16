@@ -155,7 +155,7 @@ class AddAccountPageState extends State<AddAccountPage> {
               mobile: (p0) => WillPopScope(
                 onWillPop: () async {
                   if (getDifferenceTime()) {
-                    initInterstitialAds();
+                    showInterstitialAd();
                   }
                   return true;
                 },

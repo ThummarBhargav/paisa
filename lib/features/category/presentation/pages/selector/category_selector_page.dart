@@ -61,87 +61,88 @@ class _CategorySelectorPageState extends State<CategorySelectorPage> {
               actions: [
                 InkWell(
                     onTap: saveAndNavigate,
-                    child: Container(
-                      height: MySize.getHeight(30),
-                      width: MySize.getWidth(70),
-                      decoration: ShapeDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Color(0xFF9F63FF), Color(0xFF8F4DFA)],
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        shadows: [
-                          BoxShadow(
-                            color: Color(0x33000000),
-                            blurRadius: 8,
-                            offset: Offset(2, 2),
-                            spreadRadius: 0,
-                          )
-                        ],
-                      ),
-                      child: Center(
-                          child: Text(
-                        "Done",
-                        style: appTheme.normalText(17),
-                      )),
-                    )),
+                    child: Center(
+                        child: Text(
+                      "Next",
+                      style: appTheme.normalText(20),
+                    ))),
                 const SizedBox(width: 16)
               ],
             ),
             body: ListView(
               children: [
-                ListTile(
-                  title: Text(
-                    context.loc.addedCategories,
-                    style: appTheme.normalText(17,Colors.black),
-                  ),
-                ),
-                ScreenTypeLayout.builder(
-                  mobile: (p0) => ListView.separated(
-                    separatorBuilder: (context, index) => const SizedBox(),
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: categoryModels.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      final CategoryModel model = categoryModels[index];
-                      return CategoryItemWidget(
-                        model: model,
-                        onPress: () async {
-                          await model.delete();
-                          defaultModels.add(model);
-                        },
-                      );
-                    },
-                  ),
-                  tablet: (p0) => GridView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 200,
-                      childAspectRatio: 2,
+                Visibility(
+                  visible: categoryModels.length>0,
+                  child: ListTile(
+                    title: Text(
+                      context.loc.addedCategories,
+                      style: appTheme.normalText(17,Colors.black),
                     ),
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: categoryModels.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      final CategoryModel model = categoryModels[index];
-                      return CategoryItemWidget(
-                        model: model,
-                        onPress: () async {
-                          await model.delete();
-                          defaultModels.add(model);
-                        },
-                      );
-                    },
                   ),
                 ),
-                ListTile(
-                  title: Text(
-                    context.loc.defaultCategories,
-                    style: appTheme.normalText(17,Colors.black),
+                // ScreenTypeLayout.builder(
+                //   mobile: (p0) => ListView.separated(
+                //     separatorBuilder: (context, index) => const SizedBox(),
+                //     physics: const NeverScrollableScrollPhysics(),
+                //     itemCount: categoryModels.length,
+                //     shrinkWrap: true,
+                //     itemBuilder: (context, index) {
+                //       final CategoryModel model = categoryModels[index];
+                //       return CategoryItemWidget(
+                //         model: model,
+                //         onPress: () async {
+                //           await model.delete();
+                //           defaultModels.add(model);
+                //         },
+                //       );
+                //     },
+                //   ),
+                //   tablet: (p0) => GridView.builder(
+                //     padding: const EdgeInsets.symmetric(horizontal: 8),
+                //     gridDelegate:
+                //         const SliverGridDelegateWithMaxCrossAxisExtent(
+                //       maxCrossAxisExtent: 200,
+                //       childAspectRatio: 2,
+                //     ),
+                //     physics: const NeverScrollableScrollPhysics(),
+                //     itemCount: categoryModels.length,
+                //     shrinkWrap: true,
+                //     itemBuilder: (context, index) {
+                //       final CategoryModel model = categoryModels[index];
+                //       return CategoryItemWidget(
+                //         model: model,
+                //         onPress: () async {
+                //           await model.delete();
+                //           defaultModels.add(model);
+                //         },
+                //       );
+                //     },
+                //   ),
+                // ),
+                ListView.separated(
+                  separatorBuilder: (context, index) => const SizedBox(),
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: categoryModels.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    final CategoryModel model = categoryModels[index];
+                    return CategoryItemWidget(
+                      model: model,
+                      onPress: () async {
+                        await model.delete();
+                        defaultModels.add(model);
+                      },
+                    );
+                  },
+                ),
+
+                Visibility(
+                  visible: defaultModels.isNotEmpty,
+                  child: ListTile(
+                    title: Text(
+                      context.loc.defaultCategories,
+                      style: appTheme.normalText(17,Colors.black),
+                    ),
                   ),
                 ),
                 Padding(

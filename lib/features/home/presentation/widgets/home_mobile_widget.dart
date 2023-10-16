@@ -61,6 +61,9 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
       if (getIt<FirebaseAdsCheck>().isBannerAds.value) {
         await initBannerAds();
       }
+      if (getIt<FirebaseAdsCheck>().isInterstitialAds.value) {
+        await loadInterstitialAd();
+      }
 
       await Future.delayed(Duration(seconds: 5));
       setState(() {});

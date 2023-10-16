@@ -99,7 +99,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
             mobile: (p0) => WillPopScope(
               onWillPop: () async {
                 if (getDifferenceTime()) {
-                  initInterstitialAds();
+                  showInterstitialAd();
                 }
                 return true;
               },

@@ -326,7 +326,7 @@ class _TransactionPageState extends State<TransactionPage> {
               ),
               onWillPop: () async {
                 if (getDifferenceTime()) {
-                  initInterstitialAds();
+                  showInterstitialAd();
                 }
                 return true;
               },

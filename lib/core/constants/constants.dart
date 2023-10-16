@@ -231,42 +231,53 @@ Widget getBannerAds() {
   );
 }
 
-initInterstitialAds() async {
+showInterstitialAd() async {
 
   if (getIt<FirebaseAdsCheck>().isInterstitialAds.value){
 
-    InterstitialAd.load(
-      adUnitId: "ca-app-pub-3940256099942544/1033173712",
-      request: const AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (ad) {
-          interStitialAdRunning = true;
-          interstitialAds = ad;
-          interstitialAds!.show().then((value) {
-            box.write(
-                isStartTime, DateTime.now().millisecondsSinceEpoch.toString());
-          });
-          ad.fullScreenContentCallback = FullScreenContentCallback(
-            onAdDismissedFullScreenContent: (ad) {
-              ad.dispose();
-              interStitialAdRunning = false;
-            },
-          );
-        },
-        onAdFailedToLoad: (error) {
-          interstitialAds!.dispose();
+    if (interStitialAdRunning) {
+      interstitialAds?.fullScreenContentCallback = FullScreenContentCallback(
+        onAdShowedFullScreenContent: (ad) => print('Ad showed fullscreen content.'),
+        onAdDismissedFullScreenContent: (ad) {
+          box.write(
+              isStartTime, DateTime.now().millisecondsSinceEpoch.toString());
+          interstitialAds?.dispose();
           interStitialAdRunning = false;
+          loadInterstitialAd(); // Preload the next ad
+          print('Ad dismissed fullscreen content.');
         },
-      ),
-    );
+        onAdFailedToShowFullScreenContent: (ad, error) {
+          interStitialAdRunning = false;
+          print('Ad failed to show fullscreen content: $error');
+        },
+      );
+      interstitialAds?.show();
+    } else {
+      print('Interstitial ad is not loaded yet.');
+      loadInterstitialAd(); // Load a new ad if not already loaded
+    }
 
   }
-
-
-
-
-
 }
+
+ loadInterstitialAd() async{
+  InterstitialAd.load(
+    adUnitId: "ca-app-pub-3940256099942544/1033173712",
+    request: AdRequest(),
+    adLoadCallback: InterstitialAdLoadCallback(
+      onAdLoaded: (ad) {
+        interstitialAds = ad;
+        interStitialAdRunning = true;
+      },
+      onAdFailedToLoad: (error) {
+        interStitialAdRunning = false;
+        print('InterstitialAd failed to load: $error');
+      },
+    ),
+  );
+}
+
+
 
 Future<AnchoredAdaptiveBannerAdSize?> anchoredAdaptiveBannerAdSize() async {
   // Used to set size of adaptive banner ad according to device width and orientation.
