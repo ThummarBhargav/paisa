@@ -76,18 +76,6 @@ dependency_overrides:
 flutter_app_name:
   name: "Money Tracker"
 
-flutter_native_splash:
-  color: "#ffffff"
-  image: assets/images/paisa.png
-  color_dark: "#121212"
-  android: true
-  ios: true
-  android_12:
-    image: assets/images/icon_light.png
-    icon_background_color: "#ffffff"
-    image_dark: assets/images/icon_dark.png
-    icon_background_color_dark: "#121212"
-
 flutter_icons:
   ios: true
   android: false
@@ -102,14 +90,14 @@ flutter:
     - assets/images/appicon.png
     - assets/images/
 
-msix_config:
-  display_name: Paisa - Expense Tracker
-  publisher_display_name: RetroMusic
-  publisher: CN=22326927-E77C-435F-B91A-B9831883516E
-  identity_name: 42423RetroMusic.Paisa-ExpenseTracker
-  msix_version: "4.8.0.0"
-  logo_path: C:\Users\Hemanth S\Documents\GitHub\flutter_expense\assets\images\appicon.png
-  capabilities: internetClient
-  certificate_path: C:\Users\Hemanth S\Documents\paisa_certificate.pfx
-  certificate_password: +h4Hem@nth$13+
-  store: true
+#msix_config:
+#  display_name: Paisa - Expense Tracker
+#  publisher_display_name: RetroMusic
+#  publisher: CN=22326927-E77C-435F-B91A-B9831883516E
+#  identity_name: 42423RetroMusic.Paisa-ExpenseTracker
+#  msix_version: "4.8.0.0"
+#  logo_path: C:\Users\Hemanth S\Documents\GitHub\flutter_expense\assets\images\appicon.png
+#  capabilities: internetClient
+#  certificate_path: C:\Users\Hemanth S\Documents\paisa_certificate.pfx
+#  certificate_password: +h4Hem@nth$13+
+#  store: true

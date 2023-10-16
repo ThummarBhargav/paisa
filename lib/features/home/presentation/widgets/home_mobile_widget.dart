@@ -50,16 +50,15 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      if(getIt<FirebaseAdsCheck>().isAppOpenAds.value){
-
-        AppOpenAdManager appOpenAdManager = AppOpenAdManager()..loadAd();
+      if (getIt<FirebaseAdsCheck>().isAppOpenAds.value) {
+        AppOpenAdManager appOpenAdManager = AppOpenAdManager()
+          ..loadAd();
         _appLifecycleReactor =
             AppLifecycleReactor(appOpenAdManager: appOpenAdManager);
         _appLifecycleReactor.listenToAppStateChanges();
       }
 
-      if(getIt<FirebaseAdsCheck>().isBannerAds.value){
-
+      if (getIt<FirebaseAdsCheck>().isBannerAds.value) {
         await initBannerAds();
       }
 
@@ -109,7 +108,7 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        width: MySize.screenWidth/1.1,
+                        width: MySize.screenWidth / 1.1,
                         height: MySize.getHeight(50),
                         decoration: ShapeDecoration(
                           color: Colors.white,
@@ -132,7 +131,7 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
                               child: Text(
                                 'Enter Name & Location ',
                                 style:
-                                    appTheme.normalText(12, Color(0xFF8A8686)),
+                                appTheme.normalText(12, Color(0xFF8A8686)),
                               ),
                             ),
                             PaisaSearchButton(),
@@ -147,24 +146,55 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
       drawer: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
         return SideNevBar(homeBloc);
       }),
-      body: Stack(
-        children: [
-          const ContentWidget(),
-          if (isBannerLoaded)
-            Positioned(
-             bottom: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(child: getBannerAds()),
-                ],
-              ),
-            )
-          else
-            const SizedBox(),
-        ],
+      body:
+
+      BlocBuilder<HomeBloc, HomeState>(
+        buildWhen: (previous, current) => current is CurrentIndexState,
+        builder: (context, state) {
+          if (state is CurrentIndexState &&
+              (state.currentPage == 4 ||
+                  state.currentPage == 6 ||
+                  state.currentPage == 5)) {
+            return Stack(
+              children: [
+                const ContentWidget(),
+                if (isBannerLoaded)
+                  Positioned(
+                    bottom:50,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Center(child: getBannerAds()),
+                      ],
+                    ),
+                  )
+                else
+                  const SizedBox(),
+              ],
+            );
+          }
+          return Stack(
+            children: [
+              const ContentWidget(),
+              if (isBannerLoaded)
+                Positioned(
+                  bottom:0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(child: getBannerAds()),
+                    ],
+                  ),
+                )
+              else
+                const SizedBox(),
+            ],
+          );
+        },
       ),
-      floatingActionButton:  widget.floatingActionButton,
+
+
+      floatingActionButton: widget.floatingActionButton,
       bottomNavigationBar: BlocBuilder<HomeBloc, HomeState>(
         buildWhen: (previous, current) => current is CurrentIndexState,
         builder: (context, state) {
@@ -175,7 +205,10 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
             return const SizedBox.shrink();
           }
           return Padding(
-            padding:  EdgeInsets.only(bottom:MediaQuery.of(context).padding.bottom,left: 10,right: 10),
+            padding: EdgeInsets.only(bottom: MediaQuery
+                .of(context)
+                .padding
+                .bottom, left: 10, right: 10),
             child: Container(
               width: MySize.screenWidth,
               height: MySize.getHeight(80),
@@ -212,36 +245,37 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
     );
   }
 
-  Widget bottomItem(
-      String selUri, String unUri, int pos, String name, homeBloc) {
+  Widget bottomItem(String selUri, String unUri, int pos, String name,
+      homeBloc) {
     return Expanded(
         child: GestureDetector(
-      onTap: () {
-
-        for (int i = 0; i < selectedItem.length; i++) {
-          selectedItem[i] = false;
-        }
-        selectedItem[pos] = true;
-        for (int i = 0; i < sideNevSelectedItem.length; i++) {
-          sideNevSelectedItem[i] = false;
-        }
-        sideNevSelectedItem[pos] = true;
-        homeBloc.add(CurrentIndexEvent(pos));
-        setState(() {});
-      },
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(selectedItem[pos] ? selUri : unUri,width: 40,height: 40),
-          Spacing.height(4),
-          Text(
-            name.toUpperCase(),
-            style: appTheme.normalText(
-                13, selectedItem[pos] ? Color(0xFF6E1AF5) : Color(0xFF9A9797)),
-          )
-        ],
-      ),
-    ));
+          onTap: () {
+            for (int i = 0; i < selectedItem.length; i++) {
+              selectedItem[i] = false;
+            }
+            selectedItem[pos] = true;
+            for (int i = 0; i < sideNevSelectedItem.length; i++) {
+              sideNevSelectedItem[i] = false;
+            }
+            sideNevSelectedItem[pos] = true;
+            homeBloc.add(CurrentIndexEvent(pos));
+            setState(() {});
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                  selectedItem[pos] ? selUri : unUri, width: 40, height: 40),
+              Spacing.height(4),
+              Text(
+                name.toUpperCase(),
+                style: appTheme.normalText(
+                    13,
+                    selectedItem[pos] ? Color(0xFF6E1AF5) : Color(0xFF9A9797)),
+              )
+            ],
+          ),
+        ));
   }
 
   Widget SideNevBar(homeBloc) {
@@ -255,9 +289,10 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
           Spacing.height(50),
           Row(
             children: [
-              Image.asset("assets/images/paisa.png",height: 80,width: 80,),
+              Image.asset("assets/images/paisa.png", height: 80, width: 80,),
               Spacing.width(7),
-             Text("Money Tracker",style:  appTheme.normalText(20,Colors.black,FontWeight.w600),)
+              Text("Money Tracker",
+                style: appTheme.normalText(20, Colors.black, FontWeight.w600),)
             ],
           ),
           nevItem(
@@ -291,15 +326,12 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
       ),
       child: GestureDetector(
         onTap: () {
-          if(pos==7){
-
+          if (pos == 7) {
             Navigator.pop(context);
             Future.delayed(Duration(milliseconds: 300), () {
               context.pushNamed(settingsName);
             });
-
-
-          }else{
+          } else {
             for (int i = 0; i < sideNevSelectedItem.length; i++) {
               sideNevSelectedItem[i] = false;
             }
@@ -319,16 +351,18 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
           width: MySize.getWidth(220),
           height: MySize.getHeight(54),
           decoration: ShapeDecoration(
-            gradient:sideNevSelectedItem[pos]? appTheme.g4():null,
+            gradient: sideNevSelectedItem[pos] ? appTheme.g4() : null,
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           ),
           child: Row(
             children: [
               Spacing.width(15),
-              Image.asset(sideNevSelectedItem[pos] ? selUri : unUri,width: 40,height: 40,),
+              Image.asset(sideNevSelectedItem[pos] ? selUri : unUri, width: 40,
+                height: 40,),
               Spacing.width(15),
-              Text(iconListName[pos],style:  appTheme.normalText(16,Colors.black,FontWeight.w500),)
+              Text(iconListName[pos],
+                style: appTheme.normalText(16, Colors.black, FontWeight.w500),)
             ],
           ),
         ),
@@ -342,10 +376,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double height;
   final BuildContext context;
 
-  CustomAppBar(
-      {required this.child,
-      this.height = kToolbarHeight,
-      required this.context});
+  CustomAppBar({required this.child,
+    this.height = kToolbarHeight,
+    required this.context});
 
   @override
   Size get preferredSize => Size.fromHeight(height);
