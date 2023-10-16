@@ -3,6 +3,7 @@ import 'package:glassmorphism/glassmorphism.dart';
 
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/common_enum.dart';
+import 'package:paisa/core/constants/color_constant.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class AccountCard extends StatefulWidget {
@@ -106,7 +107,7 @@ class MobileAccountCard extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              context.titleMedium!.color!.withOpacity(0.1),
+              context.primary.withOpacity(0.3),
               context.titleMedium!.color!.withOpacity(0.05),
             ],
             stops: const [0.1, 1],
@@ -115,8 +116,8 @@ class MobileAccountCard extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              context.titleMedium!.color!.withOpacity(0.5),
-              context.titleMedium!.color!.withOpacity(0.5),
+              context.primary.withOpacity(0.5),
+              context.primary.withOpacity(0.5),
             ],
           ),
           border: 2,
@@ -125,15 +126,15 @@ class MobileAccountCard extends StatelessWidget {
             children: [
               ListTile(
                 minVerticalPadding: 10,
-                title: Text(bankName),
-                subtitle: Text(cardHolder),
-                leading: Icon(cardType.icon),
+                title: Text(bankName,style: appTheme.normalText(16)),
+                subtitle: Text(cardHolder,style: appTheme.normalText(14,Colors.white60)),
+                leading: Icon(cardType.icon,color: Colors.white,),
                 trailing: onDelete != null
                     ? GestureDetector(
                         onTap: onDelete,
                         child: Icon(
                           Icons.delete,
-                          color: context.onSurface,
+                          color: Colors.white,
                         ),
                       )
                     : const SizedBox.shrink(),
@@ -142,13 +143,11 @@ class MobileAccountCard extends StatelessWidget {
                 minVerticalPadding: 10,
                 title: Text(
                   context.loc.totalBalance,
-                  style: context.bodyMedium,
+                  style: appTheme.normalText(14,Colors.white60),
                 ),
                 subtitle: Text(
                   totalBalance,
-                  style: context.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: appTheme.normalText(18,Colors.white,FontWeight.w600),
                 ),
               ),
               Row(
@@ -191,18 +190,11 @@ class AccountSummaryTail extends StatelessWidget {
       dense: true,
       title: Text(
         title,
-        style: context.bodyMedium?.copyWith(
-          color: Theme.of(context)
-              .colorScheme
-              .onSecondaryContainer
-              .withOpacity(0.75),
-        ),
+        style: appTheme.normalText(14,Colors.white60),
       ),
       subtitle: Text(
         subtitle,
-        style: context.titleMedium?.copyWith(
-          fontWeight: FontWeight.w600,
-        ),
+        style: appTheme.normalText(18,Colors.white,FontWeight.w600),
       ),
     );
   }

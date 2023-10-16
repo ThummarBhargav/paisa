@@ -86,10 +86,10 @@ class SettingsPage extends StatelessWidget {
             SettingsGroup(
               title: context.loc.others,
               options: [
-                BiometricAuthWidget(
-                  authenticate: getIt.get<Authenticate>(),
-                ),
-                const AppLanguageChanger(),
+                // BiometricAuthWidget(
+                //   authenticate: getIt.get<Authenticate>(),
+                // ),
+               // const AppLanguageChanger(),
                 const CountryChangeWidget(),
                 appTheme.SettingItem(
                   context.loc.calendarFormat,

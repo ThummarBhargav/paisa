@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/constants/sizeConstant.dart';
-
+import 'package:money_formatter/money_formatter.dart';
 import '../../../../../../core/constants/color_constant.dart';
 
 class TotalBalanceWidget extends StatelessWidget {
