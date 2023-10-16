@@ -35,37 +35,47 @@ class _AccountCardState extends State<AccountCard>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    return ScreenTypeLayout.builder(
-      mobile: (p0) => MobileAccountCard(
-        bankName: widget.bankName,
-        cardHolder: widget.cardHolder,
-        totalBalance: widget.totalBalance,
-        cardType: widget.cardType,
-        onDelete: widget.onDelete,
-        onTap: widget.onTap,
-        expense: widget.expense,
-        income: widget.income,
-      ),
-      tablet: (p0) => TabletAccountCard(
-        bankName: widget.bankName,
-        cardHolder: widget.cardHolder,
-        cardNumber: widget.totalBalance,
-        cardType: widget.cardType,
-        onDelete: widget.onDelete,
-        onTap: widget.onTap,
-        expense: widget.expense,
-        income: widget.income,
-      ),
-      desktop: (p0) => DesktopAccountCard(
-        bankName: widget.bankName,
-        cardHolder: widget.cardHolder,
-        cardNumber: widget.totalBalance,
-        cardType: widget.cardType,
-        onDelete: widget.onDelete,
-        onTap: widget.onTap,
-        expense: widget.expense,
-        income: widget.income,
-      ),
+    // return ScreenTypeLayout.builder(
+    //   mobile: (p0) => MobileAccountCard(
+    //     bankName: widget.bankName,
+    //     cardHolder: widget.cardHolder,
+    //     totalBalance: widget.totalBalance,
+    //     cardType: widget.cardType,
+    //     onDelete: widget.onDelete,
+    //     onTap: widget.onTap,
+    //     expense: widget.expense,
+    //     income: widget.income,
+    //   ),
+    //   tablet: (p0) => TabletAccountCard(
+    //     bankName: widget.bankName,
+    //     cardHolder: widget.cardHolder,
+    //     cardNumber: widget.totalBalance,
+    //     cardType: widget.cardType,
+    //     onDelete: widget.onDelete,
+    //     onTap: widget.onTap,
+    //     expense: widget.expense,
+    //     income: widget.income,
+    //   ),
+    //   desktop: (p0) => DesktopAccountCard(
+    //     bankName: widget.bankName,
+    //     cardHolder: widget.cardHolder,
+    //     cardNumber: widget.totalBalance,
+    //     cardType: widget.cardType,
+    //     onDelete: widget.onDelete,
+    //     onTap: widget.onTap,
+    //     expense: widget.expense,
+    //     income: widget.income,
+    //   ),
+    // );
+    return  MobileAccountCard(
+      bankName: widget.bankName,
+      cardHolder: widget.cardHolder,
+      totalBalance: widget.totalBalance,
+      cardType: widget.cardType,
+      onDelete: widget.onDelete,
+      onTap: widget.onTap,
+      expense: widget.expense,
+      income: widget.income,
     );
   }
 }
