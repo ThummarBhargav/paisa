@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../main.dart';
+import 'firebaseAdsCheck.dart';
 
 const gitHubUrl = 'https://github.com/h4h13/paisa';
 const playStoreUrl =
@@ -133,6 +134,11 @@ const PrivIcon = 'assets/images/priv.png';
 const VerIcon = 'assets/images/ver.png';
 const FingIcon = 'assets/images/fing.png';
 
+ const isBannerAds = "isBannerAds";
+ const isAllAds = "isAllAds";
+ const isAppOpen = "isAppOpen";
+ const isInterstitial = "isInterstitial";
+
 const List<String> iconListSelected=[
   "assets/images/homeS.png",
   "assets/images/accountsS.png",
@@ -195,20 +201,26 @@ bool isBannerLoaded = false;
 InterstitialAd? interstitialAds;
 
 initBannerAds() async {
-  size = await anchoredAdaptiveBannerAdSize();
-  bannerAd = BannerAd(
-      size: size!,
-      adUnitId: "ca-app-pub-3940256099942544/6300978111",
-      listener: BannerAdListener(
-        onAdLoaded: (ad) {
-          isBannerLoaded = true;
-        },
-        onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-        },
-      ),
-      request: const AdRequest())
-    ..load();
+  if (getIt<FirebaseAdsCheck>().isBannerAds.value){
+
+    size = await anchoredAdaptiveBannerAdSize();
+    bannerAd = BannerAd(
+        size: size!,
+        adUnitId: "ca-app-pub-3940256099942544/6300978111",
+        listener: BannerAdListener(
+          onAdLoaded: (ad) {
+            isBannerLoaded = true;
+          },
+          onAdFailedToLoad: (ad, error) {
+            ad.dispose();
+          },
+        ),
+        request: const AdRequest())
+      ..load();
+
+  }
+
+
 }
 
 Widget getBannerAds() {
@@ -220,30 +232,40 @@ Widget getBannerAds() {
 }
 
 initInterstitialAds() async {
-  InterstitialAd.load(
-    adUnitId: "ca-app-pub-3940256099942544/1033173712",
-    request: const AdRequest(),
-    adLoadCallback: InterstitialAdLoadCallback(
-      onAdLoaded: (ad) {
-        interStitialAdRunning = true;
-        interstitialAds = ad;
-        interstitialAds!.show().then((value) {
-          box.write(
-              isStartTime, DateTime.now().millisecondsSinceEpoch.toString());
-        });
-        ad.fullScreenContentCallback = FullScreenContentCallback(
-          onAdDismissedFullScreenContent: (ad) {
-            ad.dispose();
-            interStitialAdRunning = false;
-          },
-        );
-      },
-      onAdFailedToLoad: (error) {
-        interstitialAds!.dispose();
-        interStitialAdRunning = false;
-      },
-    ),
-  );
+
+  if (getIt<FirebaseAdsCheck>().isInterstitialAds.value){
+
+    InterstitialAd.load(
+      adUnitId: "ca-app-pub-3940256099942544/1033173712",
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) {
+          interStitialAdRunning = true;
+          interstitialAds = ad;
+          interstitialAds!.show().then((value) {
+            box.write(
+                isStartTime, DateTime.now().millisecondsSinceEpoch.toString());
+          });
+          ad.fullScreenContentCallback = FullScreenContentCallback(
+            onAdDismissedFullScreenContent: (ad) {
+              ad.dispose();
+              interStitialAdRunning = false;
+            },
+          );
+        },
+        onAdFailedToLoad: (error) {
+          interstitialAds!.dispose();
+          interStitialAdRunning = false;
+        },
+      ),
+    );
+
+  }
+
+
+
+
+
 }
 
 Future<AnchoredAdaptiveBannerAdSize?> anchoredAdaptiveBannerAdSize() async {

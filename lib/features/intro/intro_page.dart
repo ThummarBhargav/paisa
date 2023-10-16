@@ -9,6 +9,8 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 import 'package:paisa/core/widgets/paisa_widget.dart';
 
+import '../../core/constants/firebaseAdsCheck.dart';
+
 class IntroPage extends StatelessWidget {
   const IntroPage({super.key});
 

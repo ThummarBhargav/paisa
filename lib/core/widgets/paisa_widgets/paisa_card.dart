@@ -36,7 +36,6 @@ class PaisaCard extends StatelessWidget {
 
     return Container(
       width: MySize.screenWidth,
-      height: MySize.getHeight(190),
       decoration: ShapeDecoration(
         gradient: const RadialGradient(
           center: Alignment(0.11, 0.001),
@@ -110,7 +109,6 @@ class PaisaFilledCard extends StatelessWidget {
     int randomNumber = random.nextInt(3);
     return Container(
       width: MySize.getWidth(345),
-      height: MySize.getHeight(210),
       decoration: ShapeDecoration(
         gradient: randomNumber == 0
             ? appTheme.g1()

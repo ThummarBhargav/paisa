@@ -12,6 +12,8 @@ import 'package:paisa/features/profile/presentation/pages/paisa_user_widget.dart
 
 import '../../../../core/app_lifecycle_reactor.dart';
 import '../../../../core/app_open_ad_manager.dart';
+import '../../../../core/constants/firebaseAdsCheck.dart';
+import '../../../../main.dart';
 import 'home_search_button.dart';
 
 final GlobalKey<ScaffoldState> _scaffoldStateKey = GlobalKey<ScaffoldState>();
@@ -48,11 +50,19 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      AppOpenAdManager appOpenAdManager = AppOpenAdManager()..loadAd();
-      _appLifecycleReactor =
-          AppLifecycleReactor(appOpenAdManager: appOpenAdManager);
-      _appLifecycleReactor.listenToAppStateChanges();
-      await initBannerAds();
+      if(getIt<FirebaseAdsCheck>().isAppOpenAds.value){
+
+        AppOpenAdManager appOpenAdManager = AppOpenAdManager()..loadAd();
+        _appLifecycleReactor =
+            AppLifecycleReactor(appOpenAdManager: appOpenAdManager);
+        _appLifecycleReactor.listenToAppStateChanges();
+      }
+
+      if(getIt<FirebaseAdsCheck>().isBannerAds.value){
+
+        await initBannerAds();
+      }
+
       await Future.delayed(Duration(seconds: 5));
       setState(() {});
     });
@@ -66,13 +76,14 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
     return Scaffold(
       key: _scaffoldStateKey,
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(MySize.getHeight(130)),
+          preferredSize: Size.fromHeight(MySize.getHeight(140)),
           // here the desired height
           child: CustomAppBar(
               context: context,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
@@ -84,8 +95,8 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
                             },
                             child: Image.asset(
                               "assets/images/menu.png",
-                              height: 40,
-                              width: 40,
+                              height: 30,
+                              width: 30,
                               color: Colors.white,
                             )),
                         PaisaTitle(),
@@ -93,7 +104,7 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
                       ],
                     ),
                   ),
-                  Spacing.height(20),
+                  Spacing.height(10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -206,6 +217,7 @@ class _HomeMobileWidgetState extends State<HomeMobileWidget> {
     return Expanded(
         child: GestureDetector(
       onTap: () {
+
         for (int i = 0; i < selectedItem.length; i++) {
           selectedItem[i] = false;
         }

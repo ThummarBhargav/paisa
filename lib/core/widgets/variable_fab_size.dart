@@ -42,8 +42,8 @@ class VariableFABSize extends StatelessWidget {
                     colors: [Color(0xFF751EFF), Color(0xFFBC92FF)],
                   ),
                 ),
-                child: const Icon(
-                  Icons.add,
+                child:  Icon(
+                  icon,
                   color: Colors.white,
                 ),
               ),
@@ -65,9 +65,10 @@ class VariableFABSize extends StatelessWidget {
                     colors: [Color(0xFF751EFF), Color(0xFFBC92FF)],
                   ),
                 ),
-                child: const Icon(
-                  Icons.add,
+                child:  Icon(
+                  icon,
                   color: Colors.white,
+                  size: 35,
                 ),
               ),
             ),

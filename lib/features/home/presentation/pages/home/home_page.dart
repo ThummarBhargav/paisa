@@ -15,6 +15,8 @@ import 'package:paisa/core/in_app.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
+import '../../../../../core/constants/firebaseAdsCheck.dart';
+
 final destinations = [
   Destination(
     pageType: PageType.home,
@@ -60,21 +62,6 @@ class LandingPage extends StatelessWidget {
   }) : super(key: key);
 
   final InApp inApp;
-  Future<void> checkInApp(BuildContext context) async {
-    final AppUpdateInfo updateInfo = await inApp.checkForUpdate();
-    if (updateInfo.immediateUpdateAllowed) {
-      final AppUpdateResult result = await inApp.performImmediateUpdate();
-      if (context.mounted) {
-        if (result == AppUpdateResult.inAppUpdateFailed) {
-          context.showMaterialSnackBar('Update failed');
-        } else if (result == AppUpdateResult.success) {
-          context.showMaterialSnackBar('Update success');
-        }
-      }
-    }
-
-    inApp.requestReview();
-  }
 
   @override
   Widget build(BuildContext context) {
