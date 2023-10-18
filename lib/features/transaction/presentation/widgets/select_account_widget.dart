@@ -47,6 +47,10 @@ class SelectedAccount extends StatelessWidget {
               ),
               AccountSelectedItem(
                 accounts: accounts,
+                onSelected: (selectedId) {
+                  BlocProvider.of<TransactionBloc>(context).selectedAccountId =
+                      selectedId;
+                },
               )
             ],
           ),
@@ -57,11 +61,15 @@ class SelectedAccount extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   context.loc.selectAccount,
-                  style: appTheme.normalText(18,Colors.black),
+                  style: appTheme.normalText(18, Colors.black),
                 ),
               ),
               AccountSelectedItem(
                 accounts: accounts,
+                onSelected: (selectedId) {
+                  BlocProvider.of<TransactionBloc>(context).selectedAccountId =
+                      selectedId;
+                },
               )
             ],
           ),
@@ -75,9 +83,11 @@ class AccountSelectedItem extends StatefulWidget {
   const AccountSelectedItem({
     Key? key,
     required this.accounts,
+    required this.onSelected,
   }) : super(key: key);
 
   final List<AccountEntity> accounts;
+  final Function(int selectedId) onSelected;
 
   @override
   State<AccountSelectedItem> createState() => _AccountSelectedItemState();
@@ -86,58 +96,53 @@ class AccountSelectedItem extends StatefulWidget {
 class _AccountSelectedItemState extends State<AccountSelectedItem> {
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-
-      builder: (context, constraints) {
-        return BlocBuilder<TransactionBloc, TransactionState>(
-          buildWhen: (previous, current) => current is ChangeAccountState,
-          builder: (context, state) {
-            return SizedBox(
-              height: 160,
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.only(
-                  left: 16,
-                  right: 16,
-                ),
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: false,
-                itemCount: widget.accounts.length + 1,
-                itemBuilder: (_, index) {
-                  if (index == 0) {
-                    return ItemWidget(
-                      color: Color(0xFF6C16F4),
-                      selected: false,
-                      title: context.loc.addNew,
-                      icon: MdiIcons.plus.codePoint,
-                      onPressed: () => context.pushNamed(addAccountPath),
-                    );
-                  } else {
-                    final AccountEntity account = widget.accounts[index - 1];
-                    return ItemWidget(
-                      color: Color(0xFF6C16F4).withOpacity(0.8),
-                      selected: account.superId ==
-                          BlocProvider.of<TransactionBloc>(context)
-                              .selectedAccountId,
-                      title: account.name ?? '',
-                      icon: account.cardType!.icon.codePoint,
-                      onPressed: (){
-
-                        setState(() {
-                          BlocProvider.of<TransactionBloc>(context)
-                              .add(ChangeAccountEvent(account));
-                        });
-
-                      },
-                      subtitle: account.bankName,
-                    );
-                  }
-                },
-              ),
-            );
-          },
+    return BlocBuilder<TransactionBloc, TransactionState>(
+      buildWhen: (previous, current) => current is ChangeAccountState,
+      builder: (context, state) {
+        return SizedBox(
+          height: 160,
+          child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.only(
+              left: 16,
+              right: 16,
+            ),
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: false,
+            itemCount: widget.accounts.length + 1,
+            itemBuilder: (_, index) {
+              if (index == 0) {
+                return ItemWidget(
+                  color: Color(0xFF6C16F4),
+                  selected: false,
+                  title: context.loc.addNew,
+                  icon: MdiIcons.plus.codePoint,
+                  onPressed: () => context.pushNamed(addAccountPath),
+                );
+              } else {
+                final AccountEntity account = widget.accounts[index - 1];
+                int selectedId = BlocProvider.of<TransactionBloc>(context)
+                    .selectedAccountId!;
+                return ItemWidget(
+                  color: Color(0xFF6C16F4).withOpacity(0.8),
+                  selected: account.superId == selectedId,
+                  title: account.name ?? '',
+                  icon: account.cardType!.icon.codePoint,
+                  onPressed: () {
+                    BlocProvider.of<TransactionBloc>(context)
+                        .add(ChangeAccountEvent(account));
+                    setState(() {
+                      selectedId = account.superId!;
+                      widget.onSelected(selectedId);
+                    });
+                  },
+                  subtitle: account.bankName,
+                );
+              }
+            },
+          ),
         );
-      }
+      },
     );
   }
 }
