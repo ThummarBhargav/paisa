@@ -71,7 +71,7 @@ class SelectedAccount extends StatelessWidget {
   }
 }
 
-class AccountSelectedItem extends StatelessWidget {
+class AccountSelectedItem extends StatefulWidget {
   const AccountSelectedItem({
     Key? key,
     required this.accounts,
@@ -80,48 +80,64 @@ class AccountSelectedItem extends StatelessWidget {
   final List<AccountEntity> accounts;
 
   @override
+  State<AccountSelectedItem> createState() => _AccountSelectedItemState();
+}
+
+class _AccountSelectedItemState extends State<AccountSelectedItem> {
+  @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TransactionBloc, TransactionState>(
-      buildWhen: (previous, current) => current is ChangeAccountState,
-      builder: (context, state) {
-        return SizedBox(
-          height: 160,
-          child: ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.only(
-              left: 16,
-              right: 16,
-            ),
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: false,
-            itemCount: accounts.length + 1,
-            itemBuilder: (_, index) {
-              if (index == 0) {
-                return ItemWidget(
-                  color: Color(0xFF6C16F4),
-                  selected: false,
-                  title: context.loc.addNew,
-                  icon: MdiIcons.plus.codePoint,
-                  onPressed: () => context.pushNamed(addAccountPath),
-                );
-              } else {
-                final AccountEntity account = accounts[index - 1];
-                return ItemWidget(
-                  color: Color(0xFF6C16F4).withOpacity(0.8),
-                  selected: account.superId ==
-                      BlocProvider.of<TransactionBloc>(context)
-                          .selectedAccountId,
-                  title: account.name ?? '',
-                  icon: account.cardType!.icon.codePoint,
-                  onPressed: () => BlocProvider.of<TransactionBloc>(context)
-                      .add(ChangeAccountEvent(account)),
-                  subtitle: account.bankName,
-                );
-              }
-            },
-          ),
+    return LayoutBuilder(
+
+      builder: (context, constraints) {
+        return BlocBuilder<TransactionBloc, TransactionState>(
+          buildWhen: (previous, current) => current is ChangeAccountState,
+          builder: (context, state) {
+            return SizedBox(
+              height: 160,
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                ),
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: false,
+                itemCount: widget.accounts.length + 1,
+                itemBuilder: (_, index) {
+                  if (index == 0) {
+                    return ItemWidget(
+                      color: Color(0xFF6C16F4),
+                      selected: false,
+                      title: context.loc.addNew,
+                      icon: MdiIcons.plus.codePoint,
+                      onPressed: () => context.pushNamed(addAccountPath),
+                    );
+                  } else {
+                    final AccountEntity account = widget.accounts[index - 1];
+                    return ItemWidget(
+                      color: Color(0xFF6C16F4).withOpacity(0.8),
+                      selected: account.superId ==
+                          BlocProvider.of<TransactionBloc>(context)
+                              .selectedAccountId,
+                      title: account.name ?? '',
+                      icon: account.cardType!.icon.codePoint,
+                      onPressed: (){
+
+                        setState(() {
+                          BlocProvider.of<TransactionBloc>(context)
+                              .add(ChangeAccountEvent(account));
+                        });
+
+                      },
+                      subtitle: account.bankName,
+                    );
+                  }
+                },
+              ),
+            );
+          },
         );
-      },
+      }
     );
   }
 }

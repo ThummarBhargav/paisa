@@ -90,9 +90,8 @@ class _AddOrEditDebitPageState extends State<AddOrEditDebitPage> {
           builder: (context, state) {
             return WillPopScope(
               onWillPop: () async {
-                if (getDifferenceTime()) {
-                  showInterstitialAd();
-                }
+                showAdsDifferenceTime();
+
                 return true;
               },
               child: Scaffold(

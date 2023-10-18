@@ -98,9 +98,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
           return ScreenTypeLayout.builder(
             mobile: (p0) => WillPopScope(
               onWillPop: () async {
-                if (getDifferenceTime()) {
-                  showInterstitialAd();
-                }
+                showAdsDifferenceTime();
                 return true;
               },
               child: Scaffold(
@@ -147,6 +145,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                     padding: const EdgeInsets.all(16.0),
                     child: PaisaBigButton(
                       onPressed: () {
+                        showAdsDifferenceTime();
                         final isValid = _formKey.currentState!.validate();
                         if (!isValid) {
                           return;

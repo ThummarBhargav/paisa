@@ -154,9 +154,7 @@ class AddAccountPageState extends State<AddAccountPage> {
             return ScreenTypeLayout.builder(
               mobile: (p0) => WillPopScope(
                 onWillPop: () async {
-                  if (getDifferenceTime()) {
-                    showInterstitialAd();
-                  }
+                  showAdsDifferenceTime();
                   return true;
                 },
                 child: Scaffold(

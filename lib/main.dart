@@ -16,6 +16,7 @@ import 'firebase_options.dart';
 final getIt = GetIt.instance;
 GetStorage box = GetStorage();
 bool interStitialAdRunning = false;
+bool interStitialAdIsShow = false;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

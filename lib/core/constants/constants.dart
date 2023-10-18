@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../main.dart';
+import '../app_open_ad_manager.dart';
 import 'firebaseAdsCheck.dart';
 
 const gitHubUrl = 'https://github.com/h4h13/paisa';
 const playStoreUrl =
     'https://play.google.com/store/apps/details?id=com.mobileappxperts.incomeexpense.moneytracker';
 const telegramGroupUrl = 'https://t.me/app_paisa';
-const termsAndConditionsUrl = 'https://hemanths.dev/privacy';
+const termsAndConditionsUrl =
+    'https://sites.google.com/view/mobapp-privacy-policy/policy';
 
 const String themeModeKey = 'key_theme_mode';
 const String appColorKey = 'key_app_color';
@@ -134,12 +136,12 @@ const PrivIcon = 'assets/images/priv.png';
 const VerIcon = 'assets/images/ver.png';
 const FingIcon = 'assets/images/fing.png';
 
- const isBannerAds = "isBannerAds";
- const isAllAds = "isAllAds";
- const isAppOpen = "isAppOpen";
- const isInterstitial = "isInterstitial";
+const isBannerAds = "isBannerAds";
+const isAllAds = "isAllAds";
+const isAppOpen = "isAppOpen";
+const isInterstitial = "isInterstitial";
 
-const List<String> iconListSelected=[
+const List<String> iconListSelected = [
   "assets/images/homeS.png",
   "assets/images/accountsS.png",
   "assets/images/debtsS.png",
@@ -149,7 +151,7 @@ const List<String> iconListSelected=[
   "assets/images/recurringS.png",
   "assets/images/settingsS.png",
 ];
-const List<String> iconList=[
+const List<String> iconList = [
   "assets/images/home.png",
   "assets/images/accounts.png",
   "assets/images/debts.png",
@@ -159,7 +161,7 @@ const List<String> iconList=[
   "assets/images/recurring.png",
   "assets/images/settings.png",
 ];
-const List<String> iconListName=[
+const List<String> iconListName = [
   "Home",
   "Accounts",
   "Debts",
@@ -169,8 +171,6 @@ const List<String> iconListName=[
   "Recurring",
   "Settings",
 ];
-
-
 
 bool isNullEmptyOrFalse(dynamic o) {
   if (o is Map<String, dynamic> || o is List<dynamic>) {
@@ -195,14 +195,30 @@ bool getDifferenceTime() {
   }
 }
 
+showAdsDifferenceTime() {
+  if (box.read(isStartTime) != null) {
+    String startTime = box.read(isStartTime).toString();
+    String currentTime = DateTime.now().millisecondsSinceEpoch.toString();
+    int difference = int.parse(currentTime) - int.parse(startTime);
+    print("Difference := $difference");
+    print("StartTime := $startTime");
+    print("currentDate := $currentTime");
+    int differenceTime = difference ~/ 1000;
+    if (differenceTime > 30) {
+
+      showInterstitialAd();
+    }
+  }
+}
+
+
 AnchoredAdaptiveBannerAdSize? size;
 BannerAd? bannerAd;
 bool isBannerLoaded = false;
 InterstitialAd? interstitialAds;
 
 initBannerAds() async {
-  if (getIt<FirebaseAdsCheck>().isBannerAds.value){
-
+  if (getIt<FirebaseAdsCheck>().isBannerAds.value) {
     size = await anchoredAdaptiveBannerAdSize();
     bannerAd = BannerAd(
         size: size!,
@@ -217,10 +233,7 @@ initBannerAds() async {
         ),
         request: const AdRequest())
       ..load();
-
   }
-
-
 }
 
 Widget getBannerAds() {
@@ -232,16 +245,17 @@ Widget getBannerAds() {
 }
 
 showInterstitialAd() async {
-
-  if (getIt<FirebaseAdsCheck>().isInterstitialAds.value){
-
+  if (getIt<FirebaseAdsCheck>().isInterstitialAds.value) {
     if (interStitialAdRunning) {
       interstitialAds?.fullScreenContentCallback = FullScreenContentCallback(
-        onAdShowedFullScreenContent: (ad) => print('Ad showed fullscreen content.'),
+        onAdShowedFullScreenContent: (ad) {
+          interStitialAdIsShow = true;
+        },
         onAdDismissedFullScreenContent: (ad) {
           box.write(
               isStartTime, DateTime.now().millisecondsSinceEpoch.toString());
           interstitialAds?.dispose();
+          interStitialAdIsShow = false;
           interStitialAdRunning = false;
           loadInterstitialAd(); // Preload the next ad
           print('Ad dismissed fullscreen content.');
@@ -256,11 +270,10 @@ showInterstitialAd() async {
       print('Interstitial ad is not loaded yet.');
       loadInterstitialAd(); // Load a new ad if not already loaded
     }
-
   }
 }
 
- loadInterstitialAd() async{
+loadInterstitialAd() async {
   InterstitialAd.load(
     adUnitId: "ca-app-pub-3940256099942544/1033173712",
     request: AdRequest(),
@@ -276,8 +289,6 @@ showInterstitialAd() async {
     ),
   );
 }
-
-
 
 Future<AnchoredAdaptiveBannerAdSize?> anchoredAdaptiveBannerAdSize() async {
   // Used to set size of adaptive banner ad according to device width and orientation.

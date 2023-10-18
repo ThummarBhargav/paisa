@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:paisa/core/constants/color_constant.dart';
+import 'package:paisa/features/debit/presentation/cubit/debts_bloc.dart';
 
 import '../../../../core/common.dart';
 import '../../../../core/enum/transaction_type.dart';
@@ -254,6 +255,7 @@ class _TransactionPageState extends State<TransactionPage> {
             //   ),
             // );
             return WillPopScope(
+
               child: Scaffold(
                 extendBody: true,
                 appBar: AppBar(
@@ -261,6 +263,7 @@ class _TransactionPageState extends State<TransactionPage> {
                   toolbarHeight: 100,
                   leading: InkWell(
                     onTap: () {
+                      showAdsDifferenceTime();
                       Navigator.pop(context);
                     },
                     child: Icon(
@@ -286,7 +289,7 @@ class _TransactionPageState extends State<TransactionPage> {
                       ],
                     ),
                     Expanded(
-                      child: BlocBuilder<TransactionBloc, TransactionState>(
+                      child: BlocConsumer<TransactionBloc, TransactionState>(
                         buildWhen: (previous, current) =>
                             current is ChangeTransactionTypeState,
                         builder: (context, state) {
@@ -305,7 +308,11 @@ class _TransactionPageState extends State<TransactionPage> {
                           } else {
                             return const SizedBox.shrink();
                           }
-                        },
+                        }, listener: (BuildContext context, TransactionState state) {
+                          if(state is TransactionAddedState){
+                            showAdsDifferenceTime();
+                          }
+                      },
                       ),
                     ),
                   ],
@@ -315,6 +322,7 @@ class _TransactionPageState extends State<TransactionPage> {
                     padding: const EdgeInsets.all(16.0),
                     child: PaisaBigButton(
                       onPressed: () {
+                        showAdsDifferenceTime();
                         BlocProvider.of<TransactionBloc>(context)
                             .add(AddOrUpdateExpenseEvent(isAddExpense));
                       },
@@ -325,9 +333,7 @@ class _TransactionPageState extends State<TransactionPage> {
                 ),
               ),
               onWillPop: () async {
-                if (getDifferenceTime()) {
-                  showInterstitialAd();
-                }
+                showAdsDifferenceTime();
                 return true;
               },
             );

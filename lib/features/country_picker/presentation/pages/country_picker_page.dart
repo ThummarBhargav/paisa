@@ -99,23 +99,28 @@ class _CountryPickerPageState extends State<CountryPickerPage> {
                     bloc: countryCubit,
                     builder: (context, state) {
                       if (state is CountriesState) {
-                        return ScreenTypeLayout.builder(
-                          mobile: (p0) => CountriesWidget(
-                            countries: state.countries,
-                            crossAxisCount: 2,
-                            selectedModel: countryModel,
-                          ),
-                          tablet: (p0) => CountriesWidget(
-                            countries: state.countries,
-                            crossAxisCount: 3,
-                            selectedModel: countryModel,
-                          ),
-                          desktop: (p0) => CountriesWidget(
-                            countries: state.countries,
-                            crossAxisCount: 6,
-                            selectedModel: countryModel,
-                          ),
+                        return  CountriesWidget(
+                          countries: state.countries,
+                          crossAxisCount: 2,
+                          selectedModel: countryModel,
                         );
+                        // return ScreenTypeLayout.builder(
+                        //   mobile: (p0) => CountriesWidget(
+                        //     countries: state.countries,
+                        //     crossAxisCount: 2,
+                        //     selectedModel: countryModel,
+                        //   ),
+                        //   tablet: (p0) => CountriesWidget(
+                        //     countries: state.countries,
+                        //     crossAxisCount: 3,
+                        //     selectedModel: countryModel,
+                        //   ),
+                        //   desktop: (p0) => CountriesWidget(
+                        //     countries: state.countries,
+                        //     crossAxisCount: 6,
+                        //     selectedModel: countryModel,
+                        //   ),
+                        // );
                       }
                       return Container();
                     },
@@ -161,9 +166,33 @@ class CountriesWidget extends StatefulWidget {
 
 class _CountriesWidgetState extends State<CountriesWidget> {
   late CountryModel? selectedModel = widget.selectedModel;
+  CountryModel? cl;
+  @override
+  void initState() {
+    super.initState();
+  String str="";
+    for(int i=0;i<widget.countries.length;i++){
 
+      if(widget.countries[i].code=="INR"){
+
+        cl=widget.countries[i];
+        widget.countries[0]=widget.countries[i];
+        widget.countries[i]=cl!;
+        setState(() {
+
+        });
+      }
+
+
+    }
+
+  }
   @override
   Widget build(BuildContext context) {
+
+    // widget.countries.where((element) => )
+
+    
     return GridView.builder(
       padding: const EdgeInsets.only(bottom: 82, left: 8, right: 8),
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(

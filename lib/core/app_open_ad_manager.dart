@@ -101,7 +101,7 @@ class AppOpenAdManager {
         loadAd();
       },
     );
-    (interStitialAdRunning == false)
+    (interStitialAdIsShow== false)
         ? (getDifferenceTime())
             ? _appOpenAd!.show().then((value) {
                 box.write(isStartTime,
