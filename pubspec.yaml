@@ -67,6 +67,7 @@ dev_dependencies:
   injectable_generator: ^2.1.4
   msix: ^3.7.0
   flutter_sizer: ^1.0.5
+  onesignal_flutter: ^3.5.1
   auto_size_text: ^3.0.0
 
 
