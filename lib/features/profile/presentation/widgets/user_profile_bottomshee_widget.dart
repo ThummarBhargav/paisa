@@ -17,10 +17,12 @@ class UserProfileBottomSheetWidget extends StatefulWidget {
   final ProfileCubit profileCubit;
 
   @override
-  State<UserProfileBottomSheetWidget> createState() => _UserProfileBottomSheetWidgetState();
+  State<UserProfileBottomSheetWidget> createState() =>
+      _UserProfileBottomSheetWidgetState();
 }
 
-class _UserProfileBottomSheetWidgetState extends State<UserProfileBottomSheetWidget> {
+class _UserProfileBottomSheetWidgetState
+    extends State<UserProfileBottomSheetWidget> {
   void _updateDetails(String name) {
     widget.profileCubit.saveName(name);
   }
@@ -40,12 +42,11 @@ class _UserProfileBottomSheetWidgetState extends State<UserProfileBottomSheetWid
       child: BlocListener<ProfileCubit, ProfileState>(
         listener: (context, state) {
           if (state is SavedNameState) {
-            Navigator.pop(context);
+            // Navigator.pop(context);
           } else if (state is ProfileImagePickErrorState) {
-            Navigator.pop(context);
+            // Navigator.pop(context);
             context.showMaterialSnackBar(state.error);
           }
-
         },
         child: Padding(
           padding: MediaQuery.of(context).viewInsets,
