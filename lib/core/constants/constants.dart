@@ -1,8 +1,10 @@
+import 'dart:io' show Platform;
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../main.dart';
-import '../app_open_ad_manager.dart';
 import 'firebaseAdsCheck.dart';
 
 const gitHubUrl = 'https://github.com/h4h13/paisa';
@@ -141,6 +143,26 @@ const isAllAds = "isAllAds";
 const isAppOpen = "isAppOpen";
 const isInterstitial = "isInterstitial";
 
+//Android Test
+const BannerTestId_Android = "ca-app-pub-3940256099942544/6300978111";
+const InterstitialTestId_Android = "ca-app-pub-3940256099942544/1033173712";
+const AppOpenTestId_Android = "ca-app-pub-3940256099942544/3419835294";
+
+//Android Live
+const BannerLiveId_Android = "ca-app-pub-8608272927918158/2494618665";
+const InterstitialLiveId_Android = "ca-app-pub-8608272927918158/3275586984";
+const AppOpenLiveId_Android = "ca-app-pub-8608272927918158/2721053218";
+
+//Ios Test
+const BannerTestId_Ios = "ca-app-pub-3940256099942544/2934735716";
+const InterstitialTestId_Ios = "ca-app-pub-3940256099942544/4411468910";
+const AppOpenTestId_Ios = "ca-app-pub-3940256099942544/5662855259";
+
+//Ios Live
+const BannerLiveId_Ios = "ca-app-pub-8608272927918158/1718978640";
+const InterstitialLiveId_Ios = "ca-app-pub-8608272927918158/8420102450";
+const AppOpenLiveId_Ios = "ca-app-pub-8608272927918158/7746945345";
+
 const List<String> iconListSelected = [
   "assets/images/homeS.png",
   "assets/images/accountsS.png",
@@ -205,12 +227,10 @@ showAdsDifferenceTime() {
     print("currentDate := $currentTime");
     int differenceTime = difference ~/ 1000;
     if (differenceTime > 30) {
-
       showInterstitialAd();
     }
   }
 }
-
 
 AnchoredAdaptiveBannerAdSize? size;
 BannerAd? bannerAd;
@@ -222,7 +242,7 @@ initBannerAds() async {
     size = await anchoredAdaptiveBannerAdSize();
     bannerAd = BannerAd(
         size: size!,
-        adUnitId: "ca-app-pub-3940256099942544/6300978111",
+        adUnitId: BannerID(),
         listener: BannerAdListener(
           onAdLoaded: (ad) {
             isBannerLoaded = true;
@@ -275,7 +295,7 @@ showInterstitialAd() async {
 
 loadInterstitialAd() async {
   InterstitialAd.load(
-    adUnitId: "ca-app-pub-3940256099942544/1033173712",
+    adUnitId: InterstitialID(),
     request: AdRequest(),
     adLoadCallback: InterstitialAdLoadCallback(
       onAdLoaded: (ad) {
@@ -288,6 +308,57 @@ loadInterstitialAd() async {
       },
     ),
   );
+}
+
+String BannerID() {
+  if (Platform.isAndroid) {
+    if (kDebugMode) {
+      return BannerTestId_Android;
+    } else {
+      return BannerLiveId_Android;
+    }
+  } else if (Platform.isIOS) {
+    if (kDebugMode) {
+      return BannerTestId_Ios;
+    } else {
+      return BannerLiveId_Ios;
+    }
+  }
+  return BannerTestId_Android;
+}
+
+String InterstitialID() {
+  if (Platform.isAndroid) {
+    if (kDebugMode) {
+      return InterstitialTestId_Android;
+    } else {
+      return InterstitialLiveId_Android;
+    }
+  } else if (Platform.isIOS) {
+    if (kDebugMode) {
+      return InterstitialTestId_Ios;
+    } else {
+      return InterstitialLiveId_Ios;
+    }
+  }
+  return InterstitialTestId_Android;
+}
+
+String AppOpenID() {
+  if (Platform.isAndroid) {
+    if (kDebugMode) {
+      return AppOpenTestId_Android;
+    } else {
+      return AppOpenLiveId_Android;
+    }
+  } else if (Platform.isIOS) {
+    if (kDebugMode) {
+      return AppOpenTestId_Ios;
+    } else {
+      return AppOpenLiveId_Ios;
+    }
+  }
+  return AppOpenTestId_Ios;
 }
 
 Future<AnchoredAdaptiveBannerAdSize?> anchoredAdaptiveBannerAdSize() async {

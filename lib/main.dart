@@ -38,7 +38,7 @@ Future<void> main() async {
   });
   await MobileAds.instance.initialize();
   await MobileAds.instance.updateRequestConfiguration(RequestConfiguration(
-      testDeviceIds: ["4796378E2BBA42CC7D1DE7367E50828B"]));
+      testDeviceIds: [/*"4796378E2BBA42CC7D1DE7367E50828B"*/]));
   await configInjector(getIt);
   getIt.get<RecurringRepository>().checkForRecurring();
   final Box<dynamic> settings =
