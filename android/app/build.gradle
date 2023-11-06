@@ -52,8 +52,8 @@ android {
         applicationId "com.mobileappxperts.incomeexpense.moneytracker"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionCode 2
+        versionName "0.0.2"
         multiDexEnabled true
     }
     flavorDimensions "app"
