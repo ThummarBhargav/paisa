@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "954974451632",
+    "project_id": "paisaapp-8ed1e",
+    "storage_bucket": "paisaapp-8ed1e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954974451632:android:55cd5a9e475f980edd8875",
+        "android_client_info": {
+          "package_name": "com.mobileappxperts.incomeexpense.moneytracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEnnOpXigMNKFryu_QyuCfmDgiHQoVgJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
