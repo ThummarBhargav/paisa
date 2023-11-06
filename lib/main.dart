@@ -24,7 +24,7 @@ Future<void> main() async {
   );
 
   await GetStorage.init();
-  WidgetsFlutterBinding.ensureInitialized();
+ // WidgetsFlutterBinding.ensureInitialized();
   await MobileAds.instance.initialize();
   await MobileAds.instance.updateRequestConfiguration(RequestConfiguration(
       testDeviceIds: ["4796378E2BBA42CC7D1DE7367E50828B"]));
