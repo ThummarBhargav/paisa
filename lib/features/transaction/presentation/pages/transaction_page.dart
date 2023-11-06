@@ -255,7 +255,6 @@ class _TransactionPageState extends State<TransactionPage> {
             //   ),
             // );
             return WillPopScope(
-
               child: Scaffold(
                 extendBody: true,
                 appBar: AppBar(
@@ -308,11 +307,13 @@ class _TransactionPageState extends State<TransactionPage> {
                           } else {
                             return const SizedBox.shrink();
                           }
-                        }, listener: (BuildContext context, TransactionState state) {
-                          if(state is TransactionAddedState){
+                        },
+                        listener:
+                            (BuildContext context, TransactionState state) {
+                          if (state is TransactionAddedState) {
                             showAdsDifferenceTime();
                           }
-                      },
+                        },
                       ),
                     ),
                   ],
