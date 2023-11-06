@@ -72,7 +72,9 @@ class HomeFloatingActionButtonWidget extends StatelessWidget {
       builder: (context, state) {
         if (state is CurrentIndexState && state.currentPage != 5) {
           return Padding(
-            padding:  EdgeInsets.only(bottom: MySize.getHeight(50)),
+            padding:  EdgeInsets.only(bottom:  (state.currentPage == 4 ||
+                state.currentPage == 6 ||
+                state.currentPage == 5)?0: MySize.getHeight(70)),
             child: VariableFABSize(
 
               onPressed: () => _handleClick(context, state.currentPage),
