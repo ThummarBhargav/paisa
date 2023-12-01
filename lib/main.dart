@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:gdpr_dialog/gdpr_dialog.dart';
 import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -23,9 +25,14 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
+  await GdprDialog.instance
+      .showDialog(isForTest: false, testDeviceId: '')
+      .then((onValue) {
+    print('result === $onValue');
+  });
   OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
   OneSignal.shared.setAppId("a56b8f66-9401-4683-a057-d898aa474783");
   OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
