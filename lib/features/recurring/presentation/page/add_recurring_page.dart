@@ -22,7 +22,7 @@ import 'package:paisa/main.dart';
 import '../../../transaction/presentation/widgets/select_category_widget.dart';
 
 class AddRecurringPage extends StatefulWidget {
-  const AddRecurringPage({super.key});
+  AddRecurringPage({super.key});
 
   @override
   State<AddRecurringPage> createState() => _AddRecurringPageState();
@@ -73,22 +73,22 @@ class _AddRecurringPageState extends State<AddRecurringPage> {
                   children: [
                     Spacing.height(10),
                     TransactionToggleButtons(recurringCubit: recurringCubit),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16),
                     RecurringNameWidget(controller: nameController),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16),
                     RecurringAmountWidget(controller: amountController),
-                    const SizedBox(height: 16),
-                    const RecurringDatePickerWidget(),
+                    SizedBox(height: 16),
+                    RecurringDatePickerWidget(),
                     RecurringWidget(
                       recurringCubit: recurringCubit,
                     ),
-                    const SelectedAccount(),
-                    const SelectCategory(),
+                    SelectedAccount(),
+                    SelectCategory(),
                   ],
                 ),
                 bottomNavigationBar: SafeArea(
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: EdgeInsets.all(16.0),
                     child: PaisaBigButton(
                       onPressed: () {
                         recurringCubit.addRecurringEvent();
@@ -107,7 +107,7 @@ class _AddRecurringPageState extends State<AddRecurringPage> {
 }
 
 class TransactionToggleButtons extends StatelessWidget {
-  const TransactionToggleButtons({
+  TransactionToggleButtons({
     Key? key,
     required this.recurringCubit,
   }) : super(key: key);
@@ -125,9 +125,9 @@ class TransactionToggleButtons extends StatelessWidget {
       buildWhen: (previous, current) => current is TransactionTypeState,
       builder: (context, state) {
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
+            physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
@@ -153,7 +153,7 @@ class TransactionToggleButtons extends StatelessWidget {
 }
 
 class SelectedAccount extends StatelessWidget {
-  const SelectedAccount({super.key});
+  SelectedAccount({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +166,7 @@ class SelectedAccount extends StatelessWidget {
             onTap: () => context.pushNamed(addAccountPath),
             title: Text(context.loc.addAccountEmptyTitle),
             subtitle: Text(context.loc.addAccountEmptySubTitle),
-            trailing: const Icon(Icons.keyboard_arrow_right),
+            trailing: Icon(Icons.keyboard_arrow_right),
           );
         }
 
@@ -174,7 +174,7 @@ class SelectedAccount extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
               child: Text(
                 context.loc.selectAccount,
               style: appTheme.normalText(20,Colors.black),
@@ -195,7 +195,7 @@ class SelectedAccount extends StatelessWidget {
 }
 
 class AccountSelectedWidget extends StatefulWidget {
-  const AccountSelectedWidget({
+  AccountSelectedWidget({
     Key? key,
     required this.accounts,
     required this.onSelected,
@@ -213,50 +213,44 @@ class _AccountSelectedWidgetState extends State<AccountSelectedWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 160,
-      child: ListView.builder(
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.only(
-          left: 16,
-          right: 16,
-        ),
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: false,
-        itemCount: widget.accounts.length + 1,
-        itemBuilder: (_, index) {
-          if (index == 0) {
-            return ItemWidget(
-              color: context.primary,
-              selected: false,
-              title: 'Add New',
-              icon: MdiIcons.plus.codePoint,
-              onPressed: () => context.pushNamed(addAccountPath),
-            );
-          } else {
-            final AccountEntity account = widget.accounts[index - 1];
-            return ItemWidget(
-              color: Color(context.primary.value),
-              selected: account.superId == selectedId,
-              title: account.name ?? '',
-              icon: account.cardType!.icon.codePoint,
-              onPressed: () {
-                setState(() {
-                  selectedId = account.superId!;
-                  widget.onSelected(selectedId);
-                });
-              },
-              subtitle: account.bankName,
-            );
-          }
-        },
-      ),
+    return ListView.builder(
+      physics: BouncingScrollPhysics(),
+      padding: EdgeInsets.only(left: 16, right: 16,),
+      scrollDirection: Axis.horizontal,
+      shrinkWrap: true,
+      itemCount: widget.accounts.length + 1,
+      itemBuilder: (_, index) {
+        if (index == 0) {
+          return ItemWidget(
+            color: context.primary,
+            selected: false,
+            title: 'Add New',
+            icon: MdiIcons.plus.codePoint,
+            onPressed: () => context.pushNamed(addAccountPath),
+          );
+        } else {
+          final AccountEntity account = widget.accounts[index - 1];
+          return ItemWidget(
+            color: Color(context.primary.value),
+            selected: account.superId == selectedId,
+            title: account.name ?? '',
+            icon: account.cardType!.icon.codePoint,
+            onPressed: () {
+              setState(() {
+                selectedId = account.superId!;
+                widget.onSelected(selectedId);
+              });
+            },
+            subtitle: account.bankName,
+          );
+        }
+      },
     );
   }
 }
 
 class SelectCategory extends StatelessWidget {
-  const SelectCategory({Key? key}) : super(key: key);
+  SelectCategory({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -269,7 +263,7 @@ class SelectCategory extends StatelessWidget {
             onTap: () => context.pushNamed(addCategoryPath),
             title: Text(context.loc.addCategoryEmptyTitle),
             subtitle: Text(context.loc.addCategoryEmptySubTitle),
-            trailing: const Icon(Icons.keyboard_arrow_right),
+            trailing: Icon(Icons.keyboard_arrow_right),
           );
         }
 
@@ -277,7 +271,7 @@ class SelectCategory extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
               child: Text(
                 context.loc.selectCategory,
                 style: appTheme.normalText(20,Colors.black),
@@ -298,7 +292,7 @@ class SelectCategory extends StatelessWidget {
 }
 
 class CategorySelectWidget extends StatefulWidget {
-  const CategorySelectWidget({
+  CategorySelectWidget({
     super.key,
     required this.categories,
     required this.onSelected,
@@ -317,7 +311,7 @@ class _CategorySelectWidgetState extends State<CategorySelectWidget> {
   @override
   Widget build(BuildContext context) {
     return GridView.count(
-        physics: const BouncingScrollPhysics(),
+        physics: BouncingScrollPhysics(),
         childAspectRatio: (1 / 0.70),
         shrinkWrap: true,
         padding: EdgeInsets.all(10),
@@ -327,7 +321,7 @@ class _CategorySelectWidgetState extends State<CategorySelectWidget> {
               (index) {
             if (index == 0) {
               return Padding(
-                padding: const EdgeInsets.only(right: 8),
+                padding: EdgeInsets.only(right: 8),
                 child:CategoryChip(
                   selected: false,
                   onSelected:(){context.pushNamed(addCategoryPath);},
@@ -340,7 +334,7 @@ class _CategorySelectWidgetState extends State<CategorySelectWidget> {
             } else {
               final CategoryEntity category = widget.categories[index - 1];
               return Padding(
-                padding: const EdgeInsets.only(right: 8),
+                padding: EdgeInsets.only(right: 8),
                 child:CategoryChip(
                   selected: category.superId == selectedId,
                   onSelected: (){
@@ -365,7 +359,7 @@ class _CategorySelectWidgetState extends State<CategorySelectWidget> {
 }
 
 class RecurringNameWidget extends StatelessWidget {
-  const RecurringNameWidget({
+  RecurringNameWidget({
     super.key,
     required this.controller,
   });
@@ -375,7 +369,7 @@ class RecurringNameWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
       child: PaisaTextFormField(
         maxLines: 1,
         controller: controller,
@@ -399,7 +393,7 @@ class RecurringNameWidget extends StatelessWidget {
 }
 
 class RecurringAmountWidget extends StatelessWidget {
-  const RecurringAmountWidget({
+  RecurringAmountWidget({
     super.key,
     required this.controller,
   });
@@ -409,7 +403,7 @@ class RecurringAmountWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
       child: PaisaTextFormField(
         controller: controller,
         hintText: context.loc.amount,
@@ -445,19 +439,12 @@ class RecurringAmountWidget extends StatelessWidget {
 }
 
 class RecurringDatePickerWidget extends StatefulWidget {
-  const RecurringDatePickerWidget({
-    super.key,
-  });
-
   @override
-  State<RecurringDatePickerWidget> createState() =>
-      _RecurringDatePickerWidgetState();
+  State<RecurringDatePickerWidget> createState() => _RecurringDatePickerWidgetState();
 }
 
 class _RecurringDatePickerWidgetState extends State<RecurringDatePickerWidget> {
-  late final RecurringCubit recurringCubit =
-      BlocProvider.of<RecurringCubit>(context);
-
+  late final RecurringCubit recurringCubit = BlocProvider.of<RecurringCubit>(context);
   late DateTime selectedDateTime = recurringCubit.selectedDate;
 
   @override
@@ -530,7 +517,7 @@ class _RecurringDatePickerWidgetState extends State<RecurringDatePickerWidget> {
 }
 
 class RecurringWidget extends StatelessWidget {
-  const RecurringWidget({
+  RecurringWidget({
     super.key,
     required this.recurringCubit,
   });
@@ -551,17 +538,17 @@ class RecurringWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
               child: Text(
                 'Periodic',
                 style: appTheme.normalText(20,Colors.black),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                physics: const BouncingScrollPhysics(),
+                physics: BouncingScrollPhysics(),
                 child: Row(
                   children: [
                     PaisaPillChip(

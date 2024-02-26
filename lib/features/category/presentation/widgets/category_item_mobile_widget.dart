@@ -19,10 +19,12 @@ class CategoryItemMobileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     MySize().init(context);
     return InkWell(
-        onTap:onclick?? () => context.pushNamed(
-          editCategoryName,
-          pathParameters: <String, String>{'cid': category.superId.toString()},
-        ),
+        onTap: onclick?? () {
+          context.pushNamed(
+            editCategoryName,
+            pathParameters: <String, String>{'cid': category.superId.toString()},
+          );
+        },
       child: Container(
         width: MySize.getWidth(165),
         height: MySize.getWidth(120),

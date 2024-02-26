@@ -5,6 +5,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:paisa/config/routes.dart';
+import 'package:paisa/core/AdsManager/ad_services.dart';
+import 'package:paisa/core/AdsManager/app_lifecycle_reactor.dart';
+import 'package:paisa/core/AdsManager/app_open_ad_manager.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/theme/paisa_theme.dart';
 import 'package:paisa/features/account/presentation/bloc/accounts_bloc.dart';
@@ -18,18 +21,32 @@ import 'package:paisa/main.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 class PaisaApp extends StatefulWidget {
-  const PaisaApp({
-    Key? key,
-    required this.settings,
-  }) : super(key: key);
-
   final Box<dynamic> settings;
+  PaisaApp({required this.settings,});
 
   @override
   State<PaisaApp> createState() => _PaisaAppState();
 }
 
 class _PaisaAppState extends State<PaisaApp> {
+
+  AppLifecycleReactor? appLifecycleReactor;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      // Ads Loading
+      await getIt<AdService>().initBannerAds(context);
+      await getIt<AdService>().loadInterstitialAd();
+      AppOpenAdManager appOpenAdManager = AppOpenAdManager()..loadAd();
+      appLifecycleReactor = AppLifecycleReactor(appOpenAdManager: appOpenAdManager);
+      if(appLifecycleReactor!=null){
+        appLifecycleReactor!.listenToAppStateChanges();
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width.toInt();

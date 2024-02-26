@@ -8,12 +8,12 @@ import 'package:paisa/features/transaction/presentation/bloc/transaction_bloc.da
 import 'package:responsive_builder/responsive_builder.dart';
 
 class TransactionDeleteWidget extends StatelessWidget {
-  const TransactionDeleteWidget({super.key, required this.expenseId});
 
   final String? expenseId;
+  TransactionDeleteWidget({required this.expenseId});
 
   void onPressed(BuildContext context) {
-    paisaAlertDialog(
+    PaisaAlertDialog(
       context,
       title: Text(context.loc.dialogDeleteTitle),
       child: RichText(

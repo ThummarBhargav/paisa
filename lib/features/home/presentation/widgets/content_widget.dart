@@ -28,7 +28,7 @@ class ContentWidget extends StatelessWidget {
         summaryController: Provider.of<SummaryController>(context),
         budgetCubit: BlocProvider.of<OverviewCubit>(context),
       ),
-      4: const CategoryListPage(),
+      4: CategoryListPage(),
       5: BudgetPage(
         summaryController: Provider.of<SummaryController>(context),
       ),

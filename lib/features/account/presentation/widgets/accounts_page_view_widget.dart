@@ -71,7 +71,7 @@ class _AccountPageViewWidgetState extends State<AccountPageViewWidget>
                         bankName: account.bankName ?? '',
                         cardType: account.cardType ?? CardType.bank,
                         onDelete: () {
-                          paisaAlertDialog(
+                          PaisaAlertDialog(
                             context,
                             title: Text(
                               context.loc.dialogDeleteTitle,

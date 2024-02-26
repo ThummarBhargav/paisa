@@ -7,20 +7,14 @@ import 'package:paisa/features/home/presentation/pages/overview/widgets/category
 import 'package:paisa/core/widgets/paisa_widget.dart';
 
 class OverviewListView extends StatelessWidget {
-  const OverviewListView({
-    super.key,
-    required this.budgetCubit,
-  });
-
   final OverviewCubit budgetCubit;
+  OverviewListView({required this.budgetCubit,});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder(
       bloc: budgetCubit,
-      buildWhen: (previous, current) =>
-          current is FilteredCategoryListState ||
-          current is EmptyFilterListState,
+      buildWhen: (previous, current) => current is FilteredCategoryListState || current is EmptyFilterListState,
       builder: (context, state) {
         if (state is FilteredCategoryListState) {
           if (state.categoryGrouped.isEmpty) {

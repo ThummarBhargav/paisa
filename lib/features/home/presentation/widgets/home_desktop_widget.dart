@@ -11,14 +11,9 @@ import 'package:paisa/features/profile/presentation/pages/paisa_user_widget.dart
 import 'package:paisa/core/widgets/paisa_widget.dart';
 
 class HomeDesktopWidget extends StatelessWidget {
-  const HomeDesktopWidget({
-    super.key,
-    required this.floatingActionButton,
-    required this.destinations,
-  });
-
   final List<Destination> destinations;
   final Widget floatingActionButton;
+  HomeDesktopWidget({required this.floatingActionButton, required this.destinations,});
 
   @override
   Widget build(BuildContext context) {

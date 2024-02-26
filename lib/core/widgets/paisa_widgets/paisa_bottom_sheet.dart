@@ -27,7 +27,7 @@ Future<void> paisaBottomSheet(
   );
 }
 
-Future<T?> paisaAlertDialog<T>(
+Future<T?> PaisaAlertDialog<T>(
   BuildContext context, {
   required Widget child,
   required Widget title,

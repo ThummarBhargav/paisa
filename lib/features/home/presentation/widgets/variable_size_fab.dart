@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:paisa/core/AdsManager/ad_services.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/constants/sizeConstant.dart';
 import 'package:paisa/core/widgets/variable_fab_size.dart';
 import 'package:paisa/features/home/presentation/bloc/home/home_bloc.dart';
 import 'package:paisa/features/home/presentation/controller/summary_controller.dart';
+import 'package:paisa/main.dart';
 
 class HomeFloatingActionButtonWidget extends StatelessWidget {
   const HomeFloatingActionButtonWidget({
@@ -53,16 +55,16 @@ class HomeFloatingActionButtonWidget extends StatelessWidget {
       initialEntryMode: DatePickerEntryMode.calendarOnly,
       builder: (_, child) {
         return Theme(
-          data: ThemeData.from(colorScheme: Theme.of(context).colorScheme)
-              .copyWith(
-            appBarTheme: Theme.of(context).appBarTheme,
-          ),
+          data: ThemeData.from(colorScheme: Theme.of(context).colorScheme).copyWith(appBarTheme: Theme.of(context).appBarTheme),
           child: child!,
         );
       },
     );
-    if (newDateRange == null) return;
-    summaryController.dateTimeRangeNotifier.value = newDateRange;
+    if (newDateRange != null){
+      summaryController.dateTimeRangeNotifier.value = newDateRange;
+    } else {
+      getIt<AdService>().getDifferenceTime();
+    }
   }
 
   @override
@@ -76,7 +78,6 @@ class HomeFloatingActionButtonWidget extends StatelessWidget {
                 state.currentPage == 6 ||
                 state.currentPage == 5)?0: MySize.getHeight(70)),
             child: VariableFABSize(
-
               onPressed: () => _handleClick(context, state.currentPage),
               icon: state.currentPage != 3 ? Icons.add : Icons.date_range,
             ),

@@ -13,14 +13,9 @@ import 'package:paisa/features/home/presentation/controller/summary_controller.d
 import 'package:paisa/core/widgets/paisa_widget.dart';
 
 class OverViewPage extends StatelessWidget {
-  const OverViewPage({
-    Key? key,
-    required this.summaryController,
-    required this.budgetCubit,
-  }) : super(key: key);
-
   final OverviewCubit budgetCubit;
   final SummaryController summaryController;
+  OverViewPage({required this.summaryController, required this.budgetCubit,});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +45,7 @@ class OverViewPage extends StatelessWidget {
                     return Scaffold(
                       body: ListView(
                         shrinkWrap: true,
-                        physics: const BouncingScrollPhysics(),
+                        physics: BouncingScrollPhysics(),
                         children: [
                           OverviewFilter(
                             budgetCubit: budgetCubit,

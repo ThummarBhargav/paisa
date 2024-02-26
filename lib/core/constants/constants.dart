@@ -1,18 +1,7 @@
-import 'dart:io' show Platform;
-
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-
-import '../../main.dart';
-import 'firebaseAdsCheck.dart';
-
 const gitHubUrl = 'https://github.com/h4h13/paisa';
-const playStoreUrl =
-    'https://play.google.com/store/apps/details?id=com.mobileappxperts.incomeexpense.moneytracker';
+const playStoreUrl = 'https://play.google.com/store/apps/details?id=moneytracker.income.expense.walletmanager';
 const telegramGroupUrl = 'https://t.me/app_paisa';
-const termsAndConditionsUrl =
-    'https://sites.google.com/view/mobapp-privacy-policy/policy';
+const termsAndConditionsUrl = 'https://sites.google.com/view/mobapp-privacy-policy/policy';
 
 const String themeModeKey = 'key_theme_mode';
 const String appColorKey = 'key_app_color';
@@ -28,8 +17,7 @@ const String userAccountsStyleKey = 'user_accounts_style_key';
 const String smallSizeFabKey = 'user_small_size_fab_key';
 const String userLanguageKey = 'user_language_key';
 const String userCountryKey = 'user_country_key';
-const String userCustomCurrencyLeftOrRightKey =
-    'user_custom_currency_let_or_right_key';
+const String userCustomCurrencyLeftOrRightKey = 'user_custom_currency_let_or_right_key';
 const String scheduleTime = 'schedule_time_key';
 const String fontFamilyName = 'Material Design Icons';
 const String fontFamilyPackageName = 'material_design_icons_flutter';
@@ -121,7 +109,6 @@ const accountSelectorPath = '/account-selector';
 
 const iconPickerName = 'icon-picker';
 const iconPickerPath = 'icon-picker';
-const isStartTime = "isStartTime";
 
 const userOnboardingName = 'onboarding';
 const userOnboardingPath = '/onboarding';
@@ -142,21 +129,6 @@ const isBannerAds = "isBannerAds";
 const isAllAds = "isAllAds";
 const isAppOpen = "isAppOpen";
 const isInterstitial = "isInterstitial";
-
-//Android Test
-const BannerTestId_Android = "ca-app-pub-3940256099942544/6300978111";
-const InterstitialTestId_Android = "ca-app-pub-3940256099942544/1033173712";
-const AppOpenTestId_Android = "ca-app-pub-3940256099942544/3419835294";
-
-//Android Live
-const BannerLiveId_Android = "ca-app-pub-8608272927918158/2494618665";
-const InterstitialLiveId_Android = "ca-app-pub-8608272927918158/3275586984";
-const AppOpenLiveId_Android = "ca-app-pub-8608272927918158/2721053218";
-
-//Ios Test
-const BannerTestId_Ios = "ca-app-pub-3940256099942544/2934735716";
-const InterstitialTestId_Ios = "ca-app-pub-3940256099942544/4411468910";
-const AppOpenTestId_Ios = "ca-app-pub-3940256099942544/5662855259";
 
 //Ios Live
 const BannerLiveId_Ios = "ca-app-pub-8608272927918158/1718978640";
@@ -201,168 +173,7 @@ bool isNullEmptyOrFalse(dynamic o) {
   return o == null || false == o || "" == o;
 }
 
-bool getDifferenceTime() {
-  if (!isNullEmptyOrFalse(box.read(isStartTime).toString())) {
-    String startTime = box.read(isStartTime).toString();
-    String currentTime = DateTime.now().millisecondsSinceEpoch.toString();
-    int difference = int.parse(currentTime) - int.parse(startTime);
-    int differenceTime = difference ~/ 1000;
-    if (differenceTime > 30) {
-      return true;
-    } else {
-      return false;
-    }
-  } else {
-    return false;
-  }
-}
-
-showAdsDifferenceTime() {
-  if (box.read(isStartTime) != null) {
-    String startTime = box.read(isStartTime).toString();
-    String currentTime = DateTime.now().millisecondsSinceEpoch.toString();
-    int difference = int.parse(currentTime) - int.parse(startTime);
-    print("Difference := $difference");
-    print("StartTime := $startTime");
-    print("currentDate := $currentTime");
-    int differenceTime = difference ~/ 1000;
-    if (differenceTime > 30) {
-      showInterstitialAd();
-    }
-  }
-}
-
-AnchoredAdaptiveBannerAdSize? size;
-BannerAd? bannerAd;
-bool isBannerLoaded = false;
-InterstitialAd? interstitialAds;
-
-initBannerAds() async {
-  if (getIt<FirebaseAdsCheck>().isBannerAds.value) {
-    size = await anchoredAdaptiveBannerAdSize();
-    bannerAd = BannerAd(
-        size: size!,
-        adUnitId: BannerID(),
-        listener: BannerAdListener(
-          onAdLoaded: (ad) {
-            isBannerLoaded = true;
-          },
-          onAdFailedToLoad: (ad, error) {
-            ad.dispose();
-          },
-        ),
-        request: const AdRequest())
-      ..load();
-  }
-}
-
-Widget getBannerAds() {
-  return SizedBox(
-    width: size!.width.toDouble(),
-    height: size!.height.toDouble(),
-    child: bannerAd != null ? AdWidget(ad: bannerAd!) : const SizedBox(),
-  );
-}
-
-showInterstitialAd() async {
-  if (getIt<FirebaseAdsCheck>().isInterstitialAds.value) {
-    if (interStitialAdRunning) {
-      interstitialAds?.fullScreenContentCallback = FullScreenContentCallback(
-        onAdShowedFullScreenContent: (ad) {
-          interStitialAdIsShow = true;
-        },
-        onAdDismissedFullScreenContent: (ad) {
-          box.write(
-              isStartTime, DateTime.now().millisecondsSinceEpoch.toString());
-          interstitialAds?.dispose();
-          interStitialAdIsShow = false;
-          interStitialAdRunning = false;
-          loadInterstitialAd(); // Preload the next ad
-          print('Ad dismissed fullscreen content.');
-        },
-        onAdFailedToShowFullScreenContent: (ad, error) {
-          interStitialAdRunning = false;
-          print('Ad failed to show fullscreen content: $error');
-        },
-      );
-      interstitialAds?.show();
-    } else {
-      print('Interstitial ad is not loaded yet.');
-      loadInterstitialAd(); // Load a new ad if not already loaded
-    }
-  }
-}
-
-loadInterstitialAd() async {
-  InterstitialAd.load(
-    adUnitId: InterstitialID(),
-    request: AdRequest(),
-    adLoadCallback: InterstitialAdLoadCallback(
-      onAdLoaded: (ad) {
-        interstitialAds = ad;
-        interStitialAdRunning = true;
-      },
-      onAdFailedToLoad: (error) {
-        interStitialAdRunning = false;
-        print('InterstitialAd failed to load: $error');
-      },
-    ),
-  );
-}
-
-String BannerID() {
-  if (Platform.isAndroid) {
-    if (kDebugMode) {
-      return BannerTestId_Android;
-    } else {
-      return BannerLiveId_Android;
-    }
-  } else if (Platform.isIOS) {
-    if (kDebugMode) {
-      return BannerTestId_Ios;
-    } else {
-      return BannerLiveId_Ios;
-    }
-  }
-  return BannerTestId_Android;
-}
-
-String InterstitialID() {
-  if (Platform.isAndroid) {
-    if (kDebugMode) {
-      return InterstitialTestId_Android;
-    } else {
-      return InterstitialLiveId_Android;
-    }
-  } else if (Platform.isIOS) {
-    if (kDebugMode) {
-      return InterstitialTestId_Ios;
-    } else {
-      return InterstitialLiveId_Ios;
-    }
-  }
-  return InterstitialTestId_Android;
-}
-
-String AppOpenID() {
-  if (Platform.isAndroid) {
-    if (kDebugMode) {
-      return AppOpenTestId_Android;
-    } else {
-      return AppOpenLiveId_Android;
-    }
-  } else if (Platform.isIOS) {
-    if (kDebugMode) {
-      return AppOpenTestId_Ios;
-    } else {
-      return AppOpenLiveId_Ios;
-    }
-  }
-  return AppOpenTestId_Ios;
-}
-
-Future<AnchoredAdaptiveBannerAdSize?> anchoredAdaptiveBannerAdSize() async {
-  // Used to set size of adaptive banner ad according to device width and orientation.
-  return await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
-      box.read(screenWidth));
+class ArgumentConstant {
+  static const isStartTime = "isStartTime";
+  static const isAppOpenStartTime = "isAppOpenStartTime";
 }

@@ -17,13 +17,19 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -46,30 +52,12 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDy4KTx2JhPAwqvesZt7OUQZ8Fk3XOKTwI',
-    appId: '1:954974451632:web:40aea01418cca473dd8875',
-    messagingSenderId: '954974451632',
-    projectId: 'paisaapp-8ed1e',
-    authDomain: 'paisaapp-8ed1e.firebaseapp.com',
-    storageBucket: 'paisaapp-8ed1e.appspot.com',
-    measurementId: 'G-EQT9CFP2PV',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCEnnOpXigMNKFryu_QyuCfmDgiHQoVgJ4',
-    appId: '1:954974451632:android:55cd5a9e475f980edd8875',
+    appId: '1:954974451632:android:180107944be147e6dd8875',
     messagingSenderId: '954974451632',
     projectId: 'paisaapp-8ed1e',
+    databaseURL: 'https://paisaapp-8ed1e-default-rtdb.firebaseio.com',
     storageBucket: 'paisaapp-8ed1e.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAA5d26Y3MqGiSjxJQym06aSaEzTad4zNE',
-    appId: '1:954974451632:ios:b2982a7eafa94a8edd8875',
-    messagingSenderId: '954974451632',
-    projectId: 'paisaapp-8ed1e',
-    storageBucket: 'paisaapp-8ed1e.appspot.com',
-    iosBundleId: 'com.mobileappxperts.incomeexpense.moneytracker',
   );
 }

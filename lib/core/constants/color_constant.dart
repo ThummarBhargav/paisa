@@ -99,40 +99,34 @@ class BaseTheme {
   SettingItem(String title,String des,String icon,Widget widget,[VoidCallback? ontap]) {
     return InkWell(
       onTap: ontap??(){},
-      child: SizedBox(
-        width: MySize.getWidth(345),
-        height: MySize.getHeight(80),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-
-            Row(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: MySize.getHeight(8)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Spacing.width(20),
-                Image.asset(icon,width: 50,height: 50,),
-                Spacing.width(20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Row(
                   children: [
-                    Text(
-                      title,
-                      style: appTheme.normalText(16, Colors.black),
-                    ),
-                    Text(
-                      maxLines: 4,
-                      des,
-                      style: appTheme.normalText(12, Colors.grey,FontWeight.w400),
+                    Spacing.width(20),
+                    Image.asset(icon,width: 50,height: 50,),
+                    Spacing.width(20),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(title, style: appTheme.normalText(16, Colors.black),),
+                        Text(maxLines: 4, des, style: appTheme.normalText(12, Colors.grey,FontWeight.w400),),
+                      ],
                     ),
                   ],
                 ),
-
+                widget,
               ],
             ),
-            widget,
-
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -206,8 +200,7 @@ Color fromHex(String hexString) {
   return Color(int.parse(buffer.toString(), radix: 16));
 }
 
-String calculateTimeDifferenceOnSameDate(
-    TimeOfDay startTime, TimeOfDay endTime) {
+String calculateTimeDifferenceOnSameDate(TimeOfDay startTime, TimeOfDay endTime) {
   // Get the current date
   if (endTime.hour < startTime.hour) {
     return "0";

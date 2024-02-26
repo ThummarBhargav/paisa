@@ -91,16 +91,10 @@ class PaisaOutlineCard extends StatelessWidget {
 }
 
 class PaisaFilledCard extends StatelessWidget {
-  const PaisaFilledCard({
-    super.key,
-    required this.child,
-    this.shape,
-    this.color,
-  });
-
   final Widget child;
   final Color? color;
   final ShapeBorder? shape;
+  PaisaFilledCard({required this.child, this.shape, this.color,});
 
   @override
   Widget build(BuildContext context) {
@@ -112,9 +106,7 @@ class PaisaFilledCard extends StatelessWidget {
       decoration: ShapeDecoration(
         gradient: randomNumber == 0
             ? appTheme.g1()
-            : randomNumber == 1
-                ? appTheme.g2()
-                : appTheme.g3(),
+            : randomNumber == 1 ? appTheme.g2() : appTheme.g3(),
         image: DecorationImage(
           image: AssetImage('assets/images/CardMask.png'),
           fit: BoxFit.fill,

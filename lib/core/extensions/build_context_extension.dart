@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/constants/color_constant.dart';
-import 'package:paisa/core/constants/sizeConstant.dart';
 
 extension LocalizedBuildContext on BuildContext {
   AppLocalizations get loc => AppLocalizations.of(this)!;
@@ -17,7 +15,7 @@ extension AppBarHelper on BuildContext {
     Widget? leadingWidget,
   }) {
     return AppBar(
-toolbarHeight: 110,
+      toolbarHeight: 110,
       leading: leadingWidget,
       iconTheme: IconThemeData(
         color: Colors.white, //change your color here
@@ -26,7 +24,7 @@ toolbarHeight: 110,
       titleTextStyle: appTheme.normalText(22),
       actions: actions ?? [],
       flexibleSpace: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment(0.04, -1.00),
             end: Alignment(-0.04, 1),
@@ -37,9 +35,7 @@ toolbarHeight: 110,
     );
   }
 
-  ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
-      showMaterialSnackBar(
-    String content, {
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showMaterialSnackBar(String content, {
     Color? backgroundColor,
     Color? color,
     SnackBarAction? action,

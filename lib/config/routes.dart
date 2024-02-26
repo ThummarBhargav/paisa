@@ -43,32 +43,32 @@ final GoRouter goRouter = GoRouter(
       name: introPageName,
       path: introPagePath,
       builder: (BuildContext context, GoRouterState state) {
-        return const IntroPage();
+        return IntroPage();
       },
     ),
     GoRoute(
       name: categorySelectorName,
       path: categorySelectorPath,
       builder: (BuildContext context, GoRouterState state) =>
-          const CategorySelectorPage(),
+          CategorySelectorPage(),
     ),
     GoRoute(
       name: accountSelectorName,
       path: accountSelectorPath,
       builder: (BuildContext context, GoRouterState state) =>
-          const AccountSelectorPage(),
+          AccountSelectorPage(),
     ),
     GoRoute(
       name: userOnboardingName,
       path: userOnboardingPath,
       builder: (BuildContext context, GoRouterState state) =>
-          const UserOnboardingPage(),
+          UserOnboardingPage(),
     ),
     GoRoute(
       name: loginName,
       path: loginPath,
       builder: (BuildContext context, GoRouterState state) =>
-          const Center(child: CircularProgressIndicator()),
+          Center(child: CircularProgressIndicator()),
     ),
     GoRoute(
       name: countrySelectorName,
@@ -88,7 +88,7 @@ final GoRouter goRouter = GoRouter(
       name: biometricName,
       path: biometricPath,
       builder: (BuildContext context, GoRouterState state) =>
-          const BiometricPage(),
+          BiometricPage(),
     ),
     GoRoute(
       name: landingName,
@@ -127,14 +127,14 @@ final GoRouter goRouter = GoRouter(
           name: addCategoryName,
           path: addCategoryPath,
           builder: (BuildContext context, GoRouterState state) {
-            return const AddCategoryPage();
+            return AddCategoryPage();
           },
           routes: [
             GoRoute(
               path: iconPickerPath,
               name: iconPickerName,
               builder: (BuildContext context, GoRouterState state) {
-                return const CategoryIconPickerPage();
+                return CategoryIconPickerPage();
               },
             )
           ],
@@ -152,14 +152,14 @@ final GoRouter goRouter = GoRouter(
           name: manageCategoriesName,
           path: manageCategoriesPath,
           builder: (BuildContext context, GoRouterState state) {
-            return const CategoryListPage();
+            return CategoryListPage();
           },
         ),
         GoRoute(
           name: addAccountName,
           path: addAccountPath,
           builder: (BuildContext context, GoRouterState state) {
-            return const AddAccountPage();
+            return AddAccountPage();
           },
         ),
         GoRoute(
@@ -225,7 +225,7 @@ final GoRouter goRouter = GoRouter(
           name: addDebitName,
           path: addDebitPath,
           builder: (BuildContext context, GoRouterState state) {
-            return const AddOrEditDebitPage();
+            return AddOrEditDebitPage();
           },
         ),
         GoRoute(
@@ -241,21 +241,21 @@ final GoRouter goRouter = GoRouter(
           name: searchName,
           path: searchPath,
           builder: (BuildContext context, GoRouterState state) {
-            return const SearchPage();
+            return SearchPage();
           },
         ),
         GoRoute(
           name: recurringTransactionsName,
           path: recurringTransactionsPath,
           builder: (BuildContext context, GoRouterState state) {
-            return const RecurringPage();
+            return RecurringPage();
           },
           routes: [
             GoRoute(
               name: recurringName,
               path: recurringPath,
               builder: (BuildContext context, GoRouterState state) {
-                return const AddRecurringPage();
+                return AddRecurringPage();
               },
             ),
           ],
@@ -264,14 +264,14 @@ final GoRouter goRouter = GoRouter(
           name: settingsName,
           path: settingsPath,
           builder: (BuildContext context, GoRouterState state) {
-            return const SettingsPage();
+            return SettingsPage();
           },
           routes: [
             GoRoute(
               name: exportAndImportName,
               path: exportAndImportPath,
               builder: (BuildContext context, GoRouterState state) {
-                return const ExportAndImportPage();
+                return ExportAndImportPage();
               },
             ),
             GoRoute(

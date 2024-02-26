@@ -11,7 +11,6 @@ import 'package:paisa/features/transaction/presentation/bloc/transaction_bloc.da
 import 'package:paisa/features/transaction/presentation/widgets/selectable_item_widget.dart';
 import 'package:paisa/main.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-
 import '../../../../core/constants/color_constant.dart';
 
 class SelectedAccount extends StatelessWidget {
@@ -48,8 +47,7 @@ class SelectedAccount extends StatelessWidget {
               AccountSelectedItem(
                 accounts: accounts,
                 onSelected: (selectedId) {
-                  BlocProvider.of<TransactionBloc>(context).selectedAccountId =
-                      selectedId;
+                  BlocProvider.of<TransactionBloc>(context).selectedAccountId = selectedId;
                 },
               )
             ],
@@ -67,8 +65,7 @@ class SelectedAccount extends StatelessWidget {
               AccountSelectedItem(
                 accounts: accounts,
                 onSelected: (selectedId) {
-                  BlocProvider.of<TransactionBloc>(context).selectedAccountId =
-                      selectedId;
+                  BlocProvider.of<TransactionBloc>(context).selectedAccountId = selectedId;
                 },
               )
             ],
@@ -100,7 +97,7 @@ class _AccountSelectedItemState extends State<AccountSelectedItem> {
       buildWhen: (previous, current) => current is ChangeAccountState,
       builder: (context, state) {
         return SizedBox(
-          height: 160,
+          height: 170,
           child: ListView.builder(
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.only(
@@ -108,7 +105,7 @@ class _AccountSelectedItemState extends State<AccountSelectedItem> {
               right: 16,
             ),
             scrollDirection: Axis.horizontal,
-            shrinkWrap: false,
+            shrinkWrap: true,
             itemCount: widget.accounts.length + 1,
             itemBuilder: (_, index) {
               if (index == 0) {
@@ -121,8 +118,9 @@ class _AccountSelectedItemState extends State<AccountSelectedItem> {
                 );
               } else {
                 final AccountEntity account = widget.accounts[index - 1];
-                int selectedId = BlocProvider.of<TransactionBloc>(context)
-                    .selectedAccountId!;
+                int selectedId = BlocProvider.of<TransactionBloc>(context).selectedAccountId != null
+                    ? BlocProvider.of<TransactionBloc>(context).selectedAccountId!
+                    : 0;
                 return ItemWidget(
                   color: Color(0xFF6C16F4).withOpacity(0.8),
                   selected: account.superId == selectedId,

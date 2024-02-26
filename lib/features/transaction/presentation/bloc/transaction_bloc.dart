@@ -70,7 +70,7 @@ class TransactionBloc extends Bloc<ExpenseEvent, TransactionState> {
   ) async {
     final int? expenseId = int.tryParse(event.expenseId ?? '');
     if (expenseId == null) {
-      selectedAccountId = settingsUseCase.get(defaultAccountIdKey);
+        selectedAccountId = settingsUseCase.get(defaultAccountIdKey);
       return;
     }
 

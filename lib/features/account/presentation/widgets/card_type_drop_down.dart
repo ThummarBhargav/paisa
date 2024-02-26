@@ -8,8 +8,6 @@ import 'package:paisa/core/common.dart';
 import 'package:paisa/core/enum/card_type.dart';
 
 class CardTypeButtons extends StatelessWidget {
-  const CardTypeButtons({Key? key}) : super(key: key);
-
   void _update(BuildContext context, CardType type) {
     BlocProvider.of<AccountBloc>(context).add(UpdateCardTypeEvent(type));
   }
@@ -23,20 +21,17 @@ class CardTypeButtons extends StatelessWidget {
           children: [
             PaisaPillChip(
               title: CardType.cash.stringValue(context),
-              isSelected: BlocProvider.of<AccountBloc>(context).selectedType ==
-                  CardType.cash,
+              isSelected: BlocProvider.of<AccountBloc>(context).selectedType == CardType.cash,
               onPressed: () => _update(context, CardType.cash),
             ),
             PaisaPillChip(
               title: CardType.bank.stringValue(context),
-              isSelected: BlocProvider.of<AccountBloc>(context).selectedType ==
-                  CardType.bank,
+              isSelected: BlocProvider.of<AccountBloc>(context).selectedType == CardType.bank,
               onPressed: () => _update(context, CardType.bank),
             ),
             PaisaPillChip(
               title: CardType.wallet.stringValue(context),
-              isSelected: BlocProvider.of<AccountBloc>(context).selectedType ==
-                  CardType.wallet,
+              isSelected: BlocProvider.of<AccountBloc>(context).selectedType == CardType.wallet,
               onPressed: () => _update(context, CardType.wallet),
             ),
           ],

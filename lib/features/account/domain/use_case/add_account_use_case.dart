@@ -6,9 +6,8 @@ import 'package:paisa/features/account/domain/repository/account_repository.dart
 
 @singleton
 class AddAccountUseCase implements UseCase<void, AddAccountParams> {
-  AddAccountUseCase({required this.accountRepository});
-
   final AccountRepository accountRepository;
+  AddAccountUseCase({required this.accountRepository});
 
   @override
   Future<void> call(AddAccountParams params) {
@@ -25,7 +24,15 @@ class AddAccountUseCase implements UseCase<void, AddAccountParams> {
 }
 
 class AddAccountParams extends Equatable {
-  const AddAccountParams({
+  final double amount;
+  final String bankName;
+  final CardType cardType;
+  final int color;
+  final String holderName;
+  final String number;
+  final bool isAccountExcluded;
+
+  AddAccountParams({
     required this.bankName,
     required this.holderName,
     required this.number,
@@ -35,22 +42,6 @@ class AddAccountParams extends Equatable {
     required this.isAccountExcluded,
   });
 
-  final double amount;
-  final String bankName;
-  final CardType cardType;
-  final int color;
-  final String holderName;
-  final String number;
-  final bool isAccountExcluded;
-
   @override
-  List<Object?> get props => [
-        bankName,
-        holderName,
-        number,
-        cardType,
-        amount,
-        color,
-        isAccountExcluded,
-      ];
+  List<Object?> get props => [bankName, holderName, number, cardType, amount, color, isAccountExcluded,];
 }

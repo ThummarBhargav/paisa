@@ -1,4 +1,4 @@
-package com.mobileappxperts.incomeexpense.moneytracker
+package moneytracker.income.expense.walletmanager
 
 import android.os.Build
 import android.os.Bundle

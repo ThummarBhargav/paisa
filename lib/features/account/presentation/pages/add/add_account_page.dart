@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:paisa/core/AdsManager/ad_services.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/enum/card_type.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
@@ -14,12 +15,8 @@ import 'package:responsive_builder/responsive_builder.dart';
 final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
 class AddAccountPage extends StatefulWidget {
-  const AddAccountPage({
-    Key? key,
-    this.accountId,
-  }) : super(key: key);
-
-  final String? accountId;
+  String? accountId;
+  AddAccountPage({this.accountId,});
 
   @override
   AddAccountPageState createState() => AddAccountPageState();
@@ -49,7 +46,7 @@ class AddAccountPageState extends State<AddAccountPage> {
   }
 
   void _showInfo() => showModalBottomSheet(
-        shape: const RoundedRectangleBorder(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(24),
             topRight: Radius.circular(24),
@@ -64,7 +61,7 @@ class AddAccountPageState extends State<AddAccountPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ListTile(
-                  leading: const Icon(Icons.info_rounded),
+                  leading: Icon(Icons.info_rounded),
                   title: Text(
                     context.loc.accountInformationTitle,
                     style: Theme.of(context)
@@ -74,16 +71,16 @@ class AddAccountPageState extends State<AddAccountPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: EdgeInsets.all(16.0),
                   child: Text(context.loc.accountInformationSubTitle),
                 ),
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: EdgeInsets.symmetric(horizontal: 16),
                     child: TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: EdgeInsets.symmetric(horizontal: 16),
                       ),
                       onPressed: () {
                         GoRouter.of(context).pop();
@@ -92,7 +89,7 @@ class AddAccountPageState extends State<AddAccountPage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 10)
+                SizedBox(height: 10)
               ],
             ),
           );
@@ -132,48 +129,44 @@ class AddAccountPageState extends State<AddAccountPage> {
               );
             } else if (state is AccountSuccessState) {
               accountNameController.text = state.account.bankName ?? '';
-              accountNameController.selection = TextSelection.collapsed(
-                  offset: state.account.bankName?.length ?? 0);
-
+              accountNameController.selection = TextSelection.collapsed(offset: state.account.bankName?.length ?? 0);
               accountNumberController.text = state.account.number ?? '';
-              accountNumberController.selection = TextSelection.collapsed(
-                  offset: state.account.number?.length ?? 0);
-
+              accountNumberController.selection = TextSelection.collapsed(offset: state.account.number?.length ?? 0);
               accountHolderController.text = state.account.name ?? '';
-              accountHolderController.selection = TextSelection.collapsed(
-                  offset: state.account.name?.length ?? 0);
-
-              accountInitialAmountController.text =
-                  state.account.amount.toString();
-              accountInitialAmountController.selection =
-                  TextSelection.collapsed(
-                      offset: state.account.amount.toString().length);
+              accountHolderController.selection = TextSelection.collapsed(offset: state.account.name?.length ?? 0);
+              accountInitialAmountController.text = state.account.amount.toString();
+              accountInitialAmountController.selection = TextSelection.collapsed(offset: state.account.amount.toString().length);
             }
           },
           builder: (context, state) {
             return ScreenTypeLayout.builder(
               mobile: (p0) => WillPopScope(
                 onWillPop: () async {
-                  showAdsDifferenceTime();
+                  getIt<AdService>().getDifferenceTime();
                   return true;
                 },
                 child: Scaffold(
                   appBar: context.materialYouAppBar(
-                    isAccountAddOrUpdate
-                        ? context.loc.addAccount
-                        : context.loc.updateAccount,
+                    isAccountAddOrUpdate ? context.loc.addAccount : context.loc.updateAccount,
+                    leadingWidget: GestureDetector(
+                      onTap: () {
+                        getIt<AdService>().getDifferenceTime();
+                        Navigator.pop(context);
+                      },
+                      child: Icon(Icons.arrow_back),
+                    ),
                     actions: [
                       DeleteAccountWidget(accountId: widget.accountId),
                       IconButton(
                         onPressed: _showInfo,
-                        icon: const Icon(Icons.info_rounded),
+                        icon: Icon(Icons.info_rounded),
                       ),
                     ],
                   ),
                   body: SingleChildScrollView(
                     child: Column(
                       children: [
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.symmetric(
                             horizontal: 16,
                             vertical: 8,
@@ -183,43 +176,39 @@ class AddAccountPageState extends State<AddAccountPage> {
                         Form(
                           key: _form,
                           child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            padding: EdgeInsets.symmetric(horizontal: 16.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                const SizedBox(height: 16),
+                                SizedBox(height: 16),
                                 AccountCardHolderNameWidget(
                                   controller: accountHolderController,
                                 ),
-                                const SizedBox(height: 16),
+                                SizedBox(height: 16),
                                 AccountNameWidget(
                                   controller: accountNameController,
                                 ),
-                                const SizedBox(height: 16),
+                                SizedBox(height: 16),
                                 AccountInitialAmountWidget(
                                   controller: accountInitialAmountController,
                                 ),
-                                const SizedBox(height: 16),
+                                SizedBox(height: 16),
                                 Builder(
                                   builder: (context) {
-                                    if (state is UpdateCardTypeState &&
-                                        state.cardType == CardType.bank) {
+                                    if (state is UpdateCardTypeState && state.cardType == CardType.bank) {
                                       return AccountNumberWidget(
                                         controller: accountNumberController,
                                       );
                                     } else {
-                                      return const SizedBox.shrink();
+                                      return SizedBox.shrink();
                                     }
                                   },
                                 ),
-                                const SizedBox(height: 16),
+                                SizedBox(height: 16),
                                 AccountDefaultSwitchWidget(
-                                  accountId:
-                                      int.tryParse(widget.accountId ?? '') ??
-                                          -1,
+                                  accountId: int.tryParse(widget.accountId ?? '') ?? -1,
                                 ),
-                                const AccountColorPickerWidget()
+                                AccountColorPickerWidget()
                               ],
                             ),
                           ),
@@ -229,7 +218,7 @@ class AddAccountPageState extends State<AddAccountPage> {
                   ),
                   bottomNavigationBar: SafeArea(
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: EdgeInsets.all(16.0),
                       child: PaisaBigButton(
                         onPressed: () {
                           final isValid = _form.currentState!.validate();
@@ -255,7 +244,7 @@ class AddAccountPageState extends State<AddAccountPage> {
                   actions: [
                     IconButton(
                       onPressed: _showInfo,
-                      icon: const Icon(Icons.info_rounded,color: Colors.white,),
+                      icon: Icon(Icons.info_rounded,color: Colors.white,),
                     ),
                     DeleteAccountWidget(accountId: widget.accountId),
                     PaisaButton(
@@ -271,7 +260,7 @@ class AddAccountPageState extends State<AddAccountPage> {
                           ? context.loc.add
                           : context.loc.update,
                     ),
-                    const SizedBox(width: 16),
+                    SizedBox(width: 16),
                   ],
                 ),
                 body: SingleChildScrollView(
@@ -283,24 +272,24 @@ class AddAccountPageState extends State<AddAccountPage> {
                           key: _form,
                           child: Padding(
                             padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
+                                EdgeInsets.symmetric(horizontal: 16.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                const CardTypeButtons(),
-                                const SizedBox(height: 16),
+                                CardTypeButtons(),
+                                SizedBox(height: 16),
                                 AccountCardHolderNameWidget(
                                   controller: accountHolderController,
                                 ),
-                                const SizedBox(height: 16),
+                                SizedBox(height: 16),
                                 AccountNameWidget(
                                   controller: accountNameController,
                                 ),
-                                const SizedBox(height: 16),
+                                SizedBox(height: 16),
                                 AccountInitialAmountWidget(
                                   controller: accountInitialAmountController,
                                 ),
-                                const SizedBox(height: 16),
+                                SizedBox(height: 16),
                                 Builder(
                                   builder: (context) {
                                     if (state is UpdateCardTypeState &&
@@ -309,17 +298,17 @@ class AddAccountPageState extends State<AddAccountPage> {
                                         controller: accountNumberController,
                                       );
                                     } else {
-                                      return const SizedBox.shrink();
+                                      return SizedBox.shrink();
                                     }
                                   },
                                 ),
-                                const SizedBox(height: 16),
+                                SizedBox(height: 16),
                                 AccountDefaultSwitchWidget(
                                   accountId:
                                       int.tryParse(widget.accountId ?? '') ??
                                           -1,
                                 ),
-                                const AccountColorPickerWidget()
+                                AccountColorPickerWidget()
                               ],
                             ),
                           ),
@@ -338,7 +327,7 @@ class AddAccountPageState extends State<AddAccountPage> {
 }
 
 class AccountColorPickerWidget extends StatelessWidget {
-  const AccountColorPickerWidget({super.key});
+  AccountColorPickerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -366,7 +355,7 @@ class AccountColorPickerWidget extends StatelessWidget {
           title: Text(context.loc.pickColor),
           subtitle: Text(context.loc.pickColorDesc),
           trailing: Container(
-            margin: const EdgeInsets.only(right: 12),
+            margin: EdgeInsets.only(right: 12),
             width: 28,
             height: 28,
             decoration: BoxDecoration(
@@ -385,9 +374,9 @@ class AccountColorPickerWidget extends StatelessWidget {
 class DeleteAccountWidget extends StatelessWidget {
   final String? accountId;
 
-  const DeleteAccountWidget({super.key, this.accountId});
+  DeleteAccountWidget({super.key, this.accountId});
   void onPressed(BuildContext context) {
-    paisaAlertDialog(
+    PaisaAlertDialog(
       context,
       title: Text(context.loc.dialogDeleteTitle),
       child: RichText(
@@ -397,7 +386,7 @@ class DeleteAccountWidget extends StatelessWidget {
           children: [
             TextSpan(
               text: BlocProvider.of<AccountBloc>(context).accountName,
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -406,7 +395,7 @@ class DeleteAccountWidget extends StatelessWidget {
       ),
       confirmationButton: TextButton(
         style: TextButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: 16),
         ),
         onPressed: () {
           BlocProvider.of<AccountBloc>(context)
@@ -422,7 +411,7 @@ class DeleteAccountWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (accountId == null) {
-      return const SizedBox.shrink();
+      return SizedBox.shrink();
     }
     return ScreenTypeLayout.builder(
       mobile: (p0) => IconButton(
@@ -441,7 +430,7 @@ class DeleteAccountWidget extends StatelessWidget {
 }
 
 class AccountCardHolderNameWidget extends StatelessWidget {
-  const AccountCardHolderNameWidget({
+  AccountCardHolderNameWidget({
     super.key,
     required this.controller,
   });
@@ -468,7 +457,7 @@ class AccountCardHolderNameWidget extends StatelessWidget {
 }
 
 class AccountNameWidget extends StatelessWidget {
-  const AccountNameWidget({
+  AccountNameWidget({
     super.key,
     required this.controller,
   });
@@ -495,7 +484,7 @@ class AccountNameWidget extends StatelessWidget {
 }
 
 class AccountNumberWidget extends StatelessWidget {
-  const AccountNumberWidget({
+  AccountNumberWidget({
     super.key,
     required this.controller,
   });
@@ -519,7 +508,7 @@ class AccountNumberWidget extends StatelessWidget {
 }
 
 class AccountInitialAmountWidget extends StatelessWidget {
-  const AccountInitialAmountWidget({
+  AccountInitialAmountWidget({
     super.key,
     required this.controller,
   });
@@ -552,7 +541,7 @@ class AccountInitialAmountWidget extends StatelessWidget {
 }
 
 class AccountDefaultSwitchWidget extends StatefulWidget {
-  const AccountDefaultSwitchWidget({
+  AccountDefaultSwitchWidget({
     super.key,
     required this.accountId,
   });
@@ -564,8 +553,7 @@ class AccountDefaultSwitchWidget extends StatefulWidget {
       _AccountDefaultSwitchWidgetState();
 }
 
-class _AccountDefaultSwitchWidgetState
-    extends State<AccountDefaultSwitchWidget> {
+class _AccountDefaultSwitchWidgetState extends State<AccountDefaultSwitchWidget> {
   late final SettingCubit settingCubit = BlocProvider.of<SettingCubit>(context);
 
   late bool isAccountDefault =
@@ -574,7 +562,7 @@ class _AccountDefaultSwitchWidgetState
   Widget build(BuildContext context) {
     return SwitchListTile(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+      contentPadding: EdgeInsets.symmetric(horizontal: 8),
       title: Text(context.loc.defaultAccount),
       value: isAccountDefault,
       onChanged: (value) {

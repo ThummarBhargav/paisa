@@ -1,21 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:in_app_update/in_app_update.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:paisa/core/common.dart';
 import 'package:paisa/core/common_enum.dart';
-import 'package:paisa/core/constants/color_constant.dart';
 import 'package:paisa/features/home/presentation/bloc/home/home_bloc.dart';
-import 'package:paisa/features/home/presentation/widgets/home_desktop_widget.dart';
 import 'package:paisa/features/home/presentation/widgets/home_mobile_widget.dart';
-import 'package:paisa/features/home/presentation/widgets/home_tablet_widget.dart';
 import 'package:paisa/features/home/presentation/widgets/variable_size_fab.dart';
 import 'package:paisa/main.dart';
 import 'package:paisa/core/in_app.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
-import 'package:responsive_builder/responsive_builder.dart';
-
-import '../../../../../core/constants/firebaseAdsCheck.dart';
 
 final destinations = [
   Destination(
@@ -66,9 +58,7 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeBloc homeBloc = BlocProvider.of<HomeBloc>(context);
-
-    final actionButton =
-        HomeFloatingActionButtonWidget(summaryController: getIt.get());
+    final actionButton = HomeFloatingActionButtonWidget(summaryController: getIt.get());
     return PaisaAnnotatedRegionWidget(
       child: BlocProvider(
         create: (context) => homeBloc,
@@ -80,20 +70,6 @@ class LandingPage extends StatelessWidget {
             homeBloc.add(const CurrentIndexEvent(0));
             return false;
           },
-          // child: ScreenTypeLayout.builder(
-          //   mobile: (p0) => HomeMobileWidget(
-          //     floatingActionButton: actionButton,
-          //     destinations: destinations,
-          //   ),
-          //   tablet: (p0) => HomeTabletWidget(
-          //     floatingActionButton: actionButton,
-          //     destinations: destinations,
-          //   ),
-          //   desktop: (p0) => HomeDesktopWidget(
-          //     floatingActionButton: actionButton,
-          //     destinations: destinations,
-          //   ),
-          // ),
           child: HomeMobileWidget(
             floatingActionButton: actionButton,
             destinations: destinations,

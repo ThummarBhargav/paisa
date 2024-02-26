@@ -1,27 +1,16 @@
 import 'package:flutter/material.dart';
-
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/constants/sizeConstant.dart';
-
 import '../../../../core/constants/color_constant.dart';
 
 class ItemWidget extends StatelessWidget {
-  const ItemWidget({
-    super.key,
-    required this.selected,
-    required this.title,
-    required this.icon,
-    required this.onPressed,
-    this.subtitle,
-    required this.color,
-  });
-
   final int icon;
   final bool selected;
   final VoidCallback onPressed;
   final String? subtitle;
   final String title;
   final Color color;
+  ItemWidget({required this.selected, required this.title, required this.icon, required this.onPressed, this.subtitle, required this.color,});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +28,6 @@ class ItemWidget extends StatelessWidget {
           );
     return SizedBox(
       width: MySize.getWidth(150),
-
       child: Card(
         color: Colors.white,
         clipBehavior: Clip.antiAlias,
@@ -51,7 +39,7 @@ class ItemWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: EdgeInsets.all(12),
                 child: Container(
                   width: MySize.getWidth(42),
                   height: MySize.getHeight(42),
@@ -83,21 +71,11 @@ class ItemWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              const Spacer(),
+              Spacer(),
               ListTile(
-                title: Text(
-                  title,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                    style: appTheme.normalText(15,Colors.black)
-                ),
+                title: Text(title, overflow: TextOverflow.ellipsis, maxLines: 2, style: appTheme.normalText(15,Colors.black)),
                 subtitle: subtitle != null
-                    ? Text(
-                        subtitle!,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-              style: appTheme.normalText(13,Colors.black54),
-                      )
+                    ? Text(subtitle!, overflow: TextOverflow.ellipsis, maxLines: 1, style: appTheme.normalText(13,Colors.black54),)
                     : null,
               )
             ],

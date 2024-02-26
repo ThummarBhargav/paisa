@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:paisa/core/AdsManager/ad_services.dart';
 import 'package:paisa/core/constants/color_constant.dart';
 import 'package:paisa/features/debit/presentation/cubit/debts_bloc.dart';
-
 import '../../../../core/common.dart';
 import '../../../../core/enum/transaction_type.dart';
 import '../../../../core/widgets/paisa_widget.dart';
@@ -15,18 +15,11 @@ import '../widgets/transaction_toggle_buttons_widget.dart';
 import '../widgets/transfer_widget.dart';
 
 class TransactionPage extends StatefulWidget {
-  const TransactionPage({
-    Key? key,
-    this.expenseId,
-    this.transactionType,
-    this.accountId,
-    this.categoryId,
-  }) : super(key: key);
-
-  final String? accountId;
-  final String? categoryId;
-  final String? expenseId;
-  final TransactionType? transactionType;
+  String? accountId;
+  String? categoryId;
+  String? expenseId;
+  TransactionType? transactionType;
+  TransactionPage({this.expenseId, this.transactionType, this.accountId, this.categoryId});
 
   @override
   State<TransactionPage> createState() => _TransactionPageState();
@@ -50,10 +43,7 @@ class _TransactionPageState extends State<TransactionPage> {
   @override
   void initState() {
     super.initState();
-    transactionBloc
-      ..add(ChangeTransactionTypeEvent(
-          widget.transactionType ?? TransactionType.expense))
-      ..add(FindTransactionFromIdEvent(widget.expenseId));
+    transactionBloc..add(ChangeTransactionTypeEvent(widget.transactionType ?? TransactionType.expense))..add(FindTransactionFromIdEvent(widget.expenseId));
   }
 
   @override
@@ -104,165 +94,24 @@ class _TransactionPageState extends State<TransactionPage> {
           },
           builder: (context, state) {
             if (widget.accountId != null) {
-              BlocProvider.of<TransactionBloc>(context).selectedAccountId =
-                  int.tryParse(widget.accountId!);
+              BlocProvider.of<TransactionBloc>(context).selectedAccountId = int.tryParse(widget.accountId!);
             }
             if (widget.categoryId != null) {
-              BlocProvider.of<TransactionBloc>(context).selectedCategoryId =
-                  int.tryParse(widget.categoryId!);
+              BlocProvider.of<TransactionBloc>(context).selectedCategoryId = int.tryParse(widget.categoryId!);
             }
-            // return ScreenTypeLayout.builder(
-            //   mobile: (p0) => WillPopScope(
-            //     child: Scaffold(
-            //       extendBody: true,
-            //       appBar: AppBar(
-            //
-            //         toolbarHeight: 100,
-            //         title: Text(
-            //           isAddExpense
-            //               ? context.loc.addTransaction
-            //               : context.loc.updateTransaction,
-            //           style: context.titleLarge
-            //               ?.copyWith(fontWeight: FontWeight.bold),
-            //         ),
-            //         bottom: const PreferredSize(
-            //           preferredSize: Size.fromHeight(32),
-            //           child: Align(
-            //             alignment: Alignment.centerLeft,
-            //             child: TransactionToggleButtons(),
-            //           ),
-            //         ),
-            //         actions: [
-            //           TransactionDeleteWidget(expenseId: widget.expenseId),
-            //         ],
-            //       ),
-            //       body: BlocBuilder<TransactionBloc, TransactionState>(
-            //         buildWhen: (previous, current) =>
-            //             current is ChangeTransactionTypeState,
-            //         builder: (context, state) {
-            //           if (state is ChangeTransactionTypeState) {
-            //             if (state.transactionType == TransactionType.transfer) {
-            //               return TransferWidget(controller: amountController);
-            //             } else {
-            //               return ExpenseIncomeWidget(
-            //                 amountController: amountController,
-            //                 descriptionController: descriptionController,
-            //                 nameController: nameController,
-            //               );
-            //             }
-            //           } else {
-            //             return const SizedBox.shrink();
-            //           }
-            //         },
-            //       ),
-            //       bottomNavigationBar: SafeArea(
-            //         child: Padding(
-            //           padding: const EdgeInsets.all(16.0),
-            //           child: PaisaBigButton(
-            //             onPressed: () {
-            //               BlocProvider.of<TransactionBloc>(context)
-            //                   .add(AddOrUpdateExpenseEvent(isAddExpense));
-            //             },
-            //             title:
-            //                 isAddExpense ? context.loc.add : context.loc.update,
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //     onWillPop: () async {
-            //       if (getDifferenceTime()) {
-            //         initInterstitialAds();
-            //       }
-            //       return true;
-            //     },
-            //   ),
-            //   tablet: (p0) => Scaffold(
-            //     appBar: AppBar(
-            //       systemOverlayStyle: SystemUiOverlayStyle(
-            //         statusBarColor: Colors.transparent,
-            //         systemNavigationBarColor: Colors.transparent,
-            //         statusBarIconBrightness:
-            //             MediaQuery.of(context).platformBrightness ==
-            //                     Brightness.dark
-            //                 ? Brightness.light
-            //                 : Brightness.dark,
-            //       ),
-            //       iconTheme: IconThemeData(
-            //         color: context.onSurface,
-            //       ),
-            //       elevation: 0,
-            //       backgroundColor: Colors.transparent,
-            //       title: Text(
-            //         isAddExpense
-            //             ? context.loc.addTransaction
-            //             : context.loc.updateTransaction,
-            //         style: Theme.of(context)
-            //             .textTheme
-            //             .titleLarge
-            //             ?.copyWith(fontWeight: FontWeight.w700),
-            //       ),
-            //       actions: [
-            //         TransactionDeleteWidget(expenseId: widget.expenseId),
-            //         PaisaButton(
-            //           onPressed: () {
-            //             BlocProvider.of<TransactionBloc>(context)
-            //                 .add(AddOrUpdateExpenseEvent(isAddExpense));
-            //           },
-            //           title:
-            //               isAddExpense ? context.loc.add : context.loc.update,
-            //         ),
-            //         const SizedBox(width: 16),
-            //       ],
-            //     ),
-            //     body: Row(
-            //       crossAxisAlignment: CrossAxisAlignment.stretch,
-            //       children: [
-            //         Expanded(
-            //           child: Column(
-            //             crossAxisAlignment: CrossAxisAlignment.stretch,
-            //             children: [
-            //               Column(
-            //                 crossAxisAlignment: CrossAxisAlignment.stretch,
-            //                 children: [
-            //                   const TransactionToggleButtons(),
-            //                   const SizedBox(height: 16),
-            //                   TransactionNameWidget(controller: nameController),
-            //                   const SizedBox(height: 16),
-            //                   ExpenseDescriptionWidget(
-            //                       controller: descriptionController),
-            //                   const SizedBox(height: 16),
-            //                   TransactionAmountWidget(
-            //                       controller: amountController),
-            //                   const Padding(
-            //                     padding: EdgeInsets.symmetric(horizontal: 8.0),
-            //                     child: ExpenseDatePickerWidget(),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ],
-            //           ),
-            //         ),
-            //         Expanded(
-            //           child: ListView(
-            //             children: const [
-            //               SelectedAccount(),
-            //               SelectCategoryIcon(),
-            //             ],
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // );
             return WillPopScope(
+              onWillPop: () async {
+                getIt<AdService>().getDifferenceTime();
+                return await true;
+              },
               child: Scaffold(
                 extendBody: true,
                 appBar: AppBar(
                   backgroundColor: context.primary,
                   toolbarHeight: 100,
-                  leading: InkWell(
+                  leading: GestureDetector(
                     onTap: () {
-                      showAdsDifferenceTime();
+                      getIt<AdService>().getDifferenceTime();
                       Navigator.pop(context);
                     },
                     child: Icon(
@@ -308,11 +157,8 @@ class _TransactionPageState extends State<TransactionPage> {
                             return const SizedBox.shrink();
                           }
                         },
-                        listener:
-                            (BuildContext context, TransactionState state) {
-                          if (state is TransactionAddedState) {
-                            showAdsDifferenceTime();
-                          }
+                        listener: (BuildContext context, TransactionState state) {
+                          if (state is TransactionAddedState) {}
                         },
                       ),
                     ),
@@ -320,23 +166,16 @@ class _TransactionPageState extends State<TransactionPage> {
                 ),
                 bottomNavigationBar: SafeArea(
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: EdgeInsets.all(16.0),
                     child: PaisaBigButton(
                       onPressed: () {
-                        showAdsDifferenceTime();
-                        BlocProvider.of<TransactionBloc>(context)
-                            .add(AddOrUpdateExpenseEvent(isAddExpense));
+                        BlocProvider.of<TransactionBloc>(context).add(AddOrUpdateExpenseEvent(isAddExpense));
                       },
-                      title:
-                          isAddExpense ? context.loc.add : context.loc.update,
+                      title: isAddExpense ? context.loc.add : context.loc.update,
                     ),
                   ),
                 ),
               ),
-              onWillPop: () async {
-                showAdsDifferenceTime();
-                return true;
-              },
             );
           },
         ),

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:paisa/core/AdsManager/ad_services.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/constants/sizeConstant.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
@@ -12,16 +13,11 @@ import 'package:paisa/features/debit/domain/entities/debit_transaction.dart';
 import 'package:paisa/features/debit/presentation/cubit/debts_bloc.dart';
 import 'package:paisa/features/debit/presentation/widgets/debt_toggle_buttons_widget.dart';
 import 'package:paisa/main.dart';
-
 import '../../../../../core/constants/color_constant.dart';
 
 class AddOrEditDebitPage extends StatefulWidget {
-  const AddOrEditDebitPage({
-    super.key,
-    this.debtId,
-  });
-
-  final String? debtId;
+  String? debtId;
+  AddOrEditDebitPage({this.debtId,});
 
   @override
   State<AddOrEditDebitPage> createState() => _AddOrEditDebitPageState();
@@ -33,7 +29,6 @@ class _AddOrEditDebitPageState extends State<AddOrEditDebitPage> {
   final TextEditingController descController = TextEditingController();
   late final bool isDebtAddOrUpdate = widget.debtId == null;
   final TextEditingController nameController = TextEditingController();
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -90,19 +85,25 @@ class _AddOrEditDebitPageState extends State<AddOrEditDebitPage> {
           builder: (context, state) {
             return WillPopScope(
               onWillPop: () async {
-                showAdsDifferenceTime();
-
+                getIt<AdService>().getDifferenceTime();
                 return true;
               },
               child: Scaffold(
                 appBar: context.materialYouAppBar(
                   context.loc.addDebt,
+                  leadingWidget: GestureDetector(
+                    onTap: () {
+                      getIt<AdService>().getDifferenceTime();
+                      Navigator.pop(context);
+                    },
+                    child: Icon(Icons.arrow_back),
+                  ),
                   actions: [
                     if (isDebtAddOrUpdate)
                       const SizedBox.shrink()
                     else
                       IconButton(
-                        onPressed: () => paisaAlertDialog(
+                        onPressed: () => PaisaAlertDialog(
                           context,
                           title: Text(context.loc.dialogDeleteTitle),
                           child: RichText(
@@ -117,16 +118,12 @@ class _AddOrEditDebitPageState extends State<AddOrEditDebitPage> {
                                   const EdgeInsets.symmetric(horizontal: 16),
                             ),
                             onPressed: () {
-                              debitBloc.add(DeleteDebtEvent(
-                                  int.tryParse(widget.debtId!) ?? 0));
+                              debitBloc.add(DeleteDebtEvent(int.tryParse(widget.debtId!) ?? 0));
                             },
-                            child: const Text('Delete'),
+                            child: Text('Delete'),
                           ),
                         ).then((value) => context.pop()),
-                        icon: Icon(
-                          Icons.delete_rounded,
-                          color: Colors.white,
-                        ),
+                        icon: Icon(Icons.delete_rounded, color: Colors.white),
                       )
                   ],
                 ),

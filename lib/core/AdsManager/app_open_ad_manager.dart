@@ -1,40 +1,15 @@
-// Copyright 2021 Google LLC
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-import 'dart:io' show Platform;
-
-// ignore_for_file: public_member_api_docs
-
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:paisa/core/AdsManager/ad_services.dart';
+import 'package:paisa/core/constants/constants.dart';
+import 'package:paisa/main.dart';
 
-import '../main.dart';
-import 'constants/constants.dart';
-
-/// Utility class that manages loading and showing app open ads.
 class AppOpenAdManager {
-  /// Maximum duration allowed between loading and showing the ad.
   final Duration maxCacheDuration = Duration(hours: 4);
-
-  /// Keep track of load time so we don't show an expired ad.
   DateTime? _appOpenLoadTime;
-
   AppOpenAd? _appOpenAd;
   bool _isShowingAd = false;
+  String adUnitId = AppOpenID.toString().trim();
 
-  String adUnitId =AppOpenID();
-
-  /// Load an [AppOpenAd].
   void loadAd() {
     AppOpenAd.load(
       adUnitId: adUnitId,
@@ -53,15 +28,10 @@ class AppOpenAdManager {
     );
   }
 
-  /// Whether an ad is available to be shown.
   bool get isAdAvailable {
     return _appOpenAd != null;
   }
 
-  /// Shows the ad, if one exists and is not already being shown.
-  ///
-  /// If the previously cached ad has expired, this just loads and caches a
-  /// new ad.
   void showAdIfAvailable() {
     if (!isAdAvailable) {
       print('Tried to show ad before available.');
@@ -99,12 +69,14 @@ class AppOpenAdManager {
         loadAd();
       },
     );
-    (interStitialAdIsShow== false)
-        ? (getDifferenceTime())
-            ? _appOpenAd!.show().then((value) {
-                box.write(isStartTime,
-                    DateTime.now().millisecondsSinceEpoch.toString());
-              })
+
+    (appOpen.value)
+        ? (interStitialAdRunning == false)
+            ? appOpenAdRunning == true
+                ? null
+                : getIt<AdService>().getDifferenceAppOpenTime()
+                    ? _appOpenAd!.show().then((value) {box.write(ArgumentConstant.isAppOpenStartTime, DateTime.now().millisecondsSinceEpoch.toString());})
+                    : null
             : null
         : null;
   }

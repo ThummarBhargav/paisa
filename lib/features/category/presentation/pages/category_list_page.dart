@@ -11,8 +11,6 @@ import 'package:paisa/core/widgets/paisa_widget.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class CategoryListPage extends StatelessWidget {
-  const CategoryListPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     final bloc = getIt.get<CategoryBloc>();

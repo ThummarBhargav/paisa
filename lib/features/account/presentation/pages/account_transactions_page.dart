@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:paisa/core/AdsManager/ad_services.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
 import 'package:paisa/features/account/presentation/bloc/accounts_bloc.dart';
@@ -9,32 +10,34 @@ import 'package:paisa/features/home/presentation/bloc/home/home_bloc.dart';
 import 'package:paisa/features/home/presentation/pages/summary/widgets/expense_item_widget.dart';
 import 'package:paisa/features/transaction/domain/entities/transaction.dart';
 import 'package:paisa/features/home/presentation/controller/summary_controller.dart';
+import 'package:paisa/main.dart';
 
 class AccountTransactionsPage extends StatelessWidget {
-  const AccountTransactionsPage({
-    Key? key,
-    required this.accountId,
-    required this.summaryController,
-  }) : super(key: key);
-
-  final String accountId;
-  final SummaryController summaryController;
+  String accountId;
+  SummaryController summaryController;
+  AccountTransactionsPage({required this.accountId, required this.summaryController,});
 
   @override
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController();
-    BlocProvider.of<AccountBloc>(context)
-        .add(FetchAccountAndExpenseFromIdEvent(accountId));
+    BlocProvider.of<AccountBloc>(context).add(FetchAccountAndExpenseFromIdEvent(accountId));
     return PaisaAnnotatedRegionWidget(
       color: context.background,
       child: WillPopScope(
         onWillPop: () async {
-          showAdsDifferenceTime();
+          getIt<AdService>().getDifferenceTime();
           return true;
         },
         child: Scaffold(
           appBar: context.materialYouAppBar(
             context.loc.transactionHistory,
+            leadingWidget: GestureDetector(
+              onTap: () {
+                getIt<AdService>().getDifferenceTime();
+                Navigator.pop(context);
+              },
+              child: Icon(Icons.arrow_back),
+            ),
             actions: [
               IconButton(
                 tooltip: context.loc.edit,
@@ -44,13 +47,13 @@ class AccountTransactionsPage extends StatelessWidget {
                     pathParameters: {'aid': accountId},
                   );
                 },
-                icon: const Icon(Icons.edit_rounded,color:Colors.white),
+                icon: Icon(Icons.edit_rounded,color:Colors.white),
               ),
               IconButton(
                 tooltip: context.loc.delete,
                 color: Colors.white,
                 onPressed: () {
-                  paisaAlertDialog(
+                  PaisaAlertDialog(
                     context,
                     title: Text(
                       context.loc.dialogDeleteTitle,
@@ -65,7 +68,7 @@ class AccountTransactionsPage extends StatelessWidget {
                               children: [
                                 TextSpan(
                                   text: state.account.name,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -73,13 +76,13 @@ class AccountTransactionsPage extends StatelessWidget {
                             ),
                           );
                         } else {
-                          return const SizedBox.shrink();
+                          return SizedBox.shrink();
                         }
                       },
                     ),
                     confirmationButton: TextButton(
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: EdgeInsets.symmetric(horizontal: 16),
                       ),
                       onPressed: () {
                         BlocProvider.of<AccountBloc>(context)
@@ -92,7 +95,7 @@ class AccountTransactionsPage extends StatelessWidget {
                     ),
                   );
                 },
-                icon: const Icon(Icons.delete_rounded,color: Colors.white,),
+                icon: Icon(Icons.delete_rounded,color: Colors.white,),
               )
             ],
           ),
@@ -119,11 +122,9 @@ class AccountTransactionsPage extends StatelessWidget {
                       itemCount: state.expenses.length,
                       itemBuilder: (context, index) {
                         final TransactionEntity expense = state.expenses[index];
-                        final CategoryEntity? category =
-                            BlocProvider.of<HomeBloc>(context)
-                                .fetchCategoryFromId(expense.categoryId!);
+                        final CategoryEntity? category = BlocProvider.of<HomeBloc>(context).fetchCategoryFromId(expense.categoryId!);
                         if (category == null) {
-                          return const SizedBox.shrink();
+                          return SizedBox.shrink();
                         } else {
                           return ExpenseItemWidget(
                             expense: expense,
@@ -136,13 +137,13 @@ class AccountTransactionsPage extends StatelessWidget {
                   );
                 }
               } else {
-                return const SizedBox.shrink();
+                return SizedBox.shrink();
               }
             },
           ),
           bottomNavigationBar: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -156,7 +157,7 @@ class AccountTransactionsPage extends StatelessWidget {
                     title: context.loc.income,
                     iconData: Icons.add_rounded,
                   ),
-                  const SizedBox(
+                  SizedBox(
                     width: 8,
                   ),
                   PaisaIconButton(

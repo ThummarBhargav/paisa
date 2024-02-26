@@ -37,7 +37,7 @@ class CategoryListTabletWidget extends StatelessWidget {
       itemBuilder: (_, index) {
         return CategoryItemTabletWidget(
           category: categories[index],
-          onPressed: () => paisaAlertDialog(
+          onPressed: () => PaisaAlertDialog(
             context,
             title: Text(context.loc.dialogDeleteTitle),
             child: RichText(

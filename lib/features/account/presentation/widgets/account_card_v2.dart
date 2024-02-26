@@ -32,7 +32,7 @@ class AccountCardV2 extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: MySize.getHeight(240),
+        height: MySize.getHeight(250),
         child: PaisaFilledCard(
           color: color,
           child: InkWell(
@@ -44,6 +44,7 @@ class AccountCardV2 extends StatelessWidget {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Space.height(5),
                 ListTile(
@@ -80,7 +81,7 @@ class AccountCardV2 extends StatelessWidget {
                   )
 
                 ),
-                const Spacer(),
+                Spacer(),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child:

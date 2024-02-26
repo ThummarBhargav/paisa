@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:paisa/core/AdsManager/ad_services.dart';
 import 'package:paisa/core/extensions/build_context_extension.dart';
 import 'package:paisa/core/extensions/color_extension.dart';
 import 'package:paisa/core/extensions/text_style_extension.dart';
@@ -11,8 +12,6 @@ import 'package:paisa/features/category/presentation/widgets/color_picker_widget
 import 'package:paisa/features/category/presentation/widgets/set_budget_widget.dart';
 import 'package:paisa/main.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-
-import '../../../../../core/constants/constants.dart';
 
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -98,7 +97,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
           return ScreenTypeLayout.builder(
             mobile: (p0) => WillPopScope(
               onWillPop: () async {
-                showAdsDifferenceTime();
+                getIt<AdService>().getDifferenceTime();
                 return true;
               },
               child: Scaffold(
@@ -106,6 +105,13 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                   isAddCategory
                       ? context.loc.addCategory
                       : context.loc.updateCategory,
+                  leadingWidget: GestureDetector(
+                    onTap: () {
+                      getIt<AdService>().getDifferenceTime();
+                      Navigator.pop(context);
+                    },
+                    child: Icon(Icons.arrow_back),
+                  ),
                   actions: [
                     DeleteCategoryWidget(categoryId: widget.categoryId),
                   ],
@@ -145,7 +151,6 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                     padding: const EdgeInsets.all(16.0),
                     child: PaisaBigButton(
                       onPressed: () {
-                        showAdsDifferenceTime();
                         final isValid = _formKey.currentState!.validate();
                         if (!isValid) {
                           return;
@@ -225,7 +230,7 @@ class DeleteCategoryWidget extends StatelessWidget {
 
   const DeleteCategoryWidget({super.key, this.categoryId});
   void onPressed(BuildContext context) {
-    paisaAlertDialog(
+    PaisaAlertDialog(
       context,
       title: Text(context.loc.dialogDeleteTitle),
       child: RichText(

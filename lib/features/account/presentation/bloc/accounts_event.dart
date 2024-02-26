@@ -2,20 +2,20 @@ part of 'accounts_bloc.dart';
 
 @immutable
 abstract class AccountsEvent extends Equatable {
-  const AccountsEvent();
+  AccountsEvent();
 
   @override
   List<Object> get props => [];
 }
 
 class AddOrUpdateAccountEvent extends AccountsEvent {
-  const AddOrUpdateAccountEvent(this.isAdding);
+  AddOrUpdateAccountEvent(this.isAdding);
 
   final bool isAdding;
 }
 
 class DeleteAccountEvent extends AccountsEvent {
-  const DeleteAccountEvent(this.accountId);
+  DeleteAccountEvent(this.accountId);
 
   final String accountId;
 
@@ -24,7 +24,7 @@ class DeleteAccountEvent extends AccountsEvent {
 }
 
 class FetchAccountAndExpenseFromIdEvent extends AccountsEvent {
-  const FetchAccountAndExpenseFromIdEvent(this.accountId);
+  FetchAccountAndExpenseFromIdEvent(this.accountId);
 
   final String accountId;
 
@@ -33,7 +33,7 @@ class FetchAccountAndExpenseFromIdEvent extends AccountsEvent {
 }
 
 class AccountSelectedEvent extends AccountsEvent {
-  const AccountSelectedEvent(this.account);
+  AccountSelectedEvent(this.account);
 
   final AccountEntity account;
 
@@ -42,7 +42,7 @@ class AccountSelectedEvent extends AccountsEvent {
 }
 
 class FetchAccountFromIdEvent extends AccountsEvent {
-  const FetchAccountFromIdEvent(this.accountId);
+  FetchAccountFromIdEvent(this.accountId);
 
   final String? accountId;
 
@@ -51,27 +51,24 @@ class FetchAccountFromIdEvent extends AccountsEvent {
 }
 
 class UpdateCardTypeEvent extends AccountsEvent {
-  const UpdateCardTypeEvent(this.cardType);
-
   final CardType cardType;
+  UpdateCardTypeEvent(this.cardType);
 
   @override
   List<Object> get props => [cardType];
 }
 
 class FetchExpensesFromAccountIdEvent extends AccountsEvent {
-  const FetchExpensesFromAccountIdEvent(this.accountId);
-
   final String accountId;
+  FetchExpensesFromAccountIdEvent(this.accountId);
 
   @override
   List<Object> get props => [accountId];
 }
 
 class AccountColorSelectedEvent extends AccountsEvent {
-  const AccountColorSelectedEvent(this.accountColor);
-
   final int accountColor;
+  AccountColorSelectedEvent(this.accountColor);
 
   @override
   List<Object> get props => [accountColor];

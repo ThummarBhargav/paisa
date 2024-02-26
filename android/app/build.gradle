@@ -26,14 +26,12 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 apply plugin: 'com.android.application'
-// START: FlutterFire Configuration
 apply plugin: 'com.google.gms.google-services'
-// END: FlutterFire Configuration
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion 34
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -49,24 +47,13 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.mobileappxperts.incomeexpense.moneytracker"
+        applicationId "moneytracker.income.expense.walletmanager"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 3
-        versionName "0.0.3"
+        versionCode 1
+        versionName "0.0.1"
         multiDexEnabled true
     }
-    flavorDimensions "app"
-//    productFlavors {
-//        dev {
-//            dimension "app"
-//            applicationIdSuffix ".dev"
-//            versionNameSuffix "-dev"
-//        }
-//        prod {
-//            dimension "app"
-//        }
-//    }
     signingConfigs {
         release {
             keyAlias keystoreProperties['keyAlias']

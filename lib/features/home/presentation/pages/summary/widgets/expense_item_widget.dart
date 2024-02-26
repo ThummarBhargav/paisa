@@ -13,16 +13,10 @@ import 'package:paisa/features/transaction/domain/entities/transaction.dart';
 import '../../../../../../core/constants/color_constant.dart';
 
 class ExpenseItemWidget extends StatelessWidget {
-  const ExpenseItemWidget({
-    Key? key,
-    required this.expense,
-    required this.account,
-    required this.category,
-  }) : super(key: key);
-
   final AccountEntity account;
   final CategoryEntity category;
   final TransactionEntity expense;
+  ExpenseItemWidget({required this.expense, required this.account, required this.category,});
 
   String getSubtitle(BuildContext context) {
     if (expense.type == TransactionType.transfer) {
@@ -46,7 +40,7 @@ class ExpenseItemWidget extends StatelessWidget {
         );
       },
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0),
         child: Container(
           width: MySize.getWidth(345),
           height: MySize.getWidth(70),
@@ -68,7 +62,7 @@ class ExpenseItemWidget extends StatelessWidget {
           child: Row(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 20),
+                padding: EdgeInsets.only(left: 20),
                 child: Container(
                   width: MySize.getWidth(48.14),
                   height: MySize.getWidth(48),
@@ -98,7 +92,7 @@ class ExpenseItemWidget extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20),
+                  padding: EdgeInsets.only(left: 20),
                   child:  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,11 +129,11 @@ class ExpenseItemWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 20),
+                      padding: EdgeInsets.only(top: 20),
                       child: Column(
                         children: [
                           Padding(
-                              padding: const EdgeInsets.only(right: 10),
+                              padding: EdgeInsets.only(right: 10),
                               child: AutoSizeText(
                                 expense.currency!.toFormateCurrency(context),
                                 maxLines: 1,
@@ -162,7 +156,7 @@ class ExpenseItemWidget extends StatelessWidget {
 }
 
 class ExpenseTransferItemWidget extends StatelessWidget {
-  const ExpenseTransferItemWidget({
+  ExpenseTransferItemWidget({
     Key? key,
     required this.expense,
     required this.fromAccount,
@@ -179,7 +173,7 @@ class ExpenseTransferItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
+      padding: EdgeInsets.symmetric(horizontal: 4),
       child: InkWell(
         borderRadius: BorderRadius.circular(24),
         onTap: () => context.goNamed(
