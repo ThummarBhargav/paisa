@@ -1,22 +1,35 @@
 package moneytracker.income.expense.walletmanager
 
-import android.os.Build
-import android.os.Bundle
-import androidx.core.view.WindowCompat
-import io.flutter.embedding.android.FlutterFragmentActivity
+import android.util.Log
+import androidx.annotation.NonNull
+import  moneytracker.income.expense.walletmanager.AdConstant
+import  moneytracker.income.expense.walletmanager.R
+import com.google.gson.annotations.SerializedName
+import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
-import io.flutter.plugins.GeneratedPluginRegistrant
+import io.flutter.plugin.common.MethodChannel
 
-class MainActivity : FlutterFragmentActivity() {
-    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
-        GeneratedPluginRegistrant.registerWith(flutterEngine)
-    }
+class MainActivity: FlutterActivity() {
+    private val channel = "samples.flutter.dev/firebase"
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            splashScreen.setOnExitAnimationListener { splashScreenView -> splashScreenView.remove() }
+    override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
+        super.configureFlutterEngine(flutterEngine)
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, channel).setMethodCallHandler {
+            call, result ->
+            if (call.method == "setId") {
+                Log.d("TAG123", "configureFlutterEngine: ${getString(R.string.dbName)}")
+                AdConstant.init(context,result,getString(R.string.dbName))
+            } else {
+                result.notImplemented()
+            }
         }
-        super.onCreate(savedInstanceState)
     }
+    data class AdModel(
+            @SerializedName("app_id") val appId: String,
+            @SerializedName("interstitial_id") val interstitialId: String,
+            @SerializedName("banner_id") val bannerId: String,
+            @SerializedName("native_id") val nativeId: String,
+            @SerializedName("app_open_id") val appOpenId: String,
+            @SerializedName("reward_id") val rewardId: String
+    )
 }

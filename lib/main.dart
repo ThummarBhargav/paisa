@@ -73,5 +73,54 @@ Future<void> main() async {
   if (isNullEmptyOrFalse(box.read(ArgumentConstant.isAppOpenStartTime))) {
     box.write(ArgumentConstant.isAppOpenStartTime, 0);
   }
-  runApp(PaisaApp(settings: settings));
+  runApp(
+    Home(settings),
+  );
+}
+
+//ignore: must_be_immutable
+class Home extends StatefulWidget {
+  Box<dynamic> settings;
+  Home(this.settings);
+
+  @override State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  static const platform = MethodChannel('samples.flutter.dev/firebase');
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      try {
+        await platform.invokeMethod('setId').then((value) async {
+          if (value == "Success") {
+            await MobileAds.instance.initialize();
+            MobileAds.instance.updateRequestConfiguration(
+              RequestConfiguration(
+                tagForChildDirectedTreatment:
+                TagForChildDirectedTreatment.unspecified,
+                testDeviceIds: kDebugMode
+                    ? [
+                  "921ECDEF8D5D6B5B6CD6F3BC93FF97D7",
+                ]
+                    : [],
+              ),
+            );
+          }
+        });
+      } on PlatformException catch (e) {
+        print(e);
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "Money tracker (Paisa) App",
+      debugShowCheckedModeBanner: false,
+      home: PaisaApp(settings: widget.settings),
+    );
+  }
 }
