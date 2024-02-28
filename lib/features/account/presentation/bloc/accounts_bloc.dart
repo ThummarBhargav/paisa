@@ -70,7 +70,7 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
       emit(AccountSuccessState(account));
       emit(UpdateCardTypeState(selectedType));
     } else {
-      emit(const AccountErrorState('Account not found!'));
+      emit(AccountErrorState('Account not found!'));
     }
   }
 
@@ -85,13 +85,13 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
     final double? amount = initialAmount;
     final int? color = selectedColor;
     if (bankName == null) {
-      return emit(const AccountErrorState('Set bank name'));
+      return emit(AccountErrorState('Set bank name'));
     }
     if (holderName == null) {
-      return emit(const AccountErrorState('Set account holder name'));
+      return emit(AccountErrorState('Set account holder name'));
     }
     if (color == null) {
-      return emit(const AccountErrorState('Set account color name'));
+      return emit(AccountErrorState('Set account color name'));
     }
 
     if (event.isAdding) {

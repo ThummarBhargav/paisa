@@ -55,9 +55,7 @@ class AccountTransactionsPage extends StatelessWidget {
                 onPressed: () {
                   PaisaAlertDialog(
                     context,
-                    title: Text(
-                      context.loc.dialogDeleteTitle,
-                    ),
+                    title: Text(context.loc.dialogDeleteTitle),
                     child: BlocBuilder<AccountBloc, AccountState>(
                       builder: (context, state) {
                         if (state is AccountAndExpensesState) {
@@ -66,12 +64,7 @@ class AccountTransactionsPage extends StatelessWidget {
                               text: context.loc.deleteAccount,
                               style: context.bodyMedium,
                               children: [
-                                TextSpan(
-                                  text: state.account.name,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                TextSpan(text: state.account.name, style: TextStyle(fontWeight: FontWeight.bold)),
                               ],
                             ),
                           );
@@ -85,14 +78,19 @@ class AccountTransactionsPage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 16),
                       ),
                       onPressed: () {
-                        BlocProvider.of<AccountBloc>(context)
-                            .add(DeleteAccountEvent(accountId));
+                        BlocProvider.of<AccountBloc>(context).add(DeleteAccountEvent(accountId));
                         Navigator.pop(context);
                       },
-                      child: Text(
-                        context.loc.delete,
-                      ),
+                      child: Text(context.loc.delete),
+                    ), cancelButton: TextButton(
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
                     ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(context.loc.cancel),
+                  ), titleTextStyle: context.titleLarge,
                   );
                 },
                 icon: Icon(Icons.delete_rounded,color: Colors.white,),

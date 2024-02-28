@@ -27,25 +27,21 @@ Future<void> paisaBottomSheet(
   );
 }
 
-Future<T?> PaisaAlertDialog<T>(
-  BuildContext context, {
+Future<T?> PaisaAlertDialog<T>(BuildContext context, {
   required Widget child,
   required Widget title,
   required Widget confirmationButton,
+  required Widget cancelButton,
+  required TextStyle? titleTextStyle,
 }) {
-  return showDialog<T>(
+  return showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      titleTextStyle: context.titleLarge,
+      titleTextStyle: titleTextStyle,
       title: title,
       content: child,
       actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: Text(
-            context.loc.cancel,
-          ),
-        ),
+        cancelButton,
         confirmationButton,
       ],
     ),

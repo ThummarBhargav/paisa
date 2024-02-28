@@ -27,13 +27,13 @@ class FirebaseDatabaseHelper {
       appOpenShowTime.value = showAds['appOpenShowTime'];
       adaptiveBannerSize.value = showAds['adaptiveBannerSize'];
 
-      AppOpenID.value = (Platform.isIOS) ? (kReleaseMode) ? appleLiveAds['appOpen'] : "ca-app-pub-3940256099942544/5575463023" : (kReleaseMode) ? androidLiveAds['appOpen'] : testAds['appOpen'];
-      BannerID.value = (Platform.isIOS) ? (kReleaseMode) ? appleLiveAds['banner'] : "ca-app-pub-3940256099942544/2934735716" : (kReleaseMode) ? androidLiveAds['banner'] : testAds['banner'];
-      InterstitialID.value = (Platform.isIOS) ? (kReleaseMode) ? appleLiveAds['inter'] : "ca-app-pub-3940256099942544/4411468910" : (kReleaseMode) ? androidLiveAds['inter'] : testAds['inter'];
+      // AppOpenID.value = (Platform.isIOS) ? (kReleaseMode) ? appleLiveAds['appOpen'] : "ca-app-pub-3940256099942544/5575463023" : (kReleaseMode) ? androidLiveAds['appOpen'] : testAds['appOpen'];
+      // BannerID.value = (Platform.isIOS) ? (kReleaseMode) ? appleLiveAds['banner'] : "ca-app-pub-3940256099942544/2934735716" : (kReleaseMode) ? androidLiveAds['banner'] : testAds['banner'];
+      // InterstitialID.value = (Platform.isIOS) ? (kReleaseMode) ? appleLiveAds['inter'] : "ca-app-pub-3940256099942544/4411468910" : (kReleaseMode) ? androidLiveAds['inter'] : testAds['inter'];
 
-      // AppOpenID.value = "ca-app-pub-3940256099942544/9257395921";
-      // BannerID.value = "ca-app-pub-3940256099942544/6300978111";
-      // InterstitialID.value = "ca-app-pub-3940256099942544/1033173712";
+      AppOpenID.value = "ca-app-pub-3940256099942544/9257395921";
+      BannerID.value = "ca-app-pub-3940256099942544/6300978111";
+      InterstitialID.value = "ca-app-pub-3940256099942544/1033173712";
     });
   }
 }

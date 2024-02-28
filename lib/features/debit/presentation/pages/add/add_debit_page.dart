@@ -121,7 +121,15 @@ class _AddOrEditDebitPageState extends State<AddOrEditDebitPage> {
                               debitBloc.add(DeleteDebtEvent(int.tryParse(widget.debtId!) ?? 0));
                             },
                             child: Text('Delete'),
+                          ), cancelButton: TextButton(
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
                           ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(context.loc.cancel),
+                        ), titleTextStyle: context.titleLarge,
                         ).then((value) => context.pop()),
                         icon: Icon(Icons.delete_rounded, color: Colors.white),
                       )

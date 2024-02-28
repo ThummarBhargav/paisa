@@ -27,7 +27,7 @@ object AdConstant {
             try {
                 println("Old Id IS" +bundle.getString("com.google.android.gms.ads.APPLICATION_ID"))
                 applicationInfo.metaData.putString("com.google.android.gms.ads.APPLICATION_ID", it.child("app_id").value.toString())
-                println("New Id IS" +bundle.getString("com.google.android.gms.ads.APPLICATION_ID"))
+                    println("New Id IS" +bundle.getString("com.google.android.gms.ads.APPLICATION_ID"))
                 result.success("Success")
 
             }catch (e: Exception) {

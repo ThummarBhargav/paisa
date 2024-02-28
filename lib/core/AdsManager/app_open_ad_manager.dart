@@ -1,9 +1,11 @@
+import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:paisa/core/AdsManager/ad_services.dart';
 import 'package:paisa/core/constants/constants.dart';
 import 'package:paisa/main.dart';
 
 class AppOpenAdManager {
+  static RxBool isVisible = false.obs;
   final Duration maxCacheDuration = Duration(hours: 4);
   DateTime? _appOpenLoadTime;
   AppOpenAd? _appOpenAd;
@@ -11,21 +13,24 @@ class AppOpenAdManager {
   String adUnitId = AppOpenID.toString().trim();
 
   void loadAd() {
-    AppOpenAd.load(
-      adUnitId: adUnitId,
-      orientation: AppOpenAd.orientationPortrait,
-      request: AdRequest(),
-      adLoadCallback: AppOpenAdLoadCallback(
-        onAdLoaded: (ad) {
-          print('$ad loaded');
-          _appOpenLoadTime = DateTime.now();
-          _appOpenAd = ad;
-        },
-        onAdFailedToLoad: (error) {
-          print('AppOpenAd failed to load: $error');
-        },
-      ),
-    );
+    isVisible.value = appOpen.value;
+    if(isVisible.isTrue) {
+      AppOpenAd.load(
+        adUnitId: adUnitId,
+        orientation: AppOpenAd.orientationPortrait,
+        request: AdRequest(),
+        adLoadCallback: AppOpenAdLoadCallback(
+          onAdLoaded: (ad) {
+            print('$ad loaded');
+            _appOpenLoadTime = DateTime.now();
+            _appOpenAd = ad;
+          },
+          onAdFailedToLoad: (error) {
+            print('AppOpenAd failed to load: $error');
+          },
+        ),
+      );
+    }
   }
 
   bool get isAdAvailable {

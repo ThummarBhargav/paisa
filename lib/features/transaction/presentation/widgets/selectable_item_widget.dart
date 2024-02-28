@@ -62,11 +62,7 @@ class ItemWidget extends StatelessWidget {
                     ],
                   ),
                   child: Icon(
-                    IconData(
-                      icon,
-                      fontFamily: fontFamilyName,
-                      fontPackage: fontFamilyPackageName,
-                    ),
+                    IconData(icon, fontFamily: fontFamilyName, fontPackage: fontFamilyPackageName),
                     color: context.onPrimary,
                   ),
                 ),

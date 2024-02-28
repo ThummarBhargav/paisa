@@ -66,23 +66,17 @@ Future<void> main() async {
   ));
   await configInjector(getIt);
   getIt.get<RecurringRepository>().checkForRecurring();
-  final Box<dynamic> settings = getIt.get<Box<dynamic>>(instanceName: BoxType.settings.name);
   if (isNullEmptyOrFalse(box.read(ArgumentConstant.isStartTime))) {
     box.write(ArgumentConstant.isStartTime, 0);
   }
   if (isNullEmptyOrFalse(box.read(ArgumentConstant.isAppOpenStartTime))) {
     box.write(ArgumentConstant.isAppOpenStartTime, 0);
   }
-  runApp(
-    Home(settings),
-  );
+  runApp(Home());
 }
 
 //ignore: must_be_immutable
 class Home extends StatefulWidget {
-  Box<dynamic> settings;
-  Home(this.settings);
-
   @override State<Home> createState() => _HomeState();
 }
 
@@ -117,10 +111,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Money tracker (Paisa) App",
-      debugShowCheckedModeBanner: false,
-      home: PaisaApp(settings: widget.settings),
-    );
+    final Box<dynamic> settings = getIt.get<Box<dynamic>>(instanceName: BoxType.settings.name);
+    return PaisaApp(settings: settings);
   }
 }

@@ -122,7 +122,7 @@ class SelectedItem extends StatelessWidget {
 }
 
 class CategoryChip extends StatelessWidget {
-  const CategoryChip({
+  CategoryChip({
     super.key,
     required this.selected,
     required this.onSelected,

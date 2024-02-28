@@ -2,8 +2,7 @@ part of 'accounts_bloc.dart';
 
 @immutable
 abstract class AccountState extends Equatable {
-  const AccountState();
-
+  AccountState();
   @override
   List<Object> get props => [];
 }
@@ -11,8 +10,7 @@ abstract class AccountState extends Equatable {
 class AccountsInitial extends AccountState {}
 
 class AccountListState extends AccountState {
-  const AccountListState(this.accounts);
-
+  AccountListState(this.accounts);
   final List<AccountEntity> accounts;
 
   @override
@@ -20,8 +18,7 @@ class AccountListState extends AccountState {
 }
 
 class AccountAddedState extends AccountState {
-  const AccountAddedState({this.isAddOrUpdate = false});
-
+  AccountAddedState({this.isAddOrUpdate = false});
   final bool isAddOrUpdate;
 
   @override
@@ -31,8 +28,7 @@ class AccountAddedState extends AccountState {
 class AccountDeletedState extends AccountState {}
 
 class AccountSelectedState extends AccountState {
-  const AccountSelectedState(this.account, this.expenses);
-
+  AccountSelectedState(this.account, this.expenses);
   final AccountEntity account;
   final List<TransactionEntity> expenses;
 
@@ -41,8 +37,7 @@ class AccountSelectedState extends AccountState {
 }
 
 class AccountErrorState extends AccountState {
-  const AccountErrorState(this.errorString);
-
+  AccountErrorState(this.errorString);
   final String errorString;
 
   @override
@@ -50,8 +45,7 @@ class AccountErrorState extends AccountState {
 }
 
 class AccountSuccessState extends AccountState {
-  const AccountSuccessState(this.account);
-
+  AccountSuccessState(this.account);
   final AccountEntity account;
 
   @override
@@ -59,8 +53,7 @@ class AccountSuccessState extends AccountState {
 }
 
 class UpdateCardTypeState extends AccountState {
-  const UpdateCardTypeState(this.cardType);
-
+  UpdateCardTypeState(this.cardType);
   final CardType cardType;
 
   @override
@@ -68,8 +61,7 @@ class UpdateCardTypeState extends AccountState {
 }
 
 class ExpensesFromAccountIdState extends AccountState {
-  const ExpensesFromAccountIdState(this.expenses);
-
+  ExpensesFromAccountIdState(this.expenses);
   final List<TransactionEntity> expenses;
 
   @override
@@ -77,8 +69,7 @@ class ExpensesFromAccountIdState extends AccountState {
 }
 
 class AccountColorSelectedState extends AccountState {
-  const AccountColorSelectedState(this.categoryColor);
-
+  AccountColorSelectedState(this.categoryColor);
   final int categoryColor;
 
   @override
@@ -86,11 +77,9 @@ class AccountColorSelectedState extends AccountState {
 }
 
 class AccountAndExpensesState extends AccountState {
-  const AccountAndExpensesState(this.account, this.expenses);
-
   final AccountEntity account;
   final List<TransactionEntity> expenses;
-
+  AccountAndExpensesState(this.account, this.expenses);
   @override
   List<Object> get props => [account, expenses];
 }

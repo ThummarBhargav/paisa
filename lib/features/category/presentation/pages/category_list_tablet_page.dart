@@ -63,7 +63,15 @@ class CategoryListTabletWidget extends StatelessWidget {
                 Navigator.pop(context);
               },
               child: const Text('Delete'),
+            ), cancelButton: TextButton(
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: 16),
             ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(context.loc.cancel),
+          ), titleTextStyle: context.titleLarge,
           ),
         );
       },
