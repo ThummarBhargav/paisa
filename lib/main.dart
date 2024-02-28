@@ -18,6 +18,9 @@ import 'package:paisa/features/recurring/domain/repository/recurring_repository.
 import 'core/app_module.dart';
 import 'firebase_options.dart';
 
+// flutter build apk --no-tree-shake-icons
+// flutter build appbundle --no-tree-shake-icons
+
 RxBool appOpen = false.obs;
 RxBool banner = false.obs;
 RxBool interstitial = false.obs;
